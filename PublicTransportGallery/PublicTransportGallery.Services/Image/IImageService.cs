@@ -10,5 +10,6 @@ namespace PublicTransportGallery.Services.Image
     public interface IImageService 
     {
         void Insert(TblImage image);
+        IList<TblImage> getAll();
     }
 }

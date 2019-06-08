@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PublicTransportGallery.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace PublicTransportGallery.Infrastructure
         public string InsertImage(HttpPostedFileBase upload)
         {
             var filename = Guid.NewGuid() + Path.GetExtension(upload.FileName);
-            var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Photos"), filename);
+            var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(AppConfig.BusFolderPath), filename);
             upload.SaveAs(path);
             return filename;
         }

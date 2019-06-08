@@ -21,7 +21,7 @@ namespace PublicTransportGallery.ViewModels
         [DataType(DataType.Upload)]
         [Required]
         [Display(Name = "Dodaj zdjęcie")]
-        public string Image { get; set; }
+        public HttpPostedFileBase Image { get; set; }
         
         [Display(Name = "Opis zdjęcia")]
         public string Description { get; set; }

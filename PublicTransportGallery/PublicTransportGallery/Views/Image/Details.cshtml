@@ -1,0 +1,23 @@
+﻿@model PublicTransportGallery.ViewModels.ImageDetailsViewModels
+@using PublicTransportGallery.Helpers
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="container pp-section">
+    <div class="h3 font-weight-normal">@Model.ModelVehice</div><img class="img-fluid mt-4" src="@Url.BusImgPath(Model.ImageName)" />
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="h5">Autor:</div>
+           @* <a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a> *@
+           <a href="#">@Model.User</a>
+            <div class="h5 pt-4">Dodano: </div>
+            <p>@Model.DateAdd</p>
+        </div>
+        <div class="col-md-9">
+            <p>Rok produkcji: @Model.YearProduction Rok zakończenia: @Model.YearEndProduction </p>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</div>

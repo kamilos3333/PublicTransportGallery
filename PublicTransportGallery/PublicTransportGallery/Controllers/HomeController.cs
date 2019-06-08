@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,19 @@ namespace PublicTransportGallery.Controllers
 {
     public class HomeController : Controller
     {
+        private ImageService imageService = new ImageService();
+        
+        [OutputCache(Duration = 60)]
         public ActionResult Index()
         {
-            return View();
+            var imagesList = imageService.getAll();
+
+            var vm = new MainViewModel()
+            {
+                images = imagesList
+            };
+
+            return View(vm);
         }
 
         public ActionResult About()

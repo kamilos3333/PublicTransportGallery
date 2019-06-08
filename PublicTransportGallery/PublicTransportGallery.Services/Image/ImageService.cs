@@ -11,10 +11,20 @@ namespace PublicTransportGallery.Services.Image
     {
         private DatabaseEntities db = new DatabaseEntities();
 
+        public IList<TblImage> getAll()
+        {
+           return db.TblImages.OrderByDescending(a => a.DateAdd).ToList();
+        }
+
         public void Insert(TblImage image)
         {
             db.TblImages.Add(image);
             db.SaveChanges();
+        }
+
+        public TblImage getImageId(int ImageId)
+        {
+            return db.TblImages.Include("TblProducent").Include("TblModel").First(a => a.ImageId == ImageId);
         }
     }
 }

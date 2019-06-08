@@ -20,6 +20,7 @@ namespace PublicTransportGallery.Data.Domain
         public Nullable<int> ModelId { get; set; }
         public Nullable<int> ProducentId { get; set; }
         public Nullable<System.DateTime> DateAdd { get; set; }
+        public string Id { get; set; }
     
         public virtual TblModel TblModel { get; set; }
         public virtual TblProducent TblProducent { get; set; }
