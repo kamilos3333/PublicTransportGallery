@@ -26,5 +26,15 @@ namespace PublicTransportGallery.Services.Image
         {
             return db.TblImages.Include("TblProducent").Include("TblModel").First(a => a.ImageId == ImageId);
         }
+
+        public IList<TblImage> SearchImage(int ModelId)
+        {
+            return db.TblImages.Include("TblProducent").Include("TblModel").Where(a => a.ModelId == ModelId).ToList();
+        }
+
+        public IList<TblImage> DetailsUser(string Id)
+        {
+            return db.TblImages.Include("TblProducent").Include("TblModel").Where(a => a.Id == Id).ToList();
+        }
     }
 }

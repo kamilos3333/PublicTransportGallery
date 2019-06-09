@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -6,7 +7,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using PublicTransportGallery.Data.Domain;
 using PublicTransportGallery.Models;
+using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.ViewModels;
 
 namespace PublicTransportGallery.Controllers
 {
@@ -15,6 +19,7 @@ namespace PublicTransportGallery.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ImageService imageService = new ImageService();
 
         public ManageController()
         {
@@ -48,6 +53,19 @@ namespace PublicTransportGallery.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        [AllowAnonymous]
+        public ActionResult DetailsUser(string Username)
+        {
+            string user = UserManager.FindByName(Username).Id;
+            var imageList = imageService.DetailsUser(user);
+            DetailsUserViewModels model = new DetailsUserViewModels
+            {
+                ImagesList = imageList
+            };
+
+            return View(model);
         }
 
         //

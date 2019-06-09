@@ -1,0 +1,64 @@
+﻿@model PublicTransportGallery.ViewModels.SearchViewModel
+
+@{
+    ViewBag.Title = "Szukaj pojazd";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Szukaj pojazd</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentsList, "ProducentId", "Name"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Szukaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.ResultImages != null)
+{
+    foreach (var itemResult in Model.ResultImages)
+    {
+        @itemResult.Name
+    }
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ProducentId").change(function () {
+            $.get("/Image/getModel", { id: $("#ProducentId").val() }, function (data) {
+                $("#ModelId").empty();
+                $.each(data, function (index, row) {
+                    $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
+                });
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#ProducentId").val('');
+    });
+</script>
+
+

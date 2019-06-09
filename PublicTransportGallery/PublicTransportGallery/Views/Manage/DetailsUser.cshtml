@@ -1,0 +1,31 @@
+﻿@model PublicTransportGallery.ViewModels.DetailsUserViewModels
+@using PublicTransportGallery.Helpers;
+@{
+    ViewBag.Title = "Szczegóły konta";
+}
+
+<h2>Szczegóły konta</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.ImagesList) {
+  
+        <tr>
+            <td>
+                <img src="@Url.BusImgPath(item.Name)" style="width: 160px; height: 100px" />
+            </td>
+            <td>
+                <a href="@Url.Action("Details","Image", new { id = item.ImageId })">@item.TblModel.TblProducent.Name @item.TblModel.NameModel</a> 
+            </td>
+            <td>
+                @item.Description
+            </td>
+        </tr>
+    
+}
+
+
+</table>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using PublicTransportGallery.CustomValidation;
 
 namespace PublicTransportGallery.ViewModels
 {
@@ -21,6 +22,7 @@ namespace PublicTransportGallery.ViewModels
         [DataType(DataType.Upload)]
         [Required]
         [Display(Name = "Dodaj zdjęcie")]
+        [File(AllowedFileExtensions = new string[] { ".jpg", ".png" }, MaxContentLength = 1024 * 1024 * 2, ErrorMessage = "Niepoprawny format pliku")]
         public HttpPostedFileBase Image { get; set; }
         
         [Display(Name = "Opis zdjęcia")]

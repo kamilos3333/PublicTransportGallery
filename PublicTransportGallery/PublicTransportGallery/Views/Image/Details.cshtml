@@ -11,7 +11,7 @@
         <div class="col-md-3">
             <div class="h5">Autor:</div>
            @* <a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a> *@
-           <a href="#">@Model.User</a>
+           <a href="@Url.Action("DetailsUser","Manage", new { Username = Model.User })">@Model.User</a> 
             <div class="h5 pt-4">Dodano: </div>
             <p>@Model.DateAdd</p>
         </div>

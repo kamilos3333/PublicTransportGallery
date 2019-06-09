@@ -1,4 +1,5 @@
 ﻿using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace PublicTransportGallery.Controllers
 {
     public class HomeController : Controller
     {
+        private ProducentService producentService = new ProducentService();
         private ImageService imageService = new ImageService();
         
         [OutputCache(Duration = 60)]
@@ -32,9 +34,17 @@ namespace PublicTransportGallery.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult SearchVehice()
         {
-            ViewBag.Message = "Your contact page.";
+            var model = new SearchViewModel();
+            model.ProducentsList = producentService.getAll();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SearchResult(SearchViewModel model)
+        {
+            var imageModel = imageService.SearchImage(model.ModelId);
 
             return View();
         }

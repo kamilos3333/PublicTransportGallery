@@ -11,5 +11,8 @@ namespace PublicTransportGallery.Services.Image
     {
         void Insert(TblImage image);
         IList<TblImage> getAll();
+        TblImage getImageId(int ImageId);
+        IList<TblImage> SearchImage(int ModelId);
+        IList<TblImage> DetailsUser(string Id);
     }
 }

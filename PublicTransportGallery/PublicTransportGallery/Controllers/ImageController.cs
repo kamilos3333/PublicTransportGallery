@@ -7,8 +7,6 @@ using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -19,13 +17,16 @@ namespace PublicTransportGallery.Controllers
     public class ImageController : Controller
     {
         private IImageManager imageManager;
-        private ProducentService serviceProd = new ProducentService();
-        private ModelService serviceModel = new ModelService();
-        private ImageService imageService = new ImageService();
+        private IProducentService producentService;
+        private IModelService modelService;
+        private IImageService imageService;
 
-        public ImageController(IImageManager imageManager)
+        public ImageController(IImageManager _imageManager, IImageService _imageService, IProducentService _producentService, IModelService _modelService)
         {
-            this.imageManager = imageManager;
+            this.imageManager = _imageManager;
+            this.imageService = _imageService;
+            this.modelService = _modelService;
+            this.producentService = _producentService;
         }
 
         // GET: UploadImage
@@ -33,7 +34,7 @@ namespace PublicTransportGallery.Controllers
         public ActionResult UploadImage()
         {
             var producentModel = new ImageUploadViewModels();
-            producentModel.ProducentList = serviceProd.getAll();
+            producentModel.ProducentList = producentService.getAll();
 
             return View(producentModel);
         }
@@ -58,7 +59,7 @@ namespace PublicTransportGallery.Controllers
                 return RedirectToAction("Index","Home");
             }
             var producentModel = new ImageUploadViewModels();
-            producentModel.ProducentList = serviceProd.getAll();
+            producentModel.ProducentList = producentService.getAll();
             return View(producentModel);
         }
 
@@ -90,7 +91,7 @@ namespace PublicTransportGallery.Controllers
 
         public JsonResult getModel(int id)
         {
-            var model = serviceModel.getModelJoinProducent(id).ToList();
+            var model = modelService.getModelJoinProducent(id).ToList();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
