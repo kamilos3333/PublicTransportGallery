@@ -44,10 +44,14 @@ namespace PublicTransportGallery.Controllers
         {
             model.ProducentList = producentService.getAll();
 
-            if (model.ImageList != null)
+            if (model.ModelId > 0)
             {
-                var searchResult = imageService.SearchImage(model.ModelId);
-                model.ImageList = searchResult;
+                if (ModelState.IsValid)
+                {
+                    var searchResult = imageService.SearchImage(model.ModelId);
+                    model.ImageList = searchResult;
+                    return View(model);
+                }
                 return View(model);
             }
 
