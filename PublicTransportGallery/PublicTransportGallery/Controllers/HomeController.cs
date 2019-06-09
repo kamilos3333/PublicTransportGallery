@@ -11,9 +11,15 @@ namespace PublicTransportGallery.Controllers
 {
     public class HomeController : Controller
     {
-        private ProducentService producentService = new ProducentService();
-        private ImageService imageService = new ImageService();
-        
+        private IProducentService producentService;
+        private IImageService imageService;
+
+        public HomeController(IProducentService _producentService, IImageService _imageService)
+        {
+            this.imageService = _imageService;
+            this.producentService = _producentService;
+        }
+
         [OutputCache(Duration = 60)]
         public ActionResult Index()
         {
@@ -34,19 +40,18 @@ namespace PublicTransportGallery.Controllers
             return View();
         }
 
-        public ActionResult SearchVehice()
+        public ActionResult Search(SearchViewModels model)
         {
-            var model = new SearchViewModel();
-            model.ProducentsList = producentService.getAll();
+            model.ProducentList = producentService.getAll();
+
+            if (model.ImageList != null)
+            {
+                var searchResult = imageService.SearchImage(model.ModelId);
+                model.ImageList = searchResult;
+                return View(model);
+            }
+
             return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult SearchResult(SearchViewModel model)
-        {
-            var imageModel = imageService.SearchImage(model.ModelId);
-
-            return View();
         }
     }
 }

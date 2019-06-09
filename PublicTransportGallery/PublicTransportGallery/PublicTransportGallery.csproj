@@ -243,7 +243,7 @@
     <Compile Include="ViewModels\ImageDetailsViewModels.cs" />
     <Compile Include="ViewModels\ImageUploadViewModels.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -384,8 +384,8 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Image\UploadImage.cshtml" />
     <Content Include="Views\Image\Details.cshtml" />
-    <Content Include="Views\Home\SearchVehice.cshtml" />
     <Content Include="Views\Manage\DetailsUser.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

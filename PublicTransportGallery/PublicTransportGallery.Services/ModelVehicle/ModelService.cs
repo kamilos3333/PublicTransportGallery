@@ -13,7 +13,7 @@ namespace PublicTransportGallery.Services.ModelVehicle
 
         public IList<TblModel> getAll()
         {
-            return db.TblModels.Include("TblProducent").OrderBy(a => a.TblProducent.Name).ToList();
+            return db.TblModels.Include("TblProducent").Include("TblTypeTransport").OrderBy(a => a.TblProducent.Name).ToList();
         }
 
         public IList<TblModel> getModelJoinProducent(int ProducentId)
