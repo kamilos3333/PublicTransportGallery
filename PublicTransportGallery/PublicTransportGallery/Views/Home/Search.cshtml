@@ -1,5 +1,5 @@
 ﻿@model PublicTransportGallery.ViewModels.SearchViewModels
-
+@using PublicTransportGallery.Helpers
 @{
     ViewBag.Title = "Wyszukiwanie";
 }
@@ -39,10 +39,30 @@
 
 @if (Model.ImageList != null)
 {
-    foreach (var itemResult in Model.ImageList)
-    {
-        @itemResult.Name
-    }
+    <h4>Wynik wyszukiwania</h4>
+    <hr />
+    <table class="table">
+
+        @foreach (var itemResult in Model.ImageList)
+        {
+
+            <tr>
+                <td>
+                    <img src="@Url.BusImgPath(itemResult.Name)" style="width: 160px; height: 100px" />
+                </td>
+                <td>
+                    <a href="@Url.Action("Details","Image", new { id = itemResult.ImageId })">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</a>
+                </td>
+                <td>
+                    @itemResult.Description
+                </td>
+            </tr>
+
+        }
+
+
+    </table>
+
 }
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>

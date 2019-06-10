@@ -45,9 +45,8 @@ namespace PublicTransportGallery.Controllers
             return View();
         }
 
-        public ActionResult Search(int? ModelId)
+        public ActionResult Search(SearchViewModels model)
         {
-            SearchViewModels model = new SearchViewModels();
             model.ProducentList = producentService.getAll();
 
             if (model.ModelId > 0)
