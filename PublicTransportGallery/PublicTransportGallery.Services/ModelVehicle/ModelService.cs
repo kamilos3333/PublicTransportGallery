@@ -21,5 +21,10 @@ namespace PublicTransportGallery.Services.ModelVehicle
             db.Configuration.ProxyCreationEnabled = false;
             return db.TblModels.Where(a => a.ProducentId == ProducentId).OrderBy(a => a.NameModel).ToList();
         }
+
+        public IList<TblTypeTransport> getTypeName()
+        {
+            return db.TblTypeTransports.ToList();
+        }
     }
 }

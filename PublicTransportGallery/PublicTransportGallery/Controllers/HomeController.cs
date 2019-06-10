@@ -1,4 +1,5 @@
 ﻿using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System;
@@ -13,21 +14,25 @@ namespace PublicTransportGallery.Controllers
     {
         private IProducentService producentService;
         private IImageService imageService;
+        private IModelService modelService;
 
-        public HomeController(IProducentService _producentService, IImageService _imageService)
+        public HomeController(IProducentService _producentService, IImageService _imageService, IModelService _modelService)
         {
             this.imageService = _imageService;
             this.producentService = _producentService;
+            this.modelService = _modelService;
         }
 
         [OutputCache(Duration = 60)]
         public ActionResult Index()
         {
             var imagesList = imageService.getAll();
+            var typeList = modelService.getTypeName();
 
             var vm = new MainViewModel()
             {
-                images = imagesList
+                TypeTransport = typeList,
+                Images = imagesList
             };
 
             return View(vm);
@@ -40,8 +45,9 @@ namespace PublicTransportGallery.Controllers
             return View();
         }
 
-        public ActionResult Search(SearchViewModels model)
+        public ActionResult Search(int? ModelId)
         {
+            SearchViewModels model = new SearchViewModels();
             model.ProducentList = producentService.getAll();
 
             if (model.ModelId > 0)

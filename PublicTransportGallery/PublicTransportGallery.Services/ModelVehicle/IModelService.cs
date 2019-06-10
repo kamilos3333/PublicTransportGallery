@@ -11,5 +11,6 @@ namespace PublicTransportGallery.Services.ModelVehicle
     {
         IList<TblModel> getAll();
         IList<TblModel> getModelJoinProducent(int ProducentId);
+        IList<TblTypeTransport> getTypeName();
     }
 }

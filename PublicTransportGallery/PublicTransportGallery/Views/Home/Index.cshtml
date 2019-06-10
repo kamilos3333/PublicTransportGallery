@@ -15,14 +15,21 @@
     <div class="container px-0 py-4">
         <div class="pp-category-filter">
             <div class="row">
-                <div class="col-sm-12"><a class="btn btn-primary pp-filter-button" href="#" data-filter="all">Wszystko</a><a class="btn btn-outline-primary pp-filter-button" href="#" data-filter="Autobus">Autobus</a><a class="btn btn-outline-primary pp-filter-button" href="#" data-filter="Tramwaj">Tramwaj</a><a class="btn btn-outline-primary pp-filter-button" href="#" data-filter="Trolejbus">Trolejbus</a></div>
+                <div class="col-sm-12">
+                    <a class="btn btn-primary pp-filter-button" href="#" data-filter="all">Wszystko</a>
+                    @foreach (var typeTransport in Model.TypeTransport)
+                    {
+                        <a class="btn btn-outline-primary pp-filter-button" href="#" data-filter="@typeTransport.Name">@typeTransport.Name</a>
+                    }
+                </div>
+
             </div>
         </div>
     </div>
     <div class="container px-0">
         <div class="pp-gallery">
             <div class="card-columns">
-                @foreach (var busPhoto in Model.images)
+                @foreach (var busPhoto in Model.Images)
                 {
                     <div class="card" data-groups="[&quot;@busPhoto.TblModel.TblTypeTransport.Name&quot;]">
                         <a href="@Url.Action("Details","Image", new { id = busPhoto.ImageId })">

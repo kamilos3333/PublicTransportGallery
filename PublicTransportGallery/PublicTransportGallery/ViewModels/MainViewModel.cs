@@ -8,6 +8,7 @@ namespace PublicTransportGallery.ViewModels
 {
     public class MainViewModel
     {
-        public IEnumerable<TblImage> images { get; set; }
+        public IEnumerable<TblTypeTransport> TypeTransport { get; set; } 
+        public IEnumerable<TblImage> Images { get; set; }
     }
 }
