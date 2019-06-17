@@ -22,14 +22,13 @@ namespace PublicTransportGallery.Controllers
             this.producentService = _producentService;
             this.modelService = _modelService;
         }
-
-        [OutputCache(Duration = 60)]
+        
         public ActionResult Index()
         {
             var imagesList = imageService.getAll();
             var typeList = modelService.getTypeName();
 
-            var vm = new MainViewModel()
+            var vm = new HomeViewModel()
             {
                 TypeTransport = typeList,
                 Images = imagesList

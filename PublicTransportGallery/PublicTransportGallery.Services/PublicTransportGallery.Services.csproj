@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comment\CommentService.cs" />
+    <Compile Include="Comment\ICommentService.cs" />
     <Compile Include="Image\IImageService.cs" />
     <Compile Include="Image\ImageService.cs" />
     <Compile Include="ModelVehicle\IModelService.cs" />

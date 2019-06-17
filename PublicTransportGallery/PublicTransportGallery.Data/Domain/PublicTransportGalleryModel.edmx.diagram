@@ -13,6 +13,8 @@
         <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblProducent_TblImage" ManuallyRouted="false" />
         <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblProducent" ManuallyRouted="false" />
         <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblTypeTransport" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblComment" Width="1.5" PointX="1.375" PointY="7" />
+        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblComment_TblImage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

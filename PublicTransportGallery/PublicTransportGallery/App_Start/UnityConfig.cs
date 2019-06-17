@@ -1,5 +1,6 @@
 using PublicTransportGallery.Controllers;
 using PublicTransportGallery.Infrastructure;
+using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
@@ -20,11 +21,11 @@ namespace PublicTransportGallery
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-
-            container.RegisterType<IImageManager, ImageManager>();
+            
             container.RegisterType<IProducentService, ProducentService>();
             container.RegisterType<IModelService, ModelService>();
             container.RegisterType<IImageService, ImageService>();
+            container.RegisterType<ICommentService, CommentService>();
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

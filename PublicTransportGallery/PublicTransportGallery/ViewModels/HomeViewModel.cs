@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PublicTransportGallery.ViewModels
 {
-    public class MainViewModel
+    public class HomeViewModel
     {
         public IEnumerable<TblTypeTransport> TypeTransport { get; set; } 
         public IEnumerable<TblImage> Images { get; set; }

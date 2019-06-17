@@ -65,6 +65,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PublicTransportGalleryModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Domain\TblComment.cs">
+      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\TblImage.cs">
       <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
     </Compile>
@@ -107,5 +110,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

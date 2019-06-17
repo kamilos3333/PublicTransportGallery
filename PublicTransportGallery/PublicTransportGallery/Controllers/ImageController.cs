@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using PublicTransportGallery.Data.Domain;
 using PublicTransportGallery.Infrastructure;
+using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
@@ -16,17 +17,17 @@ namespace PublicTransportGallery.Controllers
 {
     public class ImageController : Controller
     {
-        private IImageManager imageManager;
         private IProducentService producentService;
         private IModelService modelService;
         private IImageService imageService;
+        private ICommentService commentService;
 
-        public ImageController(IImageManager _imageManager, IImageService _imageService, IProducentService _producentService, IModelService _modelService)
+        public ImageController(IImageService _imageService, IProducentService _producentService, IModelService _modelService, ICommentService _commentService)
         {
-            this.imageManager = _imageManager;
             this.imageService = _imageService;
             this.modelService = _modelService;
             this.producentService = _producentService;
+            this.commentService = _commentService;
         }
 
         // GET: UploadImage
@@ -45,7 +46,7 @@ namespace PublicTransportGallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                var fileName = imageManager.InsertImage(Image);
+                var fileName = ImageManager.InsertImage(Image);
 
                 TblImage image = new TblImage
                 {
@@ -65,27 +66,34 @@ namespace PublicTransportGallery.Controllers
 
         public ActionResult Details(int id)
         {
-            if(id == 0)
+            if(id <= 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = imageService.getImageId(id);
-            if(model == null)
+            var modelImage = imageService.getImageId(id);
+            if(modelImage == null)
             {
                 return HttpNotFound();
             }
-            var user = UserManager.FindById(model.Id).UserName;
-            ImageDetailsViewModels viewModels = new ImageDetailsViewModels
+            var user = UserManager.FindById(modelImage.Id).UserName;
+            ImageDetailsViewModels modelDetails = new ImageDetailsViewModels
             {
                 User = user,
-                ImageName = model.Name,
-                DateAdd = model.DateAdd,
-                Producent = model.TblModel.TblProducent.Name,
-                Model = model.TblModel.NameModel,
-                Description = model.Description,
-                YearProduction = model.TblModel.YearProduction,
-                YearEndProduction = model.TblModel.YearProductionEnd
+                ImageName = modelImage.Name,
+                DateAdd = modelImage.DateAdd,
+                Producent = modelImage.TblModel.TblProducent.Name,
+                Model = modelImage.TblModel.NameModel,
+                Description = modelImage.Description,
+                YearProduction = modelImage.TblModel.YearProduction,
+                YearEndProduction = modelImage.TblModel.YearProductionEnd
             };
+
+            var viewModels = new MainImageDetailsViewModels
+            {
+                ImageDetails = modelDetails,
+                commentList = commentService.getAllCommentsByImageId(id)
+            };
+
             return View(viewModels);
         }
 

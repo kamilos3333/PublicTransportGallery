@@ -1,4 +1,4 @@
-﻿@model PublicTransportGallery.ViewModels.ImageDetailsViewModels
+﻿@model PublicTransportGallery.ViewModels.MainImageDetailsViewModels
 @using PublicTransportGallery.Helpers
 @{
     ViewBag.Title = "Details";
@@ -6,18 +6,66 @@
 
 
 <div class="container pp-section">
-    <div class="h3 font-weight-normal">@Model.ModelVehice</div><img class="img-fluid mt-4" src="@Url.BusImgPath(Model.ImageName)" />
+    <div class="h3 font-weight-normal">@Model.ImageDetails.ModelVehice</div><img class="img-fluid mt-4" src="@Url.BusImgPath(Model.ImageDetails.ImageName)" />
     <div class="row mt-5">
         <div class="col-md-3">
-            <div class="h5">Autor:</div>
-           @* <a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a> *@
-           <a href="@Url.Action("DetailsUser","Manage", new { Username = Model.User })">@Model.User</a> 
-            <div class="h5 pt-4">Dodano: </div>
-            <p>@Model.DateAdd</p>
+            <div class="h5">@Html.LabelFor(model => model.ImageDetails.User)</div>
+            @* <a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a> *@
+            <a href="@Url.Action("DetailsUser","Manage", new { Username = Model.ImageDetails.User})">@Model.ImageDetails.User</a>
+            <div class="h5 pt-4">@Html.LabelFor(model => model.ImageDetails.DateAdd)</div>
+            <p>@Model.ImageDetails.DateAdd</p>
         </div>
         <div class="col-md-9">
-            <p>Rok produkcji: @Model.YearProduction Rok zakończenia: @Model.YearEndProduction </p>
-            <p>@Model.Description</p>
+            <p>
+                @Html.LabelFor(model => model.ImageDetails.YearProduction) @Model.ImageDetails.YearProduction @if (Model.ImageDetails.YearEndProduction != null)
+                {<span>- @Model.ImageDetails.YearEndProduction </span>}
+            </p>
+            <p>@Model.ImageDetails.Description</p>
         </div>
     </div>
+
+    <h2>Sekcja komentarzy</h2>
+    <hr />
+    @if (User.Identity.IsAuthenticated)
+    {
+
+        using (Html.BeginForm("", "", FormMethod.Post))
+        {
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.comment.ContentComment, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.TextAreaFor(model => model.comment.ContentComment, new { htmlAttributes = new { @class = "form-control", col = 6 } })
+                        @Html.ValidationMessageFor(model => model.comment.ContentComment, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Dodaj" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+    <div class="comment-section">
+        @foreach(var comment in Model.commentList)
+        {
+            <div class="card">
+            <div class="card-header">
+                <span>@comment.UserId</span>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p class="comment-text">@comment.ContentText</p>
+                    <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
+                </blockquote>
+            </div>
+        </div>
+        <br />
+        }
+    </div>
 </div>
+

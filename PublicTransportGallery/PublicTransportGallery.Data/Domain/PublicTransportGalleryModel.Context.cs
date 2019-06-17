@@ -29,5 +29,6 @@ namespace PublicTransportGallery.Data.Domain
         public virtual DbSet<TblModel> TblModels { get; set; }
         public virtual DbSet<TblProducent> TblProducents { get; set; }
         public virtual DbSet<TblTypeTransport> TblTypeTransports { get; set; }
+        public virtual DbSet<TblComment> TblComments { get; set; }
     }
 }

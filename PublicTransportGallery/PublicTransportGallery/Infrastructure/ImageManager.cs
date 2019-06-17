@@ -7,9 +7,9 @@ using System.Web;
 
 namespace PublicTransportGallery.Infrastructure
 {
-    public class ImageManager : IImageManager
+    public static class ImageManager
     {
-        public string InsertImage(HttpPostedFileBase upload)
+        public static string InsertImage(HttpPostedFileBase upload)
         {
             var filename = Guid.NewGuid() + Path.GetExtension(upload.FileName);
             var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(AppConfig.BusFolderPath), filename);

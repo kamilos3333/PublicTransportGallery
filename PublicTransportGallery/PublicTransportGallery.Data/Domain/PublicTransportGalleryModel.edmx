@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TransportPublicDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TblComment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" Nullable="false" />
+          <Property Name="ContentText" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateAdd" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ImageId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="TblImage">
           <Key>
             <PropertyRef Name="ImageId" />
@@ -44,6 +54,18 @@
           <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
+        <Association Name="FK_TblComment_TblImage">
+          <End Role="TblImage" Type="Self.TblImage" Multiplicity="1" />
+          <End Role="TblComment" Type="Self.TblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblImage">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="TblComment">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TblModel_TblImage">
           <End Role="TblModel" Type="Self.TblModel" Multiplicity="0..1" />
           <End Role="TblImage" Type="Self.TblImage" Multiplicity="*" />
@@ -93,10 +115,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TransportPublicDatabaseModelStoreContainer">
+          <EntitySet Name="TblComment" EntityType="Self.TblComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblImage" EntityType="Self.TblImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblModel" EntityType="Self.TblModel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblProducent" EntityType="Self.TblProducent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblTypeTransport" EntityType="Self.TblTypeTransport" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblComment_TblImage" Association="Self.FK_TblComment_TblImage">
+            <End Role="TblImage" EntitySet="TblImage" />
+            <End Role="TblComment" EntitySet="TblComment" />
+          </AssociationSet>
           <AssociationSet Name="FK_TblModel_TblImage" Association="Self.FK_TblModel_TblImage">
             <End Role="TblModel" EntitySet="TblModel" />
             <End Role="TblImage" EntitySet="TblImage" />
@@ -131,6 +158,7 @@
           <NavigationProperty Name="TblModel" Relationship="Self.FK_TblModel_TblImage" FromRole="TblImage" ToRole="TblModel" />
           <NavigationProperty Name="TblProducent" Relationship="Self.FK_TblProducent_TblImage" FromRole="TblImage" ToRole="TblProducent" />
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblComments" Relationship="TransportPublicDatabaseModel.FK_TblComment_TblImage" FromRole="TblImage" ToRole="TblComment" />
         </EntityType>
         <EntityType Name="TblModel">
           <Key>
@@ -234,7 +262,35 @@
             <End Role="TblTypeTransport" EntitySet="TblTypeTransports" />
             <End Role="TblModel" EntitySet="TblModels" />
           </AssociationSet>
+          <EntitySet Name="TblComments" EntityType="TransportPublicDatabaseModel.TblComment" />
+          <AssociationSet Name="FK_TblComment_TblImage" Association="TransportPublicDatabaseModel.FK_TblComment_TblImage">
+            <End Role="TblImage" EntitySet="TblImages" />
+            <End Role="TblComment" EntitySet="TblComments" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TblComment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" />
+          <Property Name="ContentText" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdd" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ImageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TblImage" Relationship="TransportPublicDatabaseModel.FK_TblComment_TblImage" FromRole="TblComment" ToRole="TblImage" />
+        </EntityType>
+        <Association Name="FK_TblComment_TblImage">
+          <End Type="TransportPublicDatabaseModel.TblImage" Role="TblImage" Multiplicity="1" />
+          <End Type="TransportPublicDatabaseModel.TblComment" Role="TblComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblImage">
+              <PropertyRef Name="ImageId" />
+            </Principal>
+            <Dependent Role="TblComment">
+              <PropertyRef Name="ImageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -281,6 +337,17 @@
               <MappingFragment StoreEntitySet="TblTypeTransport">
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblComments">
+            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblComment">
+              <MappingFragment StoreEntitySet="TblComment">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
+                <ScalarProperty Name="ContentText" ColumnName="ContentText" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
