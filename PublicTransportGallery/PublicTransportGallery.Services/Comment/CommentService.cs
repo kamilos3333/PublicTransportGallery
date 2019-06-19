@@ -11,6 +11,12 @@ namespace PublicTransportGallery.Services.Comment
     {
         DatabaseEntities db = new DatabaseEntities();
 
+        public void insertComments(TblComment comment)
+        {
+            db.TblComments.Add(comment);
+            db.SaveChanges();
+        }
+
         public void deleteComments(TblComment comment)
         {
             throw new NotImplementedException();

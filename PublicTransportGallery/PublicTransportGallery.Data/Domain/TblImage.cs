@@ -24,13 +24,11 @@ namespace PublicTransportGallery.Data.Domain
         public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<int> ModelId { get; set; }
-        public Nullable<int> ProducentId { get; set; }
         public Nullable<System.DateTime> DateAdd { get; set; }
         public string Id { get; set; }
     
-        public virtual TblModel TblModel { get; set; }
-        public virtual TblProducent TblProducent { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TblComment> TblComments { get; set; }
+        public virtual TblModel TblModel { get; set; }
     }
 }

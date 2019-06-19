@@ -5,16 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6b4c6fbc9ac947439ed5925f058a6176" Name="Diagram1">
-        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblImage" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblModel" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblProducent" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblTypeTransport" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblImage" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblProducent_TblImage" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblProducent" ManuallyRouted="false" />
-        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblTypeTransport" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblComment" Width="1.5" PointX="1.375" PointY="7" />
+        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblComment" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblImage" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblModel" Width="1.5" PointX="6" PointY="4.125" />
+        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblProducent" Width="1.5" PointX="8.5" PointY="7.25" />
+        <EntityTypeShape EntityType="TransportPublicDatabaseModel.TblTypeTransport" Width="1.5" PointX="3.75" PointY="0.75" />
         <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblComment_TblImage" />
+        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblImage" />
+        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblProducent" />
+        <AssociationConnector Association="TransportPublicDatabaseModel.FK_TblModel_TblTypeTransport" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

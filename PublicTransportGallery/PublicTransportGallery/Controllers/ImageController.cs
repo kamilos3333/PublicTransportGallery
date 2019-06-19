@@ -64,6 +64,7 @@ namespace PublicTransportGallery.Controllers
             return View(producentModel);
         }
 
+        [OutputCache(Duration = 20)]
         public ActionResult Details(int id)
         {
             if(id <= 0)
@@ -75,10 +76,10 @@ namespace PublicTransportGallery.Controllers
             {
                 return HttpNotFound();
             }
-            var user = UserManager.FindById(modelImage.Id).UserName;
             ImageDetailsViewModels modelDetails = new ImageDetailsViewModels
             {
-                User = user,
+                ImageId = modelImage.ImageId,
+                User = UserManager.FindById(modelImage.Id).UserName,
                 ImageName = modelImage.Name,
                 DateAdd = modelImage.DateAdd,
                 Producent = modelImage.TblModel.TblProducent.Name,
@@ -97,6 +98,22 @@ namespace PublicTransportGallery.Controllers
             return View(viewModels);
         }
 
+        [HttpPost]
+        public ActionResult AddComment(string commentContent, int id)
+        {
+            TblComment comment = new TblComment
+            {
+                ImageId = id,
+                ContentText = commentContent,
+                DateAdd = DateTime.Now,
+                UserId = User.Identity.GetUserId(),
+            };
+            commentService.insertComments(comment);
+
+            string message = "SUCCESS";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+        }
+        
         public JsonResult getModel(int id)
         {
             var model = modelService.getModelJoinProducent(id).ToList();

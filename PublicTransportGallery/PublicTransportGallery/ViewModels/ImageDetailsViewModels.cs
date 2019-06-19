@@ -8,6 +8,8 @@ namespace PublicTransportGallery.ViewModels
 {
     public class ImageDetailsViewModels
     {
+        public int ImageId { get; set; }
+
         public string ImageName { get; set; }
 
         public string Producent { get; set; }

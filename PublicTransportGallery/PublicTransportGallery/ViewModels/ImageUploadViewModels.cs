@@ -10,8 +10,8 @@ namespace PublicTransportGallery.ViewModels
 {
     public class ImageUploadViewModels
     {
-        public IList<TblProducent> ProducentList { get; set; } 
-
+        public IList<TblProducent> ProducentList { get; set; }
+        
         [Display(Name = "Wybierz producenta")]
         public int ProducentId { get; set; }
         

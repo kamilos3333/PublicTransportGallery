@@ -24,17 +24,17 @@ namespace PublicTransportGallery.Services.Image
 
         public TblImage getImageId(int ImageId)
         {
-            return db.TblImages.Include("TblProducent").Include("TblModel").First(a => a.ImageId == ImageId);
+            return db.TblImages.Include("TblModel").FirstOrDefault(a => a.ImageId == ImageId);
         }
 
         public IList<TblImage> SearchImage(int ModelId)
         {
-            return db.TblImages.Include("TblProducent").Include("TblModel").Where(a => a.ModelId == ModelId).ToList();
+            return db.TblImages.Include("TblModel").Where(a => a.ModelId == ModelId).ToList();
         }
 
         public IList<TblImage> DetailsUser(string Id)
         {
-            return db.TblImages.Include("TblProducent").Include("TblModel").Where(a => a.Id == Id).ToList();
+            return db.TblImages.Include("TblModel").Where(a => a.Id == Id).ToList();
         }
         
     }

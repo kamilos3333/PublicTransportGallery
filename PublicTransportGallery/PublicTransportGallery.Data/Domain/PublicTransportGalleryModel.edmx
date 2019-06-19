@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentId" Type="int" Nullable="false" />
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContentText" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DateAdd" Type="datetime" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
@@ -23,7 +23,6 @@
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ModelId" Type="int" />
-          <Property Name="ProducentId" Type="int" />
           <Property Name="DateAdd" Type="datetime" />
           <Property Name="Id" Type="nvarchar" MaxLength="128" />
         </EntityType>
@@ -102,18 +101,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TblProducent_TblImage">
-          <End Role="TblProducent" Type="Self.TblProducent" Multiplicity="0..1" />
-          <End Role="TblImage" Type="Self.TblImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TblProducent">
-              <PropertyRef Name="ProducentId" />
-            </Principal>
-            <Dependent Role="TblImage">
-              <PropertyRef Name="ProducentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="TransportPublicDatabaseModelStoreContainer">
           <EntitySet Name="TblComment" EntityType="Self.TblComment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblImage" EntityType="Self.TblImage" Schema="dbo" store:Type="Tables" />
@@ -136,136 +123,32 @@
             <End Role="TblTypeTransport" EntitySet="TblTypeTransport" />
             <End Role="TblModel" EntitySet="TblModel" />
           </AssociationSet>
-          <AssociationSet Name="FK_TblProducent_TblImage" Association="Self.FK_TblProducent_TblImage">
-            <End Role="TblProducent" EntitySet="TblProducent" />
-            <End Role="TblImage" EntitySet="TblImage" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TransportPublicDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="TblImage">
-          <Key>
-            <PropertyRef Name="ImageId" />
-          </Key>
-          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ModelId" Type="Int32" />
-          <Property Name="ProducentId" Type="Int32" />
-          <Property Name="DateAdd" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="TblModel" Relationship="Self.FK_TblModel_TblImage" FromRole="TblImage" ToRole="TblModel" />
-          <NavigationProperty Name="TblProducent" Relationship="Self.FK_TblProducent_TblImage" FromRole="TblImage" ToRole="TblProducent" />
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TblComments" Relationship="TransportPublicDatabaseModel.FK_TblComment_TblImage" FromRole="TblImage" ToRole="TblComment" />
-        </EntityType>
-        <EntityType Name="TblModel">
-          <Key>
-            <PropertyRef Name="ModelId" />
-          </Key>
-          <Property Name="ModelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProducentId" Type="Int32" Nullable="false" />
-          <Property Name="NameModel" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TypeId" Type="Int32" Nullable="false" />
-          <Property Name="YearProduction" Type="Int32" Nullable="false" />
-          <Property Name="YearProductionEnd" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TblImages" Relationship="Self.FK_TblModel_TblImage" FromRole="TblModel" ToRole="TblImage" />
-          <NavigationProperty Name="TblProducent" Relationship="Self.FK_TblModel_TblProducent" FromRole="TblModel" ToRole="TblProducent" />
-          <NavigationProperty Name="TblTypeTransport" Relationship="Self.FK_TblModel_TblTypeTransport" FromRole="TblModel" ToRole="TblTypeTransport" />
-        </EntityType>
-        <EntityType Name="TblProducent">
-          <Key>
-            <PropertyRef Name="ProducentId" />
-          </Key>
-          <Property Name="ProducentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TblImages" Relationship="Self.FK_TblProducent_TblImage" FromRole="TblProducent" ToRole="TblImage" />
-          <NavigationProperty Name="TblModels" Relationship="Self.FK_TblModel_TblProducent" FromRole="TblProducent" ToRole="TblModel" />
-        </EntityType>
-        <EntityType Name="TblTypeTransport">
-          <Key>
-            <PropertyRef Name="TypeId" />
-          </Key>
-          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="TblModels" Relationship="Self.FK_TblModel_TblTypeTransport" FromRole="TblTypeTransport" ToRole="TblModel" />
-        </EntityType>
-        <Association Name="FK_TblModel_TblImage">
-          <End Role="TblModel" Type="Self.TblModel" Multiplicity="0..1" />
-          <End Role="TblImage" Type="Self.TblImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TblModel">
-              <PropertyRef Name="ModelId" />
-            </Principal>
-            <Dependent Role="TblImage">
-              <PropertyRef Name="ModelId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TblProducent_TblImage">
-          <End Role="TblProducent" Type="Self.TblProducent" Multiplicity="0..1" />
-          <End Role="TblImage" Type="Self.TblImage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TblProducent">
-              <PropertyRef Name="ProducentId" />
-            </Principal>
-            <Dependent Role="TblImage">
-              <PropertyRef Name="ProducentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TblModel_TblProducent">
-          <End Role="TblProducent" Type="Self.TblProducent" Multiplicity="1" />
-          <End Role="TblModel" Type="Self.TblModel" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TblProducent">
-              <PropertyRef Name="ProducentId" />
-            </Principal>
-            <Dependent Role="TblModel">
-              <PropertyRef Name="ProducentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TblModel_TblTypeTransport">
-          <End Role="TblTypeTransport" Type="Self.TblTypeTransport" Multiplicity="1" />
-          <End Role="TblModel" Type="Self.TblModel" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TblTypeTransport">
-              <PropertyRef Name="TypeId" />
-            </Principal>
-            <Dependent Role="TblModel">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TblImages" EntityType="Self.TblImage" />
-          <EntitySet Name="TblModels" EntityType="Self.TblModel" />
-          <EntitySet Name="TblProducents" EntityType="Self.TblProducent" />
-          <EntitySet Name="TblTypeTransports" EntityType="Self.TblTypeTransport" />
-          <AssociationSet Name="FK_TblModel_TblImage" Association="Self.FK_TblModel_TblImage">
-            <End Role="TblModel" EntitySet="TblModels" />
-            <End Role="TblImage" EntitySet="TblImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TblProducent_TblImage" Association="Self.FK_TblProducent_TblImage">
-            <End Role="TblProducent" EntitySet="TblProducents" />
-            <End Role="TblImage" EntitySet="TblImages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TblModel_TblProducent" Association="Self.FK_TblModel_TblProducent">
-            <End Role="TblProducent" EntitySet="TblProducents" />
-            <End Role="TblModel" EntitySet="TblModels" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TblModel_TblTypeTransport" Association="Self.FK_TblModel_TblTypeTransport">
-            <End Role="TblTypeTransport" EntitySet="TblTypeTransports" />
-            <End Role="TblModel" EntitySet="TblModels" />
-          </AssociationSet>
           <EntitySet Name="TblComments" EntityType="TransportPublicDatabaseModel.TblComment" />
+          <EntitySet Name="TblImages" EntityType="TransportPublicDatabaseModel.TblImage" />
+          <EntitySet Name="TblModels" EntityType="TransportPublicDatabaseModel.TblModel" />
+          <EntitySet Name="TblProducents" EntityType="TransportPublicDatabaseModel.TblProducent" />
+          <EntitySet Name="TblTypeTransports" EntityType="TransportPublicDatabaseModel.TblTypeTransport" />
           <AssociationSet Name="FK_TblComment_TblImage" Association="TransportPublicDatabaseModel.FK_TblComment_TblImage">
             <End Role="TblImage" EntitySet="TblImages" />
             <End Role="TblComment" EntitySet="TblComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblModel_TblImage" Association="TransportPublicDatabaseModel.FK_TblModel_TblImage">
+            <End Role="TblModel" EntitySet="TblModels" />
+            <End Role="TblImage" EntitySet="TblImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblModel_TblProducent" Association="TransportPublicDatabaseModel.FK_TblModel_TblProducent">
+            <End Role="TblProducent" EntitySet="TblProducents" />
+            <End Role="TblModel" EntitySet="TblModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblModel_TblTypeTransport" Association="TransportPublicDatabaseModel.FK_TblModel_TblTypeTransport">
+            <End Role="TblTypeTransport" EntitySet="TblTypeTransports" />
+            <End Role="TblModel" EntitySet="TblModels" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="TblComment">
@@ -279,6 +162,51 @@
           <Property Name="ImageId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TblImage" Relationship="TransportPublicDatabaseModel.FK_TblComment_TblImage" FromRole="TblComment" ToRole="TblImage" />
         </EntityType>
+        <EntityType Name="TblImage">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModelId" Type="Int32" />
+          <Property Name="DateAdd" Type="DateTime" Precision="3" />
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblComments" Relationship="TransportPublicDatabaseModel.FK_TblComment_TblImage" FromRole="TblImage" ToRole="TblComment" />
+          <NavigationProperty Name="TblModel" Relationship="TransportPublicDatabaseModel.FK_TblModel_TblImage" FromRole="TblImage" ToRole="TblModel" />
+        </EntityType>
+        <EntityType Name="TblModel">
+          <Key>
+            <PropertyRef Name="ModelId" />
+          </Key>
+          <Property Name="ModelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProducentId" Type="Int32" Nullable="false" />
+          <Property Name="NameModel" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="YearProduction" Type="Int32" Nullable="false" />
+          <Property Name="YearProductionEnd" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblImages" Relationship="TransportPublicDatabaseModel.FK_TblModel_TblImage" FromRole="TblModel" ToRole="TblImage" />
+          <NavigationProperty Name="TblProducent" Relationship="TransportPublicDatabaseModel.FK_TblModel_TblProducent" FromRole="TblModel" ToRole="TblProducent" />
+          <NavigationProperty Name="TblTypeTransport" Relationship="TransportPublicDatabaseModel.FK_TblModel_TblTypeTransport" FromRole="TblModel" ToRole="TblTypeTransport" />
+        </EntityType>
+        <EntityType Name="TblProducent">
+          <Key>
+            <PropertyRef Name="ProducentId" />
+          </Key>
+          <Property Name="ProducentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblModels" Relationship="TransportPublicDatabaseModel.FK_TblModel_TblProducent" FromRole="TblProducent" ToRole="TblModel" />
+        </EntityType>
+        <EntityType Name="TblTypeTransport">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblModels" Relationship="TransportPublicDatabaseModel.FK_TblModel_TblTypeTransport" FromRole="TblTypeTransport" ToRole="TblModel" />
+        </EntityType>
         <Association Name="FK_TblComment_TblImage">
           <End Type="TransportPublicDatabaseModel.TblImage" Role="TblImage" Multiplicity="1" />
           <End Type="TransportPublicDatabaseModel.TblComment" Role="TblComment" Multiplicity="*" />
@@ -291,55 +219,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TblModel_TblImage">
+          <End Type="TransportPublicDatabaseModel.TblModel" Role="TblModel" Multiplicity="0..1" />
+          <End Type="TransportPublicDatabaseModel.TblImage" Role="TblImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblModel">
+              <PropertyRef Name="ModelId" />
+            </Principal>
+            <Dependent Role="TblImage">
+              <PropertyRef Name="ModelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblModel_TblProducent">
+          <End Type="TransportPublicDatabaseModel.TblProducent" Role="TblProducent" Multiplicity="1" />
+          <End Type="TransportPublicDatabaseModel.TblModel" Role="TblModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblProducent">
+              <PropertyRef Name="ProducentId" />
+            </Principal>
+            <Dependent Role="TblModel">
+              <PropertyRef Name="ProducentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblModel_TblTypeTransport">
+          <End Type="TransportPublicDatabaseModel.TblTypeTransport" Role="TblTypeTransport" Multiplicity="1" />
+          <End Type="TransportPublicDatabaseModel.TblModel" Role="TblModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblTypeTransport">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="TblModel">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TransportPublicDatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
-          <EntitySetMapping Name="TblImages">
-            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblImage">
-              <MappingFragment StoreEntitySet="TblImage">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
-                <ScalarProperty Name="ProducentId" ColumnName="ProducentId" />
-                <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TblModels">
-            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblModel">
-              <MappingFragment StoreEntitySet="TblModel">
-                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
-                <ScalarProperty Name="ProducentId" ColumnName="ProducentId" />
-                <ScalarProperty Name="NameModel" ColumnName="NameModel" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="YearProduction" ColumnName="YearProduction" />
-                <ScalarProperty Name="YearProductionEnd" ColumnName="YearProductionEnd" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TblProducents">
-            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblProducent">
-              <MappingFragment StoreEntitySet="TblProducent">
-                <ScalarProperty Name="ProducentId" ColumnName="ProducentId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TblTypeTransports">
-            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblTypeTransport">
-              <MappingFragment StoreEntitySet="TblTypeTransport">
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TblComments">
             <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblComment">
               <MappingFragment StoreEntitySet="TblComment">
@@ -348,6 +269,48 @@
                 <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
                 <ScalarProperty Name="ContentText" ColumnName="ContentText" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblImages">
+            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblImage">
+              <MappingFragment StoreEntitySet="TblImage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblModels">
+            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblModel">
+              <MappingFragment StoreEntitySet="TblModel">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="YearProductionEnd" ColumnName="YearProductionEnd" />
+                <ScalarProperty Name="YearProduction" ColumnName="YearProduction" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="NameModel" ColumnName="NameModel" />
+                <ScalarProperty Name="ProducentId" ColumnName="ProducentId" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblProducents">
+            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblProducent">
+              <MappingFragment StoreEntitySet="TblProducent">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProducentId" ColumnName="ProducentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblTypeTransports">
+            <EntityTypeMapping TypeName="TransportPublicDatabaseModel.TblTypeTransport">
+              <MappingFragment StoreEntitySet="TblTypeTransport">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
