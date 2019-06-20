@@ -10,6 +10,5 @@ namespace PublicTransportGallery.ViewModels
     {
         public ImageDetailsViewModels ImageDetails { get; set; }
         public IEnumerable<TblComment> commentList { get; set; }
-        public CommentViewModels comment { get; set; }
     }
 }

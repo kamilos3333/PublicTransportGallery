@@ -8,8 +8,6 @@ namespace PublicTransportGallery.ViewModels
 {
     public class CommentViewModels
     {
-        [Required]
-        [Display(Name = "Dodaj komentarz")]
-        public string ContentComment { get; set; }
+        
     }
 }

@@ -2,7 +2,7 @@
 @using PublicTransportGallery.Helpers
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Szczegóły zdjęcia";
 }
 
 
@@ -11,7 +11,7 @@
     <div class="row mt-5">
         <div class="col-md-3">
             <div class="h5">@Html.LabelFor(model => model.ImageDetails.User)</div>
-            @* <a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a> *@
+             @*<a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a>*@ 
             <a href="@Url.Action("DetailsUser","Manage", new { Username = Model.ImageDetails.User})">@Model.ImageDetails.User</a>
             <div class="h5 pt-4">@Html.LabelFor(model => model.ImageDetails.DateAdd)</div>
             <p>@Model.ImageDetails.DateAdd</p>
@@ -32,11 +32,11 @@
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.comment.ContentComment, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">Dodaj komentarz</span>
                 <div class="col-md-12">
                     @*@Html.TextAreaFor(model => model.comment.ContentComment, new { htmlAttributes = new { @class = "form-control", col = 6, @id = "comment-box" } })*@
                     <textarea rows="4" class="form-control" id="comment-box"></textarea>
-                    @Html.ValidationMessageFor(model => model.comment.ContentComment, "", new { @class = "text-danger" })
+                    <span id="comment-alert"></span>
                 </div>
             </div>
             <div class="form-group">
@@ -46,7 +46,6 @@
             </div>
         </div>
     }
-    <span id="comment-alert"></span>
     <div class="comment-section">
         @foreach (var comment in Model.commentList)
         {

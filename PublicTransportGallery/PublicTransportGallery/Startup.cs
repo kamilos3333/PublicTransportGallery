@@ -10,5 +10,6 @@ namespace PublicTransportGallery
         {
             ConfigureAuth(app);
         }
+        
     }
 }

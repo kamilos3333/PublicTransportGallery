@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using PublicTransportGallery.Data.Domain;
 using PublicTransportGallery.Infrastructure;
@@ -72,27 +73,21 @@ namespace PublicTransportGallery.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var modelImage = imageService.getImageId(id);
-            if(modelImage == null)
+            ImageDetailsViewModels modelDetails = new ImageDetailsViewModels();
+            if (modelImage == null)
             {
                 return HttpNotFound();
             }
-            ImageDetailsViewModels modelDetails = new ImageDetailsViewModels
-            {
-                ImageId = modelImage.ImageId,
-                User = UserManager.FindById(modelImage.Id).UserName,
-                ImageName = modelImage.Name,
-                DateAdd = modelImage.DateAdd,
-                Producent = modelImage.TblModel.TblProducent.Name,
-                Model = modelImage.TblModel.NameModel,
-                Description = modelImage.Description,
-                YearProduction = modelImage.TblModel.YearProduction,
-                YearEndProduction = modelImage.TblModel.YearProductionEnd
-            };
+            modelDetails.User = UserManager.FindById(modelImage.Id).UserName;
+
+            Mapper.Map(modelImage, modelDetails);
+
+            var commentModel = commentService.getAllCommentsByImageId(id);
 
             var viewModels = new MainImageDetailsViewModels
             {
                 ImageDetails = modelDetails,
-                commentList = commentService.getAllCommentsByImageId(id)
+                commentList = commentModel
             };
 
             return View(viewModels);
