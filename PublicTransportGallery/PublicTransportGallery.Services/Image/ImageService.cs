@@ -19,7 +19,6 @@ namespace PublicTransportGallery.Services.Image
         public void Insert(TblImage image)
         {
             db.TblImages.Add(image);
-            db.SaveChanges();
         }
 
         public TblImage getImageId(int ImageId)
@@ -36,6 +35,16 @@ namespace PublicTransportGallery.Services.Image
         {
             return db.TblImages.Include("TblModel").Where(a => a.Id == Id).ToList();
         }
-        
+
+        public void Delete(TblImage image)
+        {
+            db.TblImages.Remove(image);
+        }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+
     }
 }

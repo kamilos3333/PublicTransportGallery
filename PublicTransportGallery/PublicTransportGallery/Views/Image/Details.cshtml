@@ -46,12 +46,13 @@
             </div>
         </div>
     }
+
     <div class="comment-section">
         @foreach (var comment in Model.commentList)
         {
             <div class="card">
                 <div class="card-header">
-                    <span></span>
+                    @*<span>@comment.UserId</span>*@
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">

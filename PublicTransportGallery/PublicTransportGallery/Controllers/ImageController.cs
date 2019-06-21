@@ -58,6 +58,7 @@ namespace PublicTransportGallery.Controllers
                     Description = model.Description
                 };
                 imageService.Insert(image);
+                imageService.Save();
                 return RedirectToAction("Index","Home");
             }
             var producentModel = new ImageUploadViewModels();
@@ -81,19 +82,58 @@ namespace PublicTransportGallery.Controllers
             modelDetails.User = UserManager.FindById(modelImage.Id).UserName;
 
             Mapper.Map(modelImage, modelDetails);
-
-            var commentModel = commentService.getAllCommentsByImageId(id);
-
+            
             var viewModels = new MainImageDetailsViewModels
             {
                 ImageDetails = modelDetails,
-                commentList = commentModel
-            };
+                commentList = commentService.getAllCommentsByImageId(id)
+        };
 
             return View(viewModels);
         }
 
+        public ActionResult PhotoUser()
+        {
+            var imageList = imageService.DetailsUser(User.Identity.GetUserId());
+            DetailsUserViewModels model = new DetailsUserViewModels
+            {
+                ImagesList = imageList
+            };
+
+            return View(model);
+        }
+
+        public ActionResult EditImage(int id)
+        {
+            var image = imageService.getImageId(id);
+
+            EditImageViewModels model = new EditImageViewModels
+            {
+                ImageId = image.ImageId,
+                Description = image.Description
+            };
+            return View(model);
+        }
+
         [HttpPost]
+        public ActionResult EditImage(EditImageViewModels model)
+        {
+            var image = imageService.getImageId(model.ImageId);
+            image.Description = model.Description;
+            imageService.Save();
+            return RedirectToAction("PhotoUser");
+        }
+
+        public ActionResult DeleteImage(int id)
+        {
+            var image = imageService.getImageId(id);
+            imageService.Delete(image);
+            imageService.Save();
+            return RedirectToAction("PhotoUser");
+        }
+
+        [HttpPost]
+        [ValidateInput(true)]
         public ActionResult AddComment(string commentContent, int id)
         {
             TblComment comment = new TblComment

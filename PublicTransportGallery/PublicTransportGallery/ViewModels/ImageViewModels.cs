@@ -28,4 +28,13 @@ namespace PublicTransportGallery.ViewModels
         [Display(Name = "Opis zdjęcia")]
         public string Description { get; set; }
     }
+
+    public class EditImageViewModels
+    {
+        public int ImageId { get; set; }
+
+        [Display(Name = "Opis zdjęcia")]
+        public string Description { get; set; }
+    } 
+
 }

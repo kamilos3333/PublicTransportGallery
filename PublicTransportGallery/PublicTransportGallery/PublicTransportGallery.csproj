@@ -252,7 +252,7 @@
     <Compile Include="ViewModels\ImageDetailsViewModels.cs" />
     <Compile Include="ViewModels\DetailsUserViewModels.cs" />
     <Compile Include="ViewModels\MainImageDetailsViewModels.cs" />
-    <Compile Include="ViewModels\ImageUploadViewModels.cs" />
+    <Compile Include="ViewModels\ImageViewModels.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModels.cs" />
   </ItemGroup>
@@ -399,6 +399,8 @@
     <Content Include="Views\Manage\DetailsUser.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Image\PhotoUser.cshtml" />
+    <Content Include="Views\Image\EditImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
