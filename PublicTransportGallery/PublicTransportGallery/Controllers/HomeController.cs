@@ -48,16 +48,13 @@ namespace PublicTransportGallery.Controllers
         {
             model.ProducentList = producentService.getAll();
 
-            if (model.ModelId > 0)
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    var searchResult = imageService.SearchImage(model.ModelId);
-                    model.ImageList = searchResult;
-                    return View(model);
-                }
-                return View(model);
+              var searchResult = imageService.SearchImage(model.ProducentId, model.ModelId);
+              model.ImageList = searchResult;
+              return View(model);
             }
+             
 
             return View(model);
         }

@@ -14,7 +14,6 @@ namespace PublicTransportGallery.Services.Comment
         public void insertComments(TblComment comment)
         {
             db.TblComments.Add(comment);
-            db.SaveChanges();
         }
 
         public void deleteComments(TblComment comment)
@@ -25,6 +24,10 @@ namespace PublicTransportGallery.Services.Comment
         public IList<TblComment> getAllCommentsByImageId(int id)
         {
             return db.TblComments.Where(a => a.ImageId == id).ToList();
+        }
+
+        public void Save() {
+           db.SaveChanges();
         }
     }
 }

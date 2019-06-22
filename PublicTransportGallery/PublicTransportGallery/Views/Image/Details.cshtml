@@ -7,7 +7,9 @@
 
 
 <div class="container pp-section">
-    <div class="h3 font-weight-normal">@Model.ImageDetails.ModelVehice</div><img class="img-fluid mt-4" src="@Url.BusImgPath(Model.ImageDetails.ImageName)" />
+    <div class="h3 font-weight-normal">@Model.ImageDetails.ModelVehice</div>
+    <hr />
+    <img style="width: 100%;" src="@Url.BusImgPath(Model.ImageDetails.ImageName)" />
     <div class="row mt-5">
         <div class="col-md-3">
             <div class="h5">@Html.LabelFor(model => model.ImageDetails.User)</div>

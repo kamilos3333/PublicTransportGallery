@@ -118,10 +118,14 @@ namespace PublicTransportGallery.Controllers
         [HttpPost]
         public ActionResult EditImage(EditImageViewModels model)
         {
-            var image = imageService.getImageId(model.ImageId);
-            image.Description = model.Description;
-            imageService.Save();
-            return RedirectToAction("PhotoUser");
+            if (ModelState.IsValid)
+            {
+                var image = imageService.getImageId(model.ImageId);
+                image.Description = model.Description;
+                imageService.Save();
+                return RedirectToAction("PhotoUser");
+            }
+            return View(model);
         }
 
         public ActionResult DeleteImage(int id)

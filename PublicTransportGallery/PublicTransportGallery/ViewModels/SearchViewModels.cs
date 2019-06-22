@@ -14,11 +14,10 @@ namespace PublicTransportGallery.ViewModels
         [Required]
         [Display(Name = "Wybierz producenta")]
         public int ProducentId { get; set; }
-
-        [Required]
+        
         [Display(Name = "Wybierz model")]
-        public int ModelId { get; set; }
+        public int? ModelId { get; set; }
 
-        public IList<TblImage> ImageList { get; set; }
+        public IQueryable<TblImage> ImageList { get; set; }
     }
 }

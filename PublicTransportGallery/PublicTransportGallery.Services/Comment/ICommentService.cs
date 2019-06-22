@@ -12,5 +12,6 @@ namespace PublicTransportGallery.Services.Comment
         IList<TblComment> getAllCommentsByImageId(int id);
         void insertComments(TblComment comment);
         void deleteComments(TblComment comment);
+        void Save();
     }
 }
