@@ -9,6 +9,7 @@ using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -80,19 +81,33 @@ namespace PublicTransportGallery.Controllers
                 return HttpNotFound();
             }
             modelDetails.User = UserManager.FindById(modelImage.Id).UserName;
-
             Mapper.Map(modelImage, modelDetails);
-            
+
+            var comment = commentService.getAllCommentsByImageId(modelDetails.ImageId);
+            List<CommentViewModels> list = new List<CommentViewModels>();
+
+            foreach(var item in comment)
+            {
+                var model = new CommentViewModels
+                {
+                    ContentText = item.ContentText,
+                    DateAdd = item.DateAdd,
+                    Username = UserManager.FindById(item.UserId).UserName,
+                    ImageId = item.ImageId
+                };
+                list.Add(model);
+            }
+
             var viewModels = new MainImageDetailsViewModels
             {
                 ImageDetails = modelDetails,
-                commentList = commentService.getAllCommentsByImageId(id)
-        };
+                Comments = list
+            };
 
             return View(viewModels);
         }
 
-        public ActionResult PhotoUser()
+        public ActionResult PhotoCollectionUser()
         {
             var imageList = imageService.DetailsUser(User.Identity.GetUserId());
             DetailsUserViewModels model = new DetailsUserViewModels
@@ -148,6 +163,7 @@ namespace PublicTransportGallery.Controllers
                 UserId = User.Identity.GetUserId(),
             };
             commentService.insertComments(comment);
+            commentService.Save();
 
             string message = "SUCCESS";
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });

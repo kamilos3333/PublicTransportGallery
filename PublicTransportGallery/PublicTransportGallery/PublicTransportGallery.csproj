@@ -399,7 +399,7 @@
     <Content Include="Views\Manage\DetailsUser.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
-    <Content Include="Views\Image\PhotoUser.cshtml" />
+    <Content Include="Views\Image\PhotoCollectionUser.cshtml" />
     <Content Include="Views\Image\EditImage.cshtml" />
   </ItemGroup>
   <ItemGroup>

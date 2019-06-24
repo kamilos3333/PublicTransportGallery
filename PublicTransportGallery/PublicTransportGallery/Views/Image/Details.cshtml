@@ -50,11 +50,11 @@
     }
 
     <div class="comment-section">
-        @foreach (var comment in Model.commentList)
+        @foreach (var comment in Model.Comments)
         {
             <div class="card">
                 <div class="card-header">
-                    @*<span>@comment.UserId</span>*@
+                    <span>@comment.Username</span>
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
@@ -91,11 +91,9 @@
             success: function () {
                 $('#comment-alert').empty();
                 $('#comment-alert').append("Komentarz został dodany prawidłowo i zostanie wyświetlony po weryfikacji");
-                $('#comment-box').empty();
             },
             error: function () {
                 $('#comment-alert').append("Wystąpił problem");
-                $("#comment-box").empty();
             }
         });
     };

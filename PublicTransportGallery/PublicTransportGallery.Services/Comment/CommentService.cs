@@ -23,7 +23,7 @@ namespace PublicTransportGallery.Services.Comment
 
         public IList<TblComment> getAllCommentsByImageId(int id)
         {
-            return db.TblComments.Where(a => a.ImageId == id).ToList();
+            return db.TblComments.Where(a => a.ImageId == id).OrderByDescending(a => a.DateAdd).ToList();
         }
 
         public void Save() {
