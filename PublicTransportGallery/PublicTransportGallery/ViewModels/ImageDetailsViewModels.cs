@@ -8,6 +8,11 @@ namespace PublicTransportGallery.ViewModels
 {
     public class ImageDetailsViewModels
     {
+        public ImageDetailsViewModels(string UserName)
+        {
+            this.User = UserName;
+        }
+
         public int ImageId { get; set; }
 
         public string ImageName { get; set; }

@@ -66,6 +66,8 @@
 }
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src="~/Scripts/jquery.simpleLoadMore.js"></script>
 <script>
     $(document).ready(function () {
         $("#ProducentId").change(function () {
@@ -81,4 +83,9 @@
         $("#ProducentId").val('');
     });
 
+    $('.table').simpleLoadMore({
+        item: 'tr',
+        count: 20,
+        itemsToLoad: 20,
+    });
 </script>

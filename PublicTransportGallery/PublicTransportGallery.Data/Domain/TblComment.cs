@@ -14,6 +14,19 @@ namespace PublicTransportGallery.Data.Domain
     
     public partial class TblComment
     {
+        public TblComment()
+        {
+
+        }
+
+        public TblComment(int id, string ContentText, string UserId)
+        {
+            this.ImageId = id;
+            this.ContentText = ContentText;
+            this.DateAdd = DateTime.Now;
+            this.UserId = UserId;
+        }
+
         public int CommentId { get; set; }
         public string ContentText { get; set; }
         public System.DateTime DateAdd { get; set; }

@@ -50,12 +50,10 @@ namespace PublicTransportGallery.Controllers
 
             if (ModelState.IsValid)
             {
-              var searchResult = imageService.SearchImage(model.ProducentId, model.ModelId);
-              model.ImageList = searchResult;
+              model.ImageList = imageService.SearchImage(model.ProducentId, model.ModelId);
               return View(model);
             }
              
-
             return View(model);
         }
     }

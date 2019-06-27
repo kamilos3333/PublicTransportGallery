@@ -15,11 +15,17 @@ namespace PublicTransportGallery.Data.Domain
     public partial class TblImage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TblImage(string FileName)
+        {
+            this.DateAdd = DateTime.Now;
+            this.Name = FileName;
+        }
+
         public TblImage()
         {
             this.TblComments = new HashSet<TblComment>();
         }
-    
+
         public int ImageId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

@@ -34,6 +34,7 @@ namespace PublicTransportGallery.Controllers
 
         // GET: UploadImage
         [Authorize]
+        [HttpGet]
         public ActionResult UploadImage()
         {
             var producentModel = new ImageUploadViewModels();
@@ -50,12 +51,10 @@ namespace PublicTransportGallery.Controllers
             {
                 var fileName = ImageManager.InsertImage(Image);
 
-                TblImage image = new TblImage
+                TblImage image = new TblImage(fileName)
                 {
                     Id = User.Identity.GetUserId(),
                     ModelId = model.ModelId,
-                    Name = fileName,
-                    DateAdd = DateTime.Now,
                     Description = model.Description
                 };
                 imageService.Insert(image);
@@ -75,12 +74,11 @@ namespace PublicTransportGallery.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var modelImage = imageService.getImageId(id);
-            ImageDetailsViewModels modelDetails = new ImageDetailsViewModels();
+            var modelDetails = new ImageDetailsViewModels(UserManager.FindById(modelImage.Id).UserName);
             if (modelImage == null)
             {
                 return HttpNotFound();
             }
-            modelDetails.User = UserManager.FindById(modelImage.Id).UserName;
             Mapper.Map(modelImage, modelDetails);
 
             var comment = commentService.getAllCommentsByImageId(modelDetails.ImageId);
@@ -109,15 +107,11 @@ namespace PublicTransportGallery.Controllers
 
         public ActionResult PhotoCollectionUser()
         {
-            var imageList = imageService.DetailsUser(User.Identity.GetUserId());
-            DetailsUserViewModels model = new DetailsUserViewModels
-            {
-                ImagesList = imageList
-            };
-
+            var model = new DetailsUserViewModels(imageService.DetailsUser(User.Identity.GetUserId()));
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult EditImage(int id)
         {
             var image = imageService.getImageId(id);
@@ -155,13 +149,7 @@ namespace PublicTransportGallery.Controllers
         [ValidateInput(true)]
         public ActionResult AddComment(string commentContent, int id)
         {
-            TblComment comment = new TblComment
-            {
-                ImageId = id,
-                ContentText = commentContent,
-                DateAdd = DateTime.Now,
-                UserId = User.Identity.GetUserId(),
-            };
+            var comment = new TblComment(id, commentContent, User.Identity.GetUserId());
             commentService.insertComments(comment);
             commentService.Save();
 
@@ -171,7 +159,7 @@ namespace PublicTransportGallery.Controllers
         
         public JsonResult getModel(int id)
         {
-            var model = modelService.getModelJoinProducent(id).ToList();
+            var model = modelService.getModelJoinProducent(id);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

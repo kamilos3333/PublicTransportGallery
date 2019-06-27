@@ -11,21 +11,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.ImagesList) {
-  
+    @foreach (var item in Model.ImagesList)
+    {
+
         <tr>
             <td>
                 <img src="@Url.BusImgPath(item.Name)" style="width: 160px; height: 118px" />
             </td>
             <td>
-                <a href="@Url.Action("Details","Image", new { id = item.ImageId })">@item.TblModel.TblProducent.Name @item.TblModel.NameModel</a> 
+                <a href="@Url.Action("Details","Image", new { id = item.ImageId })">@item.TblModel.TblProducent.Name @item.TblModel.NameModel</a>
             </td>
             <td>
                 @item.Description
             </td>
         </tr>
-    
-}
+
+    }
 
 
 </table>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src="~/Scripts/jquery.simpleLoadMore.js"></script>
+<script>
+    $('.table').simpleLoadMore({
+        item: 'tr',
+        count: 10,
+        itemsToLoad: 20,
+    });
+</script>

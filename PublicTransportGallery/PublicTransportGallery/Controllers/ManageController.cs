@@ -58,12 +58,8 @@ namespace PublicTransportGallery.Controllers
         [AllowAnonymous]
         public ActionResult DetailsUser(string Username)
         {
-            string user = UserManager.FindByName(Username).Id;
-            var imageList = imageService.DetailsUser(user);
-            DetailsUserViewModels model = new DetailsUserViewModels
-            {
-                ImagesList = imageList
-            };
+            var user = imageService.DetailsUser(UserManager.FindByName(Username).Id);
+            var model = new DetailsUserViewModels(user);
 
             return View(model);
         }

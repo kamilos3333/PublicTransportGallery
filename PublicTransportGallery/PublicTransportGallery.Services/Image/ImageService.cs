@@ -28,7 +28,7 @@ namespace PublicTransportGallery.Services.Image
 
         public IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId)
         {
-            var result = db.TblImages.Include("TblModel").AsQueryable();
+            var result = db.TblImages.Include("TblModel").OrderByDescending(a => a.DateAdd).AsQueryable();
 
             if (ModelId > 0)
             {
@@ -42,7 +42,7 @@ namespace PublicTransportGallery.Services.Image
 
         public IList<TblImage> DetailsUser(string Id)
         {
-            return db.TblImages.Include("TblModel").Where(a => a.Id == Id).ToList();
+            return db.TblImages.Include("TblModel").Where(a => a.Id == Id).OrderByDescending(a => a.DateAdd).ToList();
         }
 
         public void Delete(TblImage image)
