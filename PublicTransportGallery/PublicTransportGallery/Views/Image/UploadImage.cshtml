@@ -1,4 +1,4 @@
-﻿@model PublicTransportGallery.ViewModels.ImageUploadViewModels
+﻿@model PublicTransportGallery.ViewModels.UploadImageViewModels
 
 @{
     ViewBag.Title = "Dodaj zdjęcie";
@@ -31,7 +31,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="@Html.NameFor(model => model.Image)" id="@Html.NameFor(model => model.Image)" data-val-extension="Niepoprawny format pliku" data-val-extension-extentsion="jpg,png,jpqg" required />
+            <input type="file" name="@Html.NameFor(model => model.Image)" id="@Html.NameFor(model => model.Image)" />
             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
         </div>
     </div>

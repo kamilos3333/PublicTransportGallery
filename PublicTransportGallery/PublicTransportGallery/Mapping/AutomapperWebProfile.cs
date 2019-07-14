@@ -1,4 +1,4 @@
-﻿using PublicTransportGallery.Data.Domain;
+﻿using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.ViewModels;
 
 namespace PublicTransportGallery.Mapping
@@ -14,7 +14,10 @@ namespace PublicTransportGallery.Mapping
                 .ForMember(d => d.ImageName, o => o.MapFrom(s => s.Name))
                 .ForMember(d => d.YearProduction, o => o.MapFrom(s => s.TblModel.YearProduction))
                 .ForMember(d => d.YearEndProduction, o => o.MapFrom(s => s.TblModel.YearProductionEnd))
-                ;
+                .ForMember(d => d.UserName, o => o.MapFrom(s => s.users.UserName));
+
+            //CreateMap<TblImage, UploadImageViewModels>();
+            CreateMap<UploadImageViewModels, TblImage>();
         }
 
         public static void Run()

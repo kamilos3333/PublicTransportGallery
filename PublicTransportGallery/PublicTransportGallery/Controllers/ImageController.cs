@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using PublicTransportGallery.Data.Domain;
+using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -37,32 +35,25 @@ namespace PublicTransportGallery.Controllers
         [HttpGet]
         public ActionResult UploadImage()
         {
-            var producentModel = new ImageUploadViewModels();
-            producentModel.ProducentList = producentService.getAll();
-
+            var producentModel = new UploadImageViewModels(producentService.getAll());
             return View(producentModel);
         }
 
         [HttpPost]
         [ValidateInput(true)]
-        public ActionResult UploadImage(HttpPostedFileBase Image, ImageUploadViewModels model)
+        public ActionResult UploadImage(HttpPostedFileBase Image, UploadImageViewModels model)
         {
             if (ModelState.IsValid)
             {
-                var fileName = ImageManager.InsertImage(Image);
-
-                TblImage image = new TblImage(fileName)
-                {
-                    Id = User.Identity.GetUserId(),
-                    ModelId = model.ModelId,
-                    Description = model.Description
-                };
+                var fileName = ImageUpload.InsertImage(Image);
+                var image = Mapper.Map(model, new TblImage(fileName, User.Identity.GetUserId()));
                 imageService.Insert(image);
                 imageService.Save();
+                
                 return RedirectToAction("Index","Home");
             }
-            var producentModel = new ImageUploadViewModels();
-            producentModel.ProducentList = producentService.getAll();
+
+            var producentModel = new UploadImageViewModels(producentService.getAll());
             return View(producentModel);
         }
 
@@ -74,34 +65,23 @@ namespace PublicTransportGallery.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var modelImage = imageService.getImageId(id);
-            var modelDetails = new ImageDetailsViewModels(UserManager.FindById(modelImage.Id).UserName);
             if (modelImage == null)
             {
                 return HttpNotFound();
             }
+            var modelDetails = new ImageDetailsViewModels();
             Mapper.Map(modelImage, modelDetails);
 
             var comment = commentService.getAllCommentsByImageId(modelDetails.ImageId);
-            List<CommentViewModels> list = new List<CommentViewModels>();
+            List<CommentListViewModels> list = new List<CommentListViewModels>();
 
             foreach(var item in comment)
             {
-                var model = new CommentViewModels
-                {
-                    ContentText = item.ContentText,
-                    DateAdd = item.DateAdd,
-                    Username = UserManager.FindById(item.UserId).UserName,
-                    ImageId = item.ImageId
-                };
+                var model = new CommentListViewModels(item.ContentText, UserManager.FindById(item.Id).UserName, item.ImageId, item.DateAdd);
                 list.Add(model);
             }
 
-            var viewModels = new MainImageDetailsViewModels
-            {
-                ImageDetails = modelDetails,
-                Comments = list
-            };
-
+            var viewModels = new MainImageDetailsViewModels(modelDetails, list);
             return View(viewModels);
         }
 
@@ -112,7 +92,7 @@ namespace PublicTransportGallery.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditImage(int id)
+        public ActionResult EditImageInfo(int id)
         {
             var image = imageService.getImageId(id);
 
@@ -125,14 +105,14 @@ namespace PublicTransportGallery.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditImage(EditImageViewModels model)
+        public ActionResult EditImageInfo(EditImageViewModels model)
         {
             if (ModelState.IsValid)
             {
                 var image = imageService.getImageId(model.ImageId);
                 image.Description = model.Description;
                 imageService.Save();
-                return RedirectToAction("PhotoUser");
+                return RedirectToAction("PhotoCollectionUser");
             }
             return View(model);
         }
@@ -142,19 +122,21 @@ namespace PublicTransportGallery.Controllers
             var image = imageService.getImageId(id);
             imageService.Delete(image);
             imageService.Save();
-            return RedirectToAction("PhotoUser");
+            return RedirectToAction("PhotoCollectionUser");
         }
 
         [HttpPost]
         [ValidateInput(true)]
-        public ActionResult AddComment(string commentContent, int id)
+        public JsonResult AddComment(string commentContent, int id)
         {
-            var comment = new TblComment(id, commentContent, User.Identity.GetUserId());
-            commentService.insertComments(comment);
-            commentService.Save();
+            if (ModelState.IsValid)
+            {
+                var comment = new TblComment();
+                commentService.insertComments(comment);
+                commentService.Save();
+            }
 
-            string message = "SUCCESS";
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            return Json(JsonRequestBehavior.AllowGet);
         }
         
         public JsonResult getModel(int id)

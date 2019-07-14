@@ -1,15 +1,13 @@
-﻿using System;
+﻿using PublicTransportGallery.Data;
+using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PublicTransportGallery.Data.Domain;
 
 namespace PublicTransportGallery.Services.Producent
 {
     public partial class ProducentService : IProducentService
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public void deleteProducent(TblProducent producent)
         {

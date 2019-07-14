@@ -1,15 +1,14 @@
-﻿using System;
+﻿using PublicTransportGallery.Data;
+using PublicTransportGallery.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PublicTransportGallery.Data.Domain;
 
 namespace PublicTransportGallery.Services.Comment
 {
     public class CommentService : ICommentService
     {
-        DatabaseEntities db = new DatabaseEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public void insertComments(TblComment comment)
         {

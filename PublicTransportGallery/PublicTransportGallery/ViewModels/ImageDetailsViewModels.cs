@@ -8,11 +8,6 @@ namespace PublicTransportGallery.ViewModels
 {
     public class ImageDetailsViewModels
     {
-        public ImageDetailsViewModels(string UserName)
-        {
-            this.User = UserName;
-        }
-
         public int ImageId { get; set; }
 
         public string ImageName { get; set; }
@@ -29,7 +24,7 @@ namespace PublicTransportGallery.ViewModels
         public string Description { get; set; }
 
         [Display(Name = "Autor:")]
-        public string User { get; set; }
+        public string UserName { get; set; }
 
         [Display(Name = "Lata produkcji:")]
         public int YearProduction { get; set; }

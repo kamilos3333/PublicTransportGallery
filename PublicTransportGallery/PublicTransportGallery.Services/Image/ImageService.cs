@@ -1,15 +1,13 @@
-﻿using System;
+﻿using PublicTransportGallery.Data;
+using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PublicTransportGallery.Data.Domain;
 
 namespace PublicTransportGallery.Services.Image
 {
     public class ImageService : IImageService
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public IList<TblImage> getAll()
         {
@@ -23,21 +21,27 @@ namespace PublicTransportGallery.Services.Image
 
         public TblImage getImageId(int ImageId)
         {
-            return db.TblImages.Include("TblModel").FirstOrDefault(a => a.ImageId == ImageId);
+            return db.TblImages.Include("TblModel").Include("users").FirstOrDefault(a => a.ImageId == ImageId);
         }
 
-        public IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId)
+        public IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId)
         {
             var result = db.TblImages.Include("TblModel").OrderByDescending(a => a.DateAdd).AsQueryable();
 
             if (ModelId > 0)
             {
-                return result = result.Where(a => a.ModelId == ModelId);
+                result = result.Where(a => a.ModelId == ModelId);
             }
-            else
+            if (ProducetnId > 0)
             {
-                return result = result.Where(a => a.TblModel.ProducentId == ProducetnId);
+                result = result.Where(a => a.TblModel.ProducentId == ProducetnId);
             }
+            if (TypeId > 0)
+            {
+                result = result.Where(a => a.TblModel.TypeId == TypeId);
+            }
+            
+            return result;
         }
 
         public IList<TblImage> DetailsUser(string Id)

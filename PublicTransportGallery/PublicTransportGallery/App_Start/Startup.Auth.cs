@@ -6,7 +6,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
+using PublicTransportGallery.Data;
 using PublicTransportGallery.Models;
+using static PublicTransportGallery.Data.ApplicationDbContext;
 
 namespace PublicTransportGallery
 {

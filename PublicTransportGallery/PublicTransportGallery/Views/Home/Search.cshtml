@@ -9,32 +9,40 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Szukaj pojazd wg producenta lub modelu</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Szukaj" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Szukaj pojazd wg producenta lub modelu</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.TypeList, "TypeId", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Szukaj" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 @if (Model.ImageList != null)
@@ -72,7 +80,6 @@
     $(document).ready(function () {
         $("#ProducentId").change(function () {
             $.get("/Image/getModel", { id: $("#ProducentId").val() }, function (data) {
-                //$("#ModelId").empty();
                 $.each(data, function (index, row) {
                     $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
                 });
@@ -81,11 +88,12 @@
     });
     $(document).ready(function () {
         $("#ProducentId").val('');
+        $("#TypeId").val('');
     });
 
     $('.table').simpleLoadMore({
         item: 'tr',
-        count: 20,
+        count: 10,
         itemsToLoad: 20,
     });
 </script>

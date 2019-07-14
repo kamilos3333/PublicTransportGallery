@@ -1,15 +1,22 @@
-﻿using PublicTransportGallery.Data.Domain;
-using System;
+﻿using PublicTransportGallery.CustomValidation;
+using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web;
-using PublicTransportGallery.CustomValidation;
 
 namespace PublicTransportGallery.ViewModels
 {
-    public class ImageUploadViewModels
+    public class UploadImageViewModels
     {
+        public UploadImageViewModels()
+        {
+        }
+
+        public UploadImageViewModels(IList<TblProducent> producentList)
+        {
+            ProducentList = producentList;
+        }
+
         public IList<TblProducent> ProducentList { get; set; }
         
         [Display(Name = "Wybierz producenta")]
@@ -19,23 +26,15 @@ namespace PublicTransportGallery.ViewModels
         [Display(Name = "Wybierz model")]
         public int ModelId { get; set; }
 
-        [DataType(DataType.Upload)]
         [Required]
+        [DataType(DataType.Upload)]
         [Display(Name = "Dodaj zdjęcie")]
         [File(AllowedFileExtensions = new string[] { ".jpg", ".png" }, MaxContentLength = 1024 * 1024 * 2, ErrorMessage = "Niepoprawny format pliku")]
         public HttpPostedFileBase Image { get; set; }
         
         [Display(Name = "Opis zdjęcia")]
         public string Description { get; set; }
+        
     }
-
-    public class EditImageViewModels
-    {
-        public int ImageId { get; set; }
-
-        [Display(Name = "Opis zdjęcia")]
-        [StringLength(150, ErrorMessage = "Tekst nie może być dłuższy niż {1} znaków")]
-        public string Description { get; set; }
-    } 
 
 }

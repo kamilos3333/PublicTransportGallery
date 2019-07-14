@@ -1,15 +1,13 @@
-﻿using System;
+﻿using PublicTransportGallery.Data;
+using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PublicTransportGallery.Data.Domain;
 
 namespace PublicTransportGallery.Services.ModelVehicle
 {
     public class ModelService : IModelService
     {
-        private DatabaseEntities db = new DatabaseEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public IList<TblModel> getAll()
         {

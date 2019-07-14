@@ -37,6 +37,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -50,66 +56,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\PublicTransportGalleryModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PublicTransportGalleryModel.Context.tt</DependentUpon>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\201907141341047_addNullToYearProducetionEnd.cs" />
+    <Compile Include="Migrations\201907141341047_addNullToYearProducetionEnd.Designer.cs">
+      <DependentUpon>201907141341047_addNullToYearProducetionEnd.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\PublicTransportGalleryModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\PublicTransportGalleryModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PublicTransportGalleryModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\TblComment.cs">
-      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\TblImage.cs">
-      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\TblModel.cs">
-      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\TblProducent.cs">
-      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\TblTypeTransport.cs">
-      <DependentUpon>PublicTransportGalleryModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\TblComment.cs" />
+    <Compile Include="Model\TblImage.cs" />
+    <Compile Include="Model\TblModel.cs" />
+    <Compile Include="Model\TblProducent.cs" />
+    <Compile Include="Model\TblThumbnail.cs" />
+    <Compile Include="Model\TblTypeTransport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Domain\PublicTransportGalleryModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PublicTransportGalleryModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
-    <None Include="Domain\PublicTransportGalleryModel.edmx.diagram">
-      <DependentUpon>PublicTransportGalleryModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Domain\PublicTransportGalleryModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>PublicTransportGalleryModel.Context.cs</LastGenOutput>
-      <DependentUpon>PublicTransportGalleryModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Domain\PublicTransportGalleryModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PublicTransportGalleryModel.edmx</DependentUpon>
-      <LastGenOutput>PublicTransportGalleryModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907141341047_addNullToYearProducetionEnd.resx">
+      <DependentUpon>201907141341047_addNullToYearProducetionEnd.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

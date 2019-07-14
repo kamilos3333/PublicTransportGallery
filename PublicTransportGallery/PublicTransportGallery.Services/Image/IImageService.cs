@@ -1,9 +1,6 @@
-﻿using PublicTransportGallery.Data.Domain;
-using System;
+﻿using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PublicTransportGallery.Services.Image
 {
@@ -13,7 +10,7 @@ namespace PublicTransportGallery.Services.Image
         void Delete(TblImage image);
         TblImage getImageId(int ImageId);
         IList<TblImage> getAll();
-        IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId);
+        IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId);
         IList<TblImage> DetailsUser(string Id);
         void Save();
     }

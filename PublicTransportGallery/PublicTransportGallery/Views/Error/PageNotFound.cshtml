@@ -1,0 +1,16 @@
+﻿<link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,900" rel="stylesheet">
+<link href="~/Content/HttpNotFound.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "PageNotFound";
+}
+
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-404">
+            <h1>404</h1>
+        </div>
+        <h2>Strony nie znaleziono!</h2>
+        <p>Bardzo nam przykro ale wygląda na to, że strona do której probujesz sie dostać wygasła lub została usunięta.</p>
+        <a href="@Url.Action("Index","Home")">Powrót do strony głównej</a>
+    </div>
+</div>

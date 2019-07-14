@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace PublicTransportGallery.Controllers
 {
+    [HandleError]
     public class HomeController : Controller
     {
         private IProducentService producentService;
@@ -25,14 +26,7 @@ namespace PublicTransportGallery.Controllers
         
         public ActionResult Index()
         {
-            var imagesList = imageService.getAll();
-            var typeList = modelService.getTypeName();
-
-            var vm = new HomeViewModel()
-            {
-                TypeTransport = typeList,
-                Images = imagesList
-            };
+            var vm = new HomeViewModel(modelService.getTypeName(), imageService.getAll());
 
             return View(vm);
         }
@@ -44,17 +38,23 @@ namespace PublicTransportGallery.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Search()
+        {
+            var searchModel = new SearchViewModels(producentService.getAll(), modelService.getTypeName());
+            return View(searchModel);
+        }
+
+        [HttpPost]
         public ActionResult Search(SearchViewModels model)
         {
-            model.ProducentList = producentService.getAll();
-
-            if (ModelState.IsValid)
+            if (model.ImageList == null)
             {
-              model.ImageList = imageService.SearchImage(model.ProducentId, model.ModelId);
-              return View(model);
+                var searchModel = new SearchViewModels(producentService.getAll(), modelService.getTypeName(), imageService.SearchImage(model.ProducentId, model.ModelId, model.TypeId));
+                return View(searchModel);
             }
-             
-            return View(model);
+            return View();
         }
+
     }
 }
