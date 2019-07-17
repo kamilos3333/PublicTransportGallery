@@ -12,6 +12,6 @@ namespace PublicTransportGallery.ViewModels
 
         public ImageDetailsViewModels ImageDetails { get; set; }
         public CommentInsertViewModels InsertComment { get; set; }
-        public List<CommentListViewModels> Comments { get; set; }
+        public IList<CommentListViewModels> Comments { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using PublicTransportGallery.Data.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace PublicTransportGallery.Services.Comment
@@ -22,7 +23,7 @@ namespace PublicTransportGallery.Services.Comment
 
         public IList<TblComment> getAllCommentsByImageId(int id)
         {
-            return db.TblComments.Where(a => a.ImageId == id).OrderByDescending(a => a.DateAdd).ToList();
+            return db.TblComments.Where(a => a.ImageId == id).Include("users").OrderByDescending(a => a.DateAdd).ToList();
         }
 
         public void Save() {

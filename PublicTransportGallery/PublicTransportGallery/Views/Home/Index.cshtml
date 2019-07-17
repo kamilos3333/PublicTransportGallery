@@ -35,7 +35,7 @@
                     <div class="card" data-groups="[&quot;@busPhoto.TblModel.TblTypeTransport.Name&quot;]">
                         <a href="@Url.Action("Details","Image", new { id = busPhoto.ImageId })">
                             <figure class="pp-effect">
-                                <img class="img-fluid" src="@Url.BusImgPath(busPhoto.Name)" alt="@busPhoto.Name" />
+                                <img class="img-fluid" src="@Url.ThumbImgPath(busPhoto.Name)" alt="@busPhoto.Name" />
                                 <figcaption>
                                     <div class="h4">@busPhoto.TblModel.TblProducent.Name @busPhoto.TblModel.NameModel</div>
                                 </figcaption>

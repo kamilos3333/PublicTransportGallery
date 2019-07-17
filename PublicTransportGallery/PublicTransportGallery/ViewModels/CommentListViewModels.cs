@@ -8,6 +8,10 @@ namespace PublicTransportGallery.ViewModels
 {
     public class CommentListViewModels
     {
+        public CommentListViewModels()
+        {
+        }
+
         public CommentListViewModels(string ContentText, string Username, int ImageId, DateTime DateAdd)
         {
             this.ContentText = ContentText;

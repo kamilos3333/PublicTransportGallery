@@ -21,7 +21,7 @@ namespace PublicTransportGallery.Infrastructure
 
         private static void SaveToPath(HttpPostedFileBase upload, string fileName)
         {
-            var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(SetFolderPath()), fileName);
+            var path = Path.Combine(HttpContext.Current.Server.MapPath(SetFolderPath()), fileName);
             upload.SaveAs(path);
         }
         

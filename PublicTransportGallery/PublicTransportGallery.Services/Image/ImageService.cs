@@ -2,6 +2,7 @@
 using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace PublicTransportGallery.Services.Image
 {
@@ -26,7 +27,7 @@ namespace PublicTransportGallery.Services.Image
 
         public IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId)
         {
-            var result = db.TblImages.Include("TblModel").OrderByDescending(a => a.DateAdd).AsQueryable();
+            var result = db.TblImages.Include(x => x.TblModel).Include(x => x.TblModel.TblProducent).OrderByDescending(a => a.DateAdd).AsQueryable();
 
             if (ModelId > 0)
             {

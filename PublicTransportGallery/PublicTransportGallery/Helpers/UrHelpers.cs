@@ -17,5 +17,14 @@ namespace PublicTransportGallery.Helpers
 
             return pathFolder;
         }
+
+        public static string ThumbImgPath(this UrlHelper helper, string nameThumbFolder)
+        {
+            var ThumbImgFolder = AppConfig.ThumbnailFolderPath;
+            var path = Path.Combine(ThumbImgFolder, nameThumbFolder);
+            var pathFolder = helper.Content(path);
+
+            return pathFolder;
+        }
     }
 }

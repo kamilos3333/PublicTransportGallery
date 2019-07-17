@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
-using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System.Collections.Generic;
@@ -17,15 +15,12 @@ namespace PublicTransportGallery.Controllers
 {
     public class ImageController : Controller
     {
-        private IProducentService producentService;
-        private IModelService modelService;
-        private IImageService imageService;
-        private ICommentService commentService;
-
-        public ImageController(IImageService _imageService, IProducentService _producentService, IModelService _modelService, ICommentService _commentService)
+        private readonly IProducentService producentService;
+        private readonly IImageService imageService;
+        private readonly ICommentService commentService;
+        public ImageController(IImageService _imageService, IProducentService _producentService, ICommentService _commentService)
         {
             this.imageService = _imageService;
-            this.modelService = _modelService;
             this.producentService = _producentService;
             this.commentService = _commentService;
         }
@@ -49,7 +44,8 @@ namespace PublicTransportGallery.Controllers
                 var image = Mapper.Map(model, new TblImage(fileName, User.Identity.GetUserId()));
                 imageService.Insert(image);
                 imageService.Save();
-                
+                ImageThumbnail.Crop(fileName, 340, 255);
+
                 return RedirectToAction("Index","Home");
             }
 
@@ -74,14 +70,9 @@ namespace PublicTransportGallery.Controllers
 
             var comment = commentService.getAllCommentsByImageId(modelDetails.ImageId);
             List<CommentListViewModels> list = new List<CommentListViewModels>();
+            var modelComment = Mapper.Map(comment, list);
 
-            foreach(var item in comment)
-            {
-                var model = new CommentListViewModels(item.ContentText, UserManager.FindById(item.Id).UserName, item.ImageId, item.DateAdd);
-                list.Add(model);
-            }
-
-            var viewModels = new MainImageDetailsViewModels(modelDetails, list);
+            var viewModels = new MainImageDetailsViewModels(modelDetails, modelComment);
             return View(viewModels);
         }
 
@@ -119,44 +110,10 @@ namespace PublicTransportGallery.Controllers
 
         public ActionResult DeleteImage(int id)
         {
-            var image = imageService.getImageId(id);
-            imageService.Delete(image);
+            imageService.Delete(imageService.getImageId(id));
             imageService.Save();
             return RedirectToAction("PhotoCollectionUser");
         }
-
-        [HttpPost]
-        [ValidateInput(true)]
-        public JsonResult AddComment(string commentContent, int id)
-        {
-            if (ModelState.IsValid)
-            {
-                var comment = new TblComment();
-                commentService.insertComments(comment);
-                commentService.Save();
-            }
-
-            return Json(JsonRequestBehavior.AllowGet);
-        }
         
-        public JsonResult getModel(int id)
-        {
-            var model = modelService.getModelJoinProducent(id);
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
-
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
     }
 }

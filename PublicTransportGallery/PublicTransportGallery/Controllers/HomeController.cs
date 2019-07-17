@@ -13,9 +13,9 @@ namespace PublicTransportGallery.Controllers
     [HandleError]
     public class HomeController : Controller
     {
-        private IProducentService producentService;
-        private IImageService imageService;
-        private IModelService modelService;
+        private readonly IProducentService producentService;
+        private readonly IImageService imageService;
+        private readonly IModelService modelService;
 
         public HomeController(IProducentService _producentService, IImageService _imageService, IModelService _modelService)
         {
@@ -31,13 +31,6 @@ namespace PublicTransportGallery.Controllers
             return View(vm);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Search()
         {
@@ -48,12 +41,8 @@ namespace PublicTransportGallery.Controllers
         [HttpPost]
         public ActionResult Search(SearchViewModels model)
         {
-            if (model.ImageList == null)
-            {
-                var searchModel = new SearchViewModels(producentService.getAll(), modelService.getTypeName(), imageService.SearchImage(model.ProducentId, model.ModelId, model.TypeId));
-                return View(searchModel);
-            }
-            return View();
+            var searchModel = new SearchViewModels(producentService.getAll(), modelService.getTypeName(), imageService.SearchImage(model.ProducentId, model.ModelId, model.TypeId));
+            return View(searchModel);
         }
 
     }

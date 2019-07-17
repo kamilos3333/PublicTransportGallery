@@ -18,6 +18,8 @@ namespace PublicTransportGallery.Mapping
 
             //CreateMap<TblImage, UploadImageViewModels>();
             CreateMap<UploadImageViewModels, TblImage>();
+            CreateMap<TblComment, CommentListViewModels>()
+                .ForMember(d => d.Username, o => o.MapFrom(s => s.users.UserName));
         }
 
         public static void Run()

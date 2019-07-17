@@ -49,28 +49,24 @@
 {
     <h4>Wynik wyszukiwania</h4>
     <hr />
-    <table class="table">
 
-        @foreach (var itemResult in Model.ImageList)
-        {
-
-            <tr>
-                <td>
-                    <img src="@Url.BusImgPath(itemResult.Name)" style="width: 160px; height: 100px" />
-                </td>
-                <td>
-                    <a href="@Url.Action("Details","Image", new { id = itemResult.ImageId })">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</a>
-                </td>
-                <td>
-                    @itemResult.Description
-                </td>
-            </tr>
-
-        }
-
-
-    </table>
-
+    <div class="list-group">
+    @foreach (var itemResult in Model.ImageList)
+    {
+        <a href="@Url.Action("Details","Image", new { id = itemResult.ImageId })">
+            <ul class="list-unstyled">
+                <li class="media">
+                    <img src="@Url.ThumbImgPath(itemResult.Name)" style="width: 25%" class="mr-3" alt="...">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</h5>
+                        @itemResult.Description
+                    </div>
+                </li>
+            </ul>
+        </a>
+    }
+    </div>
+    
 }
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
@@ -79,7 +75,7 @@
 <script>
     $(document).ready(function () {
         $("#ProducentId").change(function () {
-            $.get("/Image/getModel", { id: $("#ProducentId").val() }, function (data) {
+            $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
                 $.each(data, function (index, row) {
                     $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
                 });
@@ -91,9 +87,10 @@
         $("#TypeId").val('');
     });
 
-    $('.table').simpleLoadMore({
-        item: 'tr',
+    $('.list-group').simpleLoadMore({
+        item: 'ul',
         count: 10,
         itemsToLoad: 20,
     });
 </script>
+
