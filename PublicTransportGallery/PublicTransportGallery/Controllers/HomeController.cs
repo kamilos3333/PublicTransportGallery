@@ -27,7 +27,6 @@ namespace PublicTransportGallery.Controllers
         public ActionResult Index()
         {
             var vm = new HomeViewModel(modelService.getTypeName(), imageService.getAll());
-
             return View(vm);
         }
 

@@ -168,6 +168,7 @@ namespace PublicTransportGallery.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
+                    UserManager.AddToRole(user.Id, "Guest");
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Proszę otworzyć link aby aktywować konto <a href=\"" + callbackUrl + "\">here</a>");

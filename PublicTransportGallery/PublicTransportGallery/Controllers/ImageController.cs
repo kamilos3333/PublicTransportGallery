@@ -4,9 +4,11 @@ using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -16,13 +18,15 @@ namespace PublicTransportGallery.Controllers
     public class ImageController : Controller
     {
         private readonly IProducentService producentService;
+        private readonly IModelService modelService;
         private readonly IImageService imageService;
         private readonly ICommentService commentService;
-        public ImageController(IImageService _imageService, IProducentService _producentService, ICommentService _commentService)
+        public ImageController(IImageService _imageService, IProducentService _producentService, ICommentService _commentService, IModelService _modelService)
         {
             this.imageService = _imageService;
             this.producentService = _producentService;
             this.commentService = _commentService;
+            this.modelService = _modelService;
         }
 
         // GET: UploadImage
@@ -57,14 +61,11 @@ namespace PublicTransportGallery.Controllers
         public ActionResult Details(int id)
         {
             if(id <= 0)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var modelImage = imageService.getImageId(id);
             if (modelImage == null)
-            {
                 return HttpNotFound();
-            }
+
             var modelDetails = new ImageDetailsViewModels();
             Mapper.Map(modelImage, modelDetails);
 
@@ -85,13 +86,15 @@ namespace PublicTransportGallery.Controllers
         [HttpGet]
         public ActionResult EditImageInfo(int id)
         {
+            if (id <= 0)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var image = imageService.getImageId(id);
+            if (image == null)
+                return HttpNotFound();
 
-            EditImageViewModels model = new EditImageViewModels
-            {
-                ImageId = image.ImageId,
-                Description = image.Description
-            };
+            var modelEdit = new EditImageViewModels(producentService.getAll(), modelService.getModelJoinProducent(image.TblModel.ProducentId));
+            var model = Mapper.Map(image, modelEdit);
+
             return View(model);
         }
 
@@ -101,7 +104,8 @@ namespace PublicTransportGallery.Controllers
             if (ModelState.IsValid)
             {
                 var image = imageService.getImageId(model.ImageId);
-                image.Description = model.Description;
+                var modelEdit = Mapper.Map(model, image);
+                imageService.Update(modelEdit);
                 imageService.Save();
                 return RedirectToAction("PhotoCollectionUser");
             }

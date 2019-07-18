@@ -60,5 +60,9 @@ namespace PublicTransportGallery.Services.Image
             db.SaveChanges();
         }
 
+        public void Update(TblImage image)
+        {
+            db.Entry(image).State = EntityState.Modified;
+        }
     }
 }

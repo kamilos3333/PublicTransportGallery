@@ -1,9 +1,10 @@
-﻿using PublicTransportGallery.Data.Model;
+﻿using AutoMapper;
+using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.ViewModels;
 
 namespace PublicTransportGallery.Mapping
 {
-    public class AutomapperWebProfile : AutoMapper.Profile
+    public class AutomapperWebProfile : Profile
     {
         public AutomapperWebProfile()
         {
@@ -20,14 +21,18 @@ namespace PublicTransportGallery.Mapping
             CreateMap<UploadImageViewModels, TblImage>();
             CreateMap<TblComment, CommentListViewModels>()
                 .ForMember(d => d.Username, o => o.MapFrom(s => s.users.UserName));
+
+            CreateMap<TblImage, EditImageViewModels>()
+                .ForMember(d => d.ProducentId, o => o.MapFrom(s => s.TblModel.TblProducent.ProducentId));
+            CreateMap<EditImageViewModels, TblImage>();
         }
 
-        public static void Run()
-        {
-            AutoMapper.Mapper.Initialize(a =>
-            {
-                a.AddProfile<AutomapperWebProfile>();
-            });
-        }
+        //public static void Run()
+        //{
+        //    AutoMapper.Mapper.Initialize(a =>
+        //    {
+        //        a.AddProfile<AutomapperWebProfile>();
+        //    });
+        //}
     }
 }

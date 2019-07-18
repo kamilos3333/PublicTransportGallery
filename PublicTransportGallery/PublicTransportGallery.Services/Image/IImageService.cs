@@ -8,6 +8,7 @@ namespace PublicTransportGallery.Services.Image
     {
         void Insert(TblImage image);
         void Delete(TblImage image);
+        void Update(TblImage image);
         TblImage getImageId(int ImageId);
         IList<TblImage> getAll();
         IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId);

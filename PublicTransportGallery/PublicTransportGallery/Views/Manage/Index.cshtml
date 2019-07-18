@@ -9,6 +9,15 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+        @if (User.IsInRole("Admin"))
+        {
+            <dt>Panel administratora</dt>
+            <dd>
+                [
+                @Html.ActionLink("Panel", "Index", "Admin")
+                ]
+            </dd>
+        }
         <dt>Zdjęcia</dt>
         <dd>
             [
