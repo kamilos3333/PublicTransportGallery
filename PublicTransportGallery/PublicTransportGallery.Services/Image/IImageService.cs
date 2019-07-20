@@ -1,6 +1,7 @@
 ﻿using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PublicTransportGallery.Services.Image
 {
@@ -14,5 +15,7 @@ namespace PublicTransportGallery.Services.Image
         IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId);
         IList<TblImage> DetailsUser(string Id);
         void Save();
+        Task SaveAsync();
+        Task InsertAsync(TblImage image);
     }
 }

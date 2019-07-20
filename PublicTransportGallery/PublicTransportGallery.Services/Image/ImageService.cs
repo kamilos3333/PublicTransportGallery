@@ -3,6 +3,7 @@ using PublicTransportGallery.Data.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace PublicTransportGallery.Services.Image
 {
@@ -54,15 +55,27 @@ namespace PublicTransportGallery.Services.Image
         {
             db.TblImages.Remove(image);
         }
+        
+        public void Update(TblImage image)
+        {
+            db.Entry(image).State = EntityState.Modified;
+        }
 
         public void Save()
         {
             db.SaveChanges();
         }
 
-        public void Update(TblImage image)
+        public async Task InsertAsync(TblImage image)
         {
-            db.Entry(image).State = EntityState.Modified;
+            db.TblImages.Add(image);
+            await db.SaveChangesAsync();
         }
+
+        public async Task SaveAsync()
+        {
+            await db.SaveChangesAsync();
+        }
+        
     }
 }

@@ -10,6 +10,7 @@ using PublicTransportGallery.ViewModels;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,14 +41,14 @@ namespace PublicTransportGallery.Controllers
 
         [HttpPost]
         [ValidateInput(true)]
-        public ActionResult UploadImage(HttpPostedFileBase Image, UploadImageViewModels model)
+        public async Task<ActionResult> UploadImage(HttpPostedFileBase Image, UploadImageViewModels model)
         {
             if (ModelState.IsValid)
             {
                 var fileName = ImageUpload.InsertImage(Image);
                 var image = Mapper.Map(model, new TblImage(fileName, User.Identity.GetUserId()));
                 imageService.Insert(image);
-                imageService.Save();
+                await imageService.InsertAsync(image);
                 ImageThumbnail.Crop(fileName, 340, 255);
 
                 return RedirectToAction("Index","Home");
@@ -114,8 +115,10 @@ namespace PublicTransportGallery.Controllers
 
         public ActionResult DeleteImage(int id)
         {
-            imageService.Delete(imageService.getImageId(id));
+            var getImage = imageService.getImageId(id);
+            imageService.Delete(getImage);
             imageService.Save();
+            DeleteImageFromFolder.DeleteImage(getImage.Name);
             return RedirectToAction("PhotoCollectionUser");
         }
         

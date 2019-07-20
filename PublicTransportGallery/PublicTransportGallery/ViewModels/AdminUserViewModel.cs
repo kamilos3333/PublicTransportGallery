@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PublicTransportGallery.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,4 +25,12 @@ namespace PublicTransportGallery.ViewModels
         public string Role { get; set; }
         public string RoleId { get; set; }
         public string RoleValue { get; set; }
+    }    public class AdminListImage
+    {
+        public AdminListImage(IList<TblImage> ImageList)
+        {
+            this.ImageList = ImageList;
+        }
+
+        public IList<TblImage> ImageList { get; set; }
     }}

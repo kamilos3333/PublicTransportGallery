@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PublicTransportGallery.Data;
+using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace PublicTransportGallery.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         public UserManager<ApplicationDbContext.ApplicationUser> UserManager { get; set; }
@@ -21,15 +23,15 @@ namespace PublicTransportGallery.Controllers
         public static string AdmUsrEmail { get; set; }
         public static string AdmUsrRole { get; set; }
         public static string AdmUsrSrch { get; set; }
-        public static string AdmRankSrch { get; set; }
+        public static string AdmRankSrch { get; set; }        private readonly IImageService imageService;
 
         // GET: Admin
-        public AdminController()
+        public AdminController(IImageService _imageService)
         {
             context = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationDbContext.ApplicationUser>(new UserStore<ApplicationDbContext.ApplicationUser>(context));
-        }        [Authorize(Roles = "Admin")]
-        [ActionName("Index")]
+            this.imageService = _imageService;
+        }        [ActionName("Index")]
         public async Task<ActionResult> ShowUserDetails(AdminUserViewModel model)
         {
             usrList.Clear();
@@ -69,7 +71,6 @@ namespace PublicTransportGallery.Controllers
             return PartialView("ShowUserDetails");
         }
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Index(AdminUserViewModel model, ManageMessageId? message = null)
         {
             ViewBag.StatusMessage = message == ManageMessageId.UserDeleted ? " Konto użytkownika zostało pomyślnie usunięte." : message == ManageMessageId.UserUpdated ? "Konto użytkownika zostało zaaktualizowane." : ""; ViewBag.ErrorMessage = message == ManageMessageId.Error ? "Błąd.": message == ManageMessageId.HighRankedUser ? "Admin nie możezostać usunięty.": "";
@@ -78,13 +79,11 @@ namespace PublicTransportGallery.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult EditUser()
         {
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditUser(string id, AdminEditViewModel model)
         {
@@ -131,7 +130,6 @@ namespace PublicTransportGallery.Controllers
             return roleNames;
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SaveUser(string id, AdminEditViewModel model)
         {
@@ -157,13 +155,11 @@ namespace PublicTransportGallery.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult DeleteUser()
         {
             return View();
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteUser(string userid)
         {
@@ -191,6 +187,12 @@ namespace PublicTransportGallery.Controllers
             return RedirectToAction("Index", "Admin", new { Message = ManageMessageId.UserDeleted });
         }
 
+        public ActionResult ImageListAdmin()
+        {
+            var vm = new AdminListImage(imageService.getAll());
+            return View(vm);
+        }
+        
     }
 
     public enum ManageMessageId

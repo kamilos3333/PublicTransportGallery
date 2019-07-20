@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PublicTransportGallery.ViewModels
 {
@@ -13,5 +14,6 @@ namespace PublicTransportGallery.ViewModels
         public ImageDetailsViewModels ImageDetails { get; set; }
         public CommentInsertViewModels InsertComment { get; set; }
         public IList<CommentListViewModels> Comments { get; set; }
+        
     }
 }

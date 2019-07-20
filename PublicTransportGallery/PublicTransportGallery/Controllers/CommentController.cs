@@ -1,5 +1,7 @@
-﻿using PublicTransportGallery.Data.Model;
+﻿using Microsoft.AspNet.Identity;
+using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Services.Comment;
+using PublicTransportGallery.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +22,11 @@ namespace PublicTransportGallery.Controllers
         // GET: Comment
         [HttpPost]
         [ValidateInput(true)]
-        public JsonResult AddComment(string commentContent, int id)
+        public ActionResult AddComment(CommentInsertViewModels model)
         {
             if (ModelState.IsValid)
             {
-                var comment = new TblComment();
+                var comment = new TblComment(model.commentContent, User.Identity.GetUserId());
                 commentService.insertComments(comment);
                 commentService.Save();
             }
