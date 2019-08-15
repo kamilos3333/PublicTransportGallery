@@ -65,17 +65,15 @@ namespace PublicTransportGallery.Services.Image
         {
             db.SaveChanges();
         }
-
-        public async Task InsertAsync(TblImage image)
-        {
-            db.TblImages.Add(image);
-            await db.SaveChangesAsync();
-        }
-
+        
         public async Task SaveAsync()
         {
             await db.SaveChangesAsync();
         }
-        
+
+        public IList<TblImage> getAllPagination(int recordsPerPage)
+        {
+            return db.TblImages.Take(recordsPerPage).ToList();
+        }
     }
 }

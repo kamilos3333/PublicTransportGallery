@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.ViewModels;
@@ -26,8 +27,9 @@ namespace PublicTransportGallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                var comment = new TblComment(model.commentContent, User.Identity.GetUserId());
-                commentService.insertComments(comment);
+                var comment = new TblComment(User.Identity.GetUserId());
+                var mapper = Mapper.Map(model, comment);
+                commentService.insertComments(mapper);
                 commentService.Save();
             }
 

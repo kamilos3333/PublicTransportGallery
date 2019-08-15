@@ -4,49 +4,62 @@
     ViewBag.Title = "Edytuj zdjęcie";
 }
 
-<h2>@ViewBag.Title</h2>
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditImageInfo", "Image", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.HiddenFor(model => model.ImageId)
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-6" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ModelId, new SelectList(Model.ModelList, "ModelId", "NameModel"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Zapisz" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Edytuj zdjęcie</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ImageId)
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ModelId, new SelectList(Model.ModelList, "ModelId", "NameModel"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10">
+            <input type="file" name="@Html.NameFor(model => model.Image)" id="@Html.NameFor(model => model.Image)" value="@Html.NameFor(model => model.Image.FileName)" />
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script>
     $(document).ready(function () {
         $("#ProducentId").change(function () {

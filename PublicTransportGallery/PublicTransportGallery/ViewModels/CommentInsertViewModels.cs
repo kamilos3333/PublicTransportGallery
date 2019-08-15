@@ -10,7 +10,7 @@ namespace PublicTransportGallery.ViewModels
     {
         [Required]
         [Display(Name = "Dodaj komentarz")]
-        public string commentContent { get; set; }
+        public string InsertContent { get; set; }
     }
 
     

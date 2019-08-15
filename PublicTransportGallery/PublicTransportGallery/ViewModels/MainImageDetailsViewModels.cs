@@ -10,7 +10,7 @@ namespace PublicTransportGallery.ViewModels
             this.ImageDetails = ImageDetails;
             this.Comments = Comments;
         }
-
+        
         public ImageDetailsViewModels ImageDetails { get; set; }
         public CommentInsertViewModels InsertComment { get; set; }
         public IList<CommentListViewModels> Comments { get; set; }

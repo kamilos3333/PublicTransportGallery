@@ -16,6 +16,5 @@ namespace PublicTransportGallery.Services.Image
         IList<TblImage> DetailsUser(string Id);
         void Save();
         Task SaveAsync();
-        Task InsertAsync(TblImage image);
     }
 }

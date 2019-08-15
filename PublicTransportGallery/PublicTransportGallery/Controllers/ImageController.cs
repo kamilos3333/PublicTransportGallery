@@ -2,13 +2,14 @@
 using Microsoft.AspNet.Identity;
 using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure;
+using PublicTransportGallery.Infrastructure.ModelBuilder;
+using PublicTransportGallery.Infrastructure.ModelBuilder.Interface;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,12 +23,16 @@ namespace PublicTransportGallery.Controllers
         private readonly IModelService modelService;
         private readonly IImageService imageService;
         private readonly ICommentService commentService;
+        UploadImageBuilder uploadImageBuilder;
+        EditImageBuilder editImageBuilder;
         public ImageController(IImageService _imageService, IProducentService _producentService, ICommentService _commentService, IModelService _modelService)
         {
             this.imageService = _imageService;
             this.producentService = _producentService;
             this.commentService = _commentService;
             this.modelService = _modelService;
+            uploadImageBuilder = new UploadImageBuilder(producentService, imageService);
+            editImageBuilder = new EditImageBuilder(imageService, producentService, modelService);
         }
 
         // GET: UploadImage
@@ -35,27 +40,20 @@ namespace PublicTransportGallery.Controllers
         [HttpGet]
         public ActionResult UploadImage()
         {
-            var producentModel = new UploadImageViewModels(producentService.getAll());
-            return View(producentModel);
+            return View(uploadImageBuilder.Rebuild(new UploadImageViewModels()));
         }
 
         [HttpPost]
         [ValidateInput(true)]
-        public async Task<ActionResult> UploadImage(HttpPostedFileBase Image, UploadImageViewModels model)
+        public ActionResult UploadImage(HttpPostedFileBase Image, UploadImageViewModels model)
         {
             if (ModelState.IsValid)
             {
-                var fileName = ImageUpload.InsertImage(Image);
-                var image = Mapper.Map(model, new TblImage(fileName, User.Identity.GetUserId()));
-                imageService.Insert(image);
-                await imageService.InsertAsync(image);
-                ImageThumbnail.Crop(fileName, 340, 255);
-
+                uploadImageBuilder.Execute(Image, model);
                 return RedirectToAction("Index","Home");
             }
 
-            var producentModel = new UploadImageViewModels(producentService.getAll());
-            return View(producentModel);
+            return View(uploadImageBuilder.Rebuild(model));
         }
 
         [OutputCache(Duration = 20)]
@@ -93,24 +91,19 @@ namespace PublicTransportGallery.Controllers
             if (image == null)
                 return HttpNotFound();
 
-            var modelEdit = new EditImageViewModels(producentService.getAll(), modelService.getModelJoinProducent(image.TblModel.ProducentId));
-            var model = Mapper.Map(image, modelEdit);
-
-            return View(model);
+            var mapper = Mapper.Map(image, new EditImageViewModels());
+            return View(editImageBuilder.Rebuild(mapper));
         }
 
         [HttpPost]
-        public ActionResult EditImageInfo(EditImageViewModels model)
+        public ActionResult EditImageInfo(HttpPostedFileBase Image, EditImageViewModels model)
         {
             if (ModelState.IsValid)
             {
-                var image = imageService.getImageId(model.ImageId);
-                var modelEdit = Mapper.Map(model, image);
-                imageService.Update(modelEdit);
-                imageService.Save();
+                editImageBuilder.Execute(Image, model);
                 return RedirectToAction("PhotoCollectionUser");
             }
-            return View(model);
+            return View(editImageBuilder.Rebuild(model));
         }
 
         public ActionResult DeleteImage(int id)

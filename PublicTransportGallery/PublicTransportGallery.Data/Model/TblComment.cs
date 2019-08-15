@@ -13,9 +13,8 @@ namespace PublicTransportGallery.Data.Model
         {
         }
 
-        public TblComment(string contentText, string id)
+        public TblComment(string id)
         {
-            ContentText = contentText;
             DateAdd = DateTime.Now;
             Id = id;
             ImageId = 14;

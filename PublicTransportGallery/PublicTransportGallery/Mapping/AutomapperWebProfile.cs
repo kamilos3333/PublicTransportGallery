@@ -25,6 +25,7 @@ namespace PublicTransportGallery.Mapping
             CreateMap<TblImage, EditImageViewModels>()
                 .ForMember(d => d.ProducentId, o => o.MapFrom(s => s.TblModel.TblProducent.ProducentId));
             CreateMap<EditImageViewModels, TblImage>();
+            CreateMap<CommentInsertViewModels, TblComment>();
         }
 
         //public static void Run()
