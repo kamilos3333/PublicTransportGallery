@@ -477,9 +477,13 @@
     <Compile Include="Infrastructure\DeleteImageFromFolder.cs" />
     <Compile Include="Infrastructure\ImageCrop.cs" />
     <Compile Include="Infrastructure\ImageUpload.cs" />
-    <Compile Include="Infrastructure\ModelBuilder\EditImageBuilder.cs" />
-    <Compile Include="Infrastructure\ModelBuilder\UploadImageBuilder.cs" />
-    <Compile Include="Infrastructure\ModelBuilder\Interface\IModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\DeleteImageBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\DetailImageBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\EditImageBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\Interface\IModelBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\Interface\IModelCommand.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\UploadImageBuilder.cs" />
+    <Compile Include="Infrastructure\ModelBuilderEdit\ImageBuilder\Interface\IModelBuilderImage.cs" />
     <Compile Include="Mapping\AutomapperWebProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -491,7 +495,6 @@
     <Compile Include="ViewModels\EditImageViewModels.cs" />
     <Compile Include="ViewModels\ImageDetailsViewModels.cs" />
     <Compile Include="ViewModels\DetailsUserViewModels.cs" />
-    <Compile Include="ViewModels\MainImageDetailsViewModels.cs" />
     <Compile Include="ViewModels\ImageUploadViewModels.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModels.cs" />
@@ -612,6 +615,7 @@
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\DeleteUser.cshtml" />
     <Content Include="Views\Admin\ImageListAdmin.cshtml" />
+    <Content Include="Views\Shared\_InsertComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

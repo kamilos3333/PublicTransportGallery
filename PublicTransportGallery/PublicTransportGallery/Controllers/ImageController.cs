@@ -4,6 +4,7 @@ using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure;
 using PublicTransportGallery.Infrastructure.ModelBuilder;
 using PublicTransportGallery.Infrastructure.ModelBuilder.Interface;
+using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
@@ -25,6 +26,8 @@ namespace PublicTransportGallery.Controllers
         private readonly ICommentService commentService;
         UploadImageBuilder uploadImageBuilder;
         EditImageBuilder editImageBuilder;
+        DeleteImageBuilder deleteImageBuilder;
+        DetailImageBuilder detailImageBuilder;
         public ImageController(IImageService _imageService, IProducentService _producentService, ICommentService _commentService, IModelService _modelService)
         {
             this.imageService = _imageService;
@@ -33,6 +36,8 @@ namespace PublicTransportGallery.Controllers
             this.modelService = _modelService;
             uploadImageBuilder = new UploadImageBuilder(producentService, imageService);
             editImageBuilder = new EditImageBuilder(imageService, producentService, modelService);
+            deleteImageBuilder = new DeleteImageBuilder(_imageService);
+            detailImageBuilder = new DetailImageBuilder(_commentService);
         }
 
         // GET: UploadImage
@@ -65,17 +70,10 @@ namespace PublicTransportGallery.Controllers
             if (modelImage == null)
                 return HttpNotFound();
 
-            var modelDetails = new ImageDetailsViewModels();
-            Mapper.Map(modelImage, modelDetails);
-
-            var comment = commentService.getAllCommentsByImageId(modelDetails.ImageId);
-            List<CommentListViewModels> list = new List<CommentListViewModels>();
-            var modelComment = Mapper.Map(comment, list);
-
-            var viewModels = new MainImageDetailsViewModels(modelDetails, modelComment);
-            return View(viewModels);
+            var mapper = Mapper.Map(modelImage, new ImageDetailsViewModels());
+            return View(detailImageBuilder.Execute(mapper));
         }
-
+        
         public ActionResult PhotoCollectionUser()
         {
             var model = new DetailsUserViewModels(imageService.DetailsUser(User.Identity.GetUserId()));
@@ -108,10 +106,8 @@ namespace PublicTransportGallery.Controllers
 
         public ActionResult DeleteImage(int id)
         {
-            var getImage = imageService.getImageId(id);
-            imageService.Delete(getImage);
-            imageService.Save();
-            DeleteImageFromFolder.DeleteImage(getImage.Name);
+            deleteImageBuilder.Id = id;
+            deleteImageBuilder.Execute();
             return RedirectToAction("PhotoCollectionUser");
         }
         

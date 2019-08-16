@@ -8,7 +8,7 @@ using System.Web;
 
 namespace PublicTransportGallery.Infrastructure.ModelBuilder.Interface
 {
-    public class UploadImageBuilder : IModelBuilder<UploadImageViewModels>
+    public class UploadImageBuilder : IModelBuilderImage<UploadImageViewModels>
     {
         private readonly IProducentService producentService;
         private readonly IImageService imageService;

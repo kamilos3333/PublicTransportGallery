@@ -7,7 +7,7 @@ using System.Web;
 
 namespace PublicTransportGallery.Infrastructure.ModelBuilder.Interface
 {
-    public interface IModelBuilder<T>
+    public interface IModelBuilderImage<T>
     {
         void Execute(HttpPostedFileBase upload, T model);
         T Rebuild(T model);

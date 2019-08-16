@@ -11,7 +11,7 @@ using System.Web;
 
 namespace PublicTransportGallery.Infrastructure.ModelBuilder
 {
-    public class EditImageBuilder : IModelBuilder<EditImageViewModels>
+    public class EditImageBuilder : IModelBuilderImage<EditImageViewModels>
     {
         private readonly IImageService imageService;
         private readonly IProducentService producentService;

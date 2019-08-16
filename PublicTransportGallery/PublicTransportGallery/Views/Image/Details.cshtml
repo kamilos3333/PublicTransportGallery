@@ -1,4 +1,4 @@
-﻿@model PublicTransportGallery.ViewModels.MainImageDetailsViewModels
+﻿@model PublicTransportGallery.ViewModels.ImageDetailsViewModels
 @using PublicTransportGallery.Helpers
 @using Microsoft.AspNet.Identity
 @{
@@ -8,23 +8,23 @@
 
 <div class="container pp-section">
     <!-- #region Obszar zdjęcia + informacje -->
-    <div class="h3 font-weight-normal">@Model.ImageDetails.ModelVehice</div>
+    <div class="h3 font-weight-normal">@Model.ModelVehice</div>
     <hr />
-    <img style="width: 100%;" src="@Url.BusImgPath(Model.ImageDetails.ImageName)" />
+    <img style="width: 100%;" src="@Url.BusImgPath(Model.ImageName)" />
     <div class="row mt-5">
         <div class="col-md-3">
-            <div class="h5">@Html.LabelFor(model => model.ImageDetails.UserName)</div>
+            <div class="h5">@Html.LabelFor(model => model.UserName)</div>
             @*<a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a>*@
-            <a href="@Url.Action("DetailsUser","User", new { Username = Model.ImageDetails.UserName})">@Model.ImageDetails.UserName</a>
-            <div class="h5 pt-4">@Html.LabelFor(model => model.ImageDetails.DateAdd)</div>
-            <p>@Model.ImageDetails.DateAdd</p>
+            <a href="@Url.Action("DetailsUser","User", new { Username = Model.UserName})">@Model.UserName</a>
+            <div class="h5 pt-4">@Html.LabelFor(model => model.DateAdd)</div>
+            <p>@Model.DateAdd</p>
         </div>
         <div class="col-md-9">
             <p>
-                @Html.LabelFor(model => model.ImageDetails.YearProduction) @Model.ImageDetails.YearProduction @if (Model.ImageDetails.YearEndProduction != null)
-                {<span>- @Model.ImageDetails.YearEndProduction </span>}
+                @Html.LabelFor(model => model.YearProduction) @Model.YearProduction @if (Model.YearEndProduction != null)
+                {<span>- @Model.YearEndProduction </span>}
             </p>
-            <p>@Model.ImageDetails.Description</p>
+            <p>@Model.Description</p>
         </div>
     </div>
     <!-- #endregion -->
@@ -33,7 +33,7 @@
     <hr />
     @if (User.Identity.IsAuthenticated)
     {
-    <form id="CreateCommentForm">
+    @*<form id="CreateCommentForm">
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -51,12 +51,13 @@
             </div>
         </div>
     </form>
-
+        *@
+        @*@Html.Partial("_InsertComment")*@
     }
     <!-- #endregion -->
     <!-- #region sekcja komentarzy -->
     <div class="comment-section">
-        @foreach (var comment in Model.Comments)
+        @foreach (var comment in Model.CommentList)
         {
             <div class="card">
                 <div class="card-header">

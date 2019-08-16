@@ -30,5 +30,8 @@ namespace PublicTransportGallery.ViewModels
         public int YearProduction { get; set; }
 
         public int? YearEndProduction { get; set; }
+
+        public virtual CommentInsertViewModels CommentModel { get; set; }
+        public IList<CommentListViewModels> CommentList { get; set; }
     }
 }
