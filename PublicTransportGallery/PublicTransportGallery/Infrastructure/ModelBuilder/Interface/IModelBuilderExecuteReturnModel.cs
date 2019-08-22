@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface
+namespace PublicTransportGallery.Infrastructure.ModelBuilder.Interface
 {
-    public interface IModelBuilder<T>
+    public interface IModelBuilderExecuteRebuild<T>
     {
         T Execute(T model);
+        T Rebuild();
     }
 }

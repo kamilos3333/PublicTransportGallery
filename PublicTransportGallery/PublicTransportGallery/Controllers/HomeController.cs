@@ -1,4 +1,5 @@
-﻿using PublicTransportGallery.Services.Image;
+﻿using PublicTransportGallery.Infrastructure.ModelBuilder.SearchBuilder;
+using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
@@ -13,14 +14,12 @@ namespace PublicTransportGallery.Controllers
     [HandleError]
     public class HomeController : Controller
     {
-        private readonly IProducentService producentService;
         private readonly IImageService imageService;
         private readonly IModelService modelService;
 
-        public HomeController(IProducentService _producentService, IImageService _imageService, IModelService _modelService)
+        public HomeController(IImageService _imageService, IModelService _modelService)
         {
             this.imageService = _imageService;
-            this.producentService = _producentService;
             this.modelService = _modelService;
         }
         
@@ -29,20 +28,5 @@ namespace PublicTransportGallery.Controllers
             var vm = new HomeViewModel(modelService.getTypeName(), imageService.getAll());
             return View(vm);
         }
-
-        [HttpGet]
-        public ActionResult Search()
-        {
-            var searchModel = new SearchViewModels(producentService.getAll(), modelService.getTypeName());
-            return View(searchModel);
-        }
-
-        [HttpPost]
-        public ActionResult Search(SearchViewModels model)
-        {
-            var searchModel = new SearchViewModels(producentService.getAll(), modelService.getTypeName(), imageService.SearchImage(model.ProducentId, model.ModelId, model.TypeId));
-            return View(searchModel);
-        }
-
     }
 }

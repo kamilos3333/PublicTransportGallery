@@ -9,7 +9,7 @@ namespace PublicTransportGallery.Infrastructure
     {
         public static string InsertImage(HttpPostedFileBase upload)
         {
-            string fileName = getFileName(upload);
+            string fileName = GenerateFileName(upload);
             SaveToPath(upload, fileName);
             return fileName;
         }
@@ -21,18 +21,13 @@ namespace PublicTransportGallery.Infrastructure
 
         private static void SaveToPath(HttpPostedFileBase upload, string fileName)
         {
-            var path = Path.Combine(HttpContext.Current.Server.MapPath(SetFolderPath()), fileName);
+            var path = Path.Combine(HttpContext.Current.Server.MapPath(AppConfig.BusFolderPath), fileName);
             upload.SaveAs(path);
         }
         
-        private static string getFileName(HttpPostedFileBase upload)
+        private static string GenerateFileName(HttpPostedFileBase upload)
         {
             return Guid.NewGuid() + Path.GetExtension(upload.FileName);
-        }
-
-        private static string SetFolderPath()
-        {
-            return AppConfig.BusFolderPath;
         }
     }
 }

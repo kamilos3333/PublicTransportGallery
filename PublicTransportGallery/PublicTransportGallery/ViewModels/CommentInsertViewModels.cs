@@ -8,9 +8,8 @@ namespace PublicTransportGallery.ViewModels
 {
     public class CommentInsertViewModels
     {
-        [Required]
         [Display(Name = "Dodaj komentarz")]
-        public string InsertContent { get; set; }
+        public string ContentText { get; set; }
     }
 
     

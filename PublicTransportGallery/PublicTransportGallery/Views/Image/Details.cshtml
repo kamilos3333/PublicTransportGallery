@@ -52,7 +52,7 @@
         </div>
     </form>
         *@
-        @*@Html.Partial("_InsertComment")*@
+        @Html.Partial("_InsertComment", Model.CommentModel, new ViewDataDictionary(ViewData) { { "ImageID", Model.ImageId } })
     }
     <!-- #endregion -->
     <!-- #region sekcja komentarzy -->
@@ -80,7 +80,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-<script src="~/Scripts/jquery-3.4.1.js"></script>
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script>
@@ -100,8 +100,8 @@
                     }
                 },
                 error: function (data) {
-                    alert("error!"); //
+                    alert("error!"); 
                 }
             });
     });
-</script>
+</script>*@

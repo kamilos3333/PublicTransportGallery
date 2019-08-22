@@ -9,7 +9,7 @@ using System.Web;
 
 namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
 {
-    public class DetailImageBuilder : IModelBuilder<ImageDetailsViewModels>
+    public class DetailImageBuilder : IModelBuilderExecuteReturnModel<ImageDetailsViewModels>
     {
         private readonly ICommentService commentService;
 
@@ -21,7 +21,6 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
         public ImageDetailsViewModels Execute(ImageDetailsViewModels model)
         {
             model.CommentList = FillCommentListToModel(model.ImageId);
-            model.CommentModel = new CommentInsertViewModels();
             return model;
         }
 
