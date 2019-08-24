@@ -4,11 +4,11 @@
 }
 
     <div class="form-group">
-        @Html.LabelFor(model => model.ContentText, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.ContentText, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            @Html.EditorFor(model => model.ContentText, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.ContentText, new { htmlAttributes = new { @class = "form-control" } })*@
             @*<input type="text" id="ContentText" class="form-control" />*@
-
+            <textarea rows="4" cols="50" id="ContentText" placeholder="Miejsce na komentarz"></textarea>
         </div>
     </div>
 
@@ -22,21 +22,26 @@
 <script>
     function AddCommentBtn()
     {
-        @*var getValueContentComment = document.getElementById("ContentText").value;
+        var getValueContentComment = document.getElementById("ContentText").value;
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddComment", "Comment")',
             data: JSON.stringify({ getValueContentComment: getValueContentComment, ImageId: '@ValueId' }),
             contentType: "application/json; charset=utf-8",
             success: function () {
-                alert("Sukces");
+                bootoast.toast({
+                    message: 'Komentarz został dodany',
+                    type: 'success'
+                });
+                $("#ContentText").val('');
                 console.log()
             },
             error: function () {
-                alert("Bład");
+                bootoast.toast({
+                    message: 'Komentarz nie został dodany prawidłowo',
+                    type: 'danger'
+                });
             }
-        });*@
-        var model = '@Model.ContentText';
-        alert(model);
+        });
     };
 </script>

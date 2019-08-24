@@ -13,5 +13,6 @@ namespace PublicTransportGallery.Services.Comment
         void insertComments(TblComment comment);
         void deleteComments(TblComment comment);
         void Save();
+        int GetCommentCount(int id);
     }
 }

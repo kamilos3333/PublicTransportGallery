@@ -18,7 +18,8 @@ namespace PublicTransportGallery.Services.Comment
 
         public void deleteComments(TblComment comment)
         {
-            throw new NotImplementedException();
+            db.TblComments.Remove(comment);
+            db.SaveChanges();
         }
 
         public IList<TblComment> getAllCommentsByImageId(int id)
@@ -28,6 +29,11 @@ namespace PublicTransportGallery.Services.Comment
 
         public void Save() {
            db.SaveChanges();
+        }
+
+        public int GetCommentCount(int id)
+        {
+            return db.TblComments.Where(a => a.ImageId == id).Count();
         }
     }
 }

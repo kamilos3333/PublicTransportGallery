@@ -29,29 +29,10 @@
     </div>
     <!-- #endregion -->
     <!-- #region kontrolka dodawania komentarzy -->
-    <h2>Sekcja komentarzy</h2>
+    <h2>Sekcja komentarzy (@Html.Action("GetCountComments", "Comment", new { id = Model.ImageId}))</h2>
     <hr />
     @if (User.Identity.IsAuthenticated)
     {
-    @*<form id="CreateCommentForm">
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.InsertComment.InsertContent, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-12">
-                    <textarea class="form-control" name="@Html.NameFor(model => model.InsertComment.InsertContent)" id="@Html.NameFor(model => model.InsertComment.InsertContent)" rows="3"></textarea>
-                    @Html.ValidationMessageFor(model => model.InsertComment.InsertContent, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="button" value="Dodaj komentarz" class="btn btn-primary" id="btnAddComment" />
-                </div>
-            </div>
-        </div>
-    </form>
-        *@
         @Html.Partial("_InsertComment", Model.CommentModel, new ViewDataDictionary(ViewData) { { "ImageID", Model.ImageId } })
     }
     <!-- #endregion -->
@@ -61,7 +42,18 @@
         {
             <div class="card">
                 <div class="card-header">
-                    <span>@comment.Username</span>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
+                                </span>
+                            </div>
+                            <div class="col-1">
+                                <span><a href="">Usuń</a></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
@@ -79,29 +71,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-
-@*<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script>
-    $("#btnAddComment").click(function () {
-        var form = $('#CreateCommentForm').serialize();
-            $.ajax({
-                url: '/Comment/AddComment/',
-                type: 'POST',
-                dataType: "json",
-                data: form,
-                success: function (data) {
-                    if (data != null && data.Success) {
-                        alert(data.Message);
-                    } else {
-                        // DoSomethingElse()
-                        alert(data.Message);
-                    }
-                },
-                error: function (data) {
-                    alert("error!"); 
-                }
-            });
-    });
-</script>*@

@@ -74,6 +74,8 @@
 <script src="~/Scripts/jquery.simpleLoadMore.js"></script>
 <script>
     $(document).ready(function () {
+        //$("#ProducentId").val('');
+        //$("#TypeId").val('');
         $("#ProducentId").change(function () {
             $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
                 $.each(data, function (index, row) {
@@ -81,10 +83,6 @@
                 });
             });
         })
-    });
-    $(document).ready(function () {
-        $("#ProducentId").val('');
-        $("#TypeId").val('');
     });
 
     $('.list-group').simpleLoadMore({

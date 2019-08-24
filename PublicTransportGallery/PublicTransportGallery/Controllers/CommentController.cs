@@ -15,7 +15,7 @@ namespace PublicTransportGallery.Controllers
     public class CommentController : Controller
     {
         private readonly ICommentService commentService;
-        private readonly AddCommentBuilder commentBuilder;
+        private AddCommentBuilder commentBuilder;
         public CommentController(ICommentService commentService)
         {
             this.commentService = commentService;
@@ -24,18 +24,21 @@ namespace PublicTransportGallery.Controllers
         
         [HttpPost]
         [ValidateInput(true)]
-        public JsonResult AddComment(CommentInsertViewModels model/*, int ImageId*/)
+        public JsonResult AddComment(string getValueContentComment, int ImageId)
         {
             if (ModelState.IsValid)
             {
-                ViewBag.Item = model; //to remove
-                //commentBuilder.ImageId = ImageId;
-                //commentBuilder.CommentContent = getValueContentComment;
-                commentBuilder.Execute();
+                commentBuilder.Execute(getValueContentComment, ImageId);
                 return Json(JsonRequestBehavior.AllowGet);
             }
 
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        public int GetCountComments(int id)
+        {
+            return commentService.GetCommentCount(id);
+        }
+
     }
 }

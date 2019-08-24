@@ -11,7 +11,7 @@ using System.Web;
 
 namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.CommentBuilder
 {
-    public class AddCommentBuilder : IModelCommand
+    public class AddCommentBuilder
     {
         private readonly ICommentService commentService;
 
@@ -19,19 +19,16 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.CommentBuilder
         {
             commentService = _commentService;
         }
-
-        public int ImageId { get; set; }
-        public string CommentContent { get; set; }
         
-        public void Execute()
+        public void Execute(string CommentContent, int ImageId)
         {
             var comment = new TblComment(HttpContext.Current.User.Identity.GetUserId(), ImageId);
-            var mapper = Mapper.Map(FillModel(), comment);
+            var mapper = Mapper.Map(FillModel(CommentContent), comment);
             commentService.insertComments(mapper);
             commentService.Save();
         }
 
-        public CommentInsertViewModels FillModel()
+        public CommentInsertViewModels FillModel(string CommentContent)
         {
             return new CommentInsertViewModels { ContentText = CommentContent }; 
         }

@@ -9,6 +9,6 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilder.Interface
     public interface IModelBuilderExecuteRebuild<T>
     {
         T Execute(T model);
-        T Rebuild();
+        T Rebuild(T model);
     }
 }

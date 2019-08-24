@@ -23,7 +23,7 @@ namespace PublicTransportGallery.Controllers
         [HttpGet]
         public ActionResult SearchByModel()
         {
-            return View(searchBuilder.Rebuild());
+            return View(searchBuilder.Rebuild(new SearchViewModels()));
         }
 
         [HttpPost]

@@ -31,14 +31,10 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilder.SearchBuilder
             return model;
         }
 
-        public SearchViewModels Rebuild()
+        public SearchViewModels Rebuild(SearchViewModels model)
         {
-            SearchViewModels model = new SearchViewModels
-            {
-                ProducentList = producentService.getAll(),
-                TypeList = modelService.getTypeName(),
-            };
-
+            model.ProducentList = producentService.getAll();
+            model.TypeList = modelService.getTypeName();
             return model;
         }
     }

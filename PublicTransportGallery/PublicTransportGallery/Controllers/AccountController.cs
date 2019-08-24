@@ -173,8 +173,8 @@ namespace PublicTransportGallery.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Potwierdź swoje konto", "Proszę otworzyć link aby aktywować konto <a href=\"" + callbackUrl + "\">here</a>");
 
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
-                         + "before you can log in.";
+                    ViewBag.Message = "Proszę sprawdzić swój email aby dokończyć proces rejestracji, Konto wymaga weryfikacji adresem Email"
+                         + "Po aktywacji można się zalogować.";
 
                     return View("Info");
                     //return RedirectToAction("Index", "Home");
