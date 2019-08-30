@@ -22,7 +22,7 @@
         <div class="col-md-9">
             <p>
                 @Html.LabelFor(model => model.YearProduction) @Model.YearProduction @if (Model.YearEndProduction != null)
-                {<span>- @Model.YearEndProduction </span>}
+                                {<span>- @Model.YearEndProduction </span>}
             </p>
             <p>@Model.Description</p>
         </div>
@@ -32,38 +32,38 @@
     <h2>Sekcja komentarzy (@Html.Action("GetCountComments", "Comment", new { id = Model.ImageId}))</h2>
     <hr />
     @if (User.Identity.IsAuthenticated)
-    {
-        @Html.Partial("_InsertComment", Model.CommentModel, new ViewDataDictionary(ViewData) { { "ImageID", Model.ImageId } })
-    }
+        {
+    @Html.Partial("_InsertComment", Model.CommentModel, new ViewDataDictionary(ViewData) { { "ImageID", Model.ImageId } })
+        }
     <!-- #endregion -->
     <!-- #region sekcja komentarzy -->
     <div class="comment-section">
         @foreach (var comment in Model.CommentList)
-        {
-            <div class="card">
-                <div class="card-header">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <span>
-                                    <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
-                                </span>
-                            </div>
-                            <div class="col-1">
-                                <span><a href="">Usuń</a></span>
-                            </div>
+                {
+        <div class="card">
+            <div class="card-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
+                            </span>
+                        </div>
+                        <div class="col-1">
+                            <span><a href="">Usuń</a></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p class="comment-text">@comment.ContentText</p>
-                        <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
-                    </blockquote>
-                </div>
             </div>
-            <br />
-        }
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p class="comment-text">@comment.ContentText</p>
+                    <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
+                </blockquote>
+            </div>
+        </div>
+        <br />
+                }
     </div>
 </div>
 <!-- #endregion -->

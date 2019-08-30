@@ -27,24 +27,29 @@
             </div>
         </div>
     </div>
+
     <div class="container px-0">
-        <div class="pp-gallery">
-            <div class="card-columns">
-                @foreach (var busPhoto in Model.Images)
-                {
-                    <div class="card" data-groups="[&quot;@busPhoto.TblModel.TblTypeTransport.Name&quot;]">
-                        <a href="@Url.Action("Details","Image", new { id = busPhoto.ImageId })">
-                            <figure class="pp-effect">
-                                <img class="img-fluid" src="@Url.ThumbImgPath(busPhoto.Name)" alt="@busPhoto.Name" />
-                                <figcaption>
-                                    <div class="h4">@busPhoto.TblModel.TblProducent.Name @busPhoto.TblModel.NameModel</div>
-                                </figcaption>
-                            </figure>
-                        </a>
+        <div class="grid-container">
+            @foreach (var busPhoto in Model.Images)
+            {
+            <div class="grid-image" data-groups="[&quot;@busPhoto.TypeVehicle&quot;]">
+
+                <a href="@Url.Action("Details","Image", new { id = busPhoto.ImageId })">
+                    <div class="item-wrapper">
+                        <div class="item-image">
+                            <img class="img-fluid" src="@Url.ThumbImgPath(busPhoto.PhotoSrc)" alt="@busPhoto.NameVehice" />
+                        </div>
+                        <div class="image-info">
+                            <span class="comment-span"><i class="fa fa-comments"></i> @busPhoto.CommentCount</span>
+                            <span class="visitor-span">@*<i class="fa fa-eye"></i> 0*@</span>
+                        </div>
+                        <div class="image-title">@busPhoto.NameVehice</div>
                     </div>
-                }
-            </div>
+                </a>
+                </div>
+            }
         </div>
+
     </div>
     <div class="pp-section"></div>
 </div>

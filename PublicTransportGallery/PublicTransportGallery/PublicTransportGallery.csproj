@@ -475,6 +475,7 @@
     </Compile>
     <Compile Include="Helpers\AppConfig.cs" />
     <Compile Include="Helpers\UrHelpers.cs" />
+    <Compile Include="Infrastructure\Model Builder\HomePageBuilder\HomeBuilder.cs" />
     <Compile Include="Infrastructure\Image Builder\DeleteImageFromFolder.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageCrop.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageUpload.cs" />
@@ -497,6 +498,7 @@
     <Compile Include="ViewModels\CommentInsertViewModels.cs" />
     <Compile Include="ViewModels\CommentListViewModels.cs" />
     <Compile Include="ViewModels\EditImageViewModels.cs" />
+    <Compile Include="ViewModels\ImageContentViewModel.cs" />
     <Compile Include="ViewModels\ImageDetailsViewModels.cs" />
     <Compile Include="ViewModels\DetailsUserViewModels.cs" />
     <Compile Include="ViewModels\ImageUploadViewModels.cs" />

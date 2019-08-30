@@ -24,8 +24,7 @@ namespace PublicTransportGallery.ViewModels
         }
 
         public IList<TblProducent> ProducentList { get; set; }
-
-        [Required]
+        
         [Display(Name = "Wybierz producenta")]
         public int ProducentId { get; set; }
         

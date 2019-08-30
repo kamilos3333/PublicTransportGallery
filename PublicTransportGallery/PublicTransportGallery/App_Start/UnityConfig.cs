@@ -1,9 +1,14 @@
 using PublicTransportGallery.Controllers;
 using PublicTransportGallery.Infrastructure;
+using PublicTransportGallery.Infrastructure.ModelBuilder;
+using PublicTransportGallery.Infrastructure.ModelBuilder.Interface;
+using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder;
+using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.Services.Producent;
+using PublicTransportGallery.ViewModels;
 using System.Web.Mvc;
 using Unity;
 using Unity.Injection;
@@ -21,7 +26,11 @@ namespace PublicTransportGallery
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
-            
+            container.RegisterType<IModelBuilderExecuteReturnModel<ImageDetailsViewModels>, DetailImageBuilder>();
+            container.RegisterType<IModelBuilderImage<UploadImageViewModels>, UploadImageBuilder>();
+            container.RegisterType<IModelBuilderImage<EditImageViewModels>, EditImageBuilder>();
+            container.RegisterType<IModelBuilderExecuteReturnModel<HomeViewModel>, HomeBuilder>();
+            container.RegisterType<IModelCommand, DeleteImageBuilder>();
             container.RegisterType<IProducentService, ProducentService>();
             container.RegisterType<IModelService, ModelService>();
             container.RegisterType<IImageService, ImageService>();

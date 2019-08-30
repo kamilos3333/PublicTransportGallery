@@ -19,7 +19,7 @@ function filterItems(filter) {
   }
 
   activeFilter = filter;
-  $('.pp-gallery .card').each(function () {
+    $('.grid-container .grid-image').each(function () {
     var card = $(this);
     var groups = card.data("groups");
     var show = false;

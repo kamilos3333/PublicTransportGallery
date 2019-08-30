@@ -5,6 +5,7 @@ using PublicTransportGallery.Infrastructure;
 using PublicTransportGallery.Infrastructure.ModelBuilder;
 using PublicTransportGallery.Infrastructure.ModelBuilder.Interface;
 using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder;
+using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.ModelVehicle;
@@ -20,24 +21,18 @@ namespace PublicTransportGallery.Controllers
 {
     public class ImageController : Controller
     {
-        private readonly IProducentService producentService;
-        private readonly IModelService modelService;
+        private readonly IModelBuilderImage<UploadImageViewModels> UploadBuilderImage;
+        private readonly IModelCommand DeleteBuilderImage;
+        private readonly IModelBuilderImage<EditImageViewModels> EditBuilderImage;
+        private readonly IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage;
         private readonly IImageService imageService;
-        private readonly ICommentService commentService;
-        UploadImageBuilder uploadImageBuilder;
-        EditImageBuilder editImageBuilder;
-        DeleteImageBuilder deleteImageBuilder;
-        DetailImageBuilder detailImageBuilder;
-        public ImageController(IImageService _imageService, IProducentService _producentService, ICommentService _commentService, IModelService _modelService)
+        public ImageController(IImageService imageService, IModelBuilderImage<UploadImageViewModels> UploadBuilderImage, IModelCommand DeleteBuilderImage, IModelBuilderImage<EditImageViewModels> EditBuilderImage, IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage)
         {
-            this.imageService = _imageService;
-            this.producentService = _producentService;
-            this.commentService = _commentService;
-            this.modelService = _modelService;
-            uploadImageBuilder = new UploadImageBuilder(producentService, imageService);
-            editImageBuilder = new EditImageBuilder(imageService, producentService, modelService);
-            deleteImageBuilder = new DeleteImageBuilder(_imageService);
-            detailImageBuilder = new DetailImageBuilder(_commentService);
+            this.UploadBuilderImage = UploadBuilderImage;
+            this.DeleteBuilderImage = DeleteBuilderImage;
+            this.EditBuilderImage = EditBuilderImage;
+            this.DetailBuilderImage = DetailBuilderImage;
+            this.imageService = imageService;
         }
 
         // GET: UploadImage
@@ -45,7 +40,7 @@ namespace PublicTransportGallery.Controllers
         [HttpGet]
         public ActionResult UploadImage()
         {
-            return View(uploadImageBuilder.Rebuild(new UploadImageViewModels()));
+            return View(UploadBuilderImage.Rebuild(new UploadImageViewModels()));
         }
 
         [HttpPost]
@@ -54,11 +49,11 @@ namespace PublicTransportGallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                uploadImageBuilder.Execute(Image, model);
+                UploadBuilderImage.Execute(Image, model);
                 return RedirectToAction("Index","Home");
             }
 
-            return View(uploadImageBuilder.Rebuild(model));
+            return View(UploadBuilderImage.Rebuild(model));
         }
 
         [OutputCache(Duration = 20)]
@@ -71,7 +66,7 @@ namespace PublicTransportGallery.Controllers
                 return HttpNotFound();
 
             var mapper = Mapper.Map(modelImage, new ImageDetailsViewModels());
-            return View(detailImageBuilder.Execute(mapper));
+            return View(DetailBuilderImage.Execute(mapper));
         }
         
         public ActionResult PhotoCollectionUser()
@@ -90,7 +85,7 @@ namespace PublicTransportGallery.Controllers
                 return HttpNotFound();
 
             var mapper = Mapper.Map(image, new EditImageViewModels());
-            return View(editImageBuilder.Rebuild(mapper));
+            return View(EditBuilderImage.Rebuild(mapper));
         }
 
         [HttpPost]
@@ -98,16 +93,21 @@ namespace PublicTransportGallery.Controllers
         {
             if (ModelState.IsValid)
             {
-                editImageBuilder.Execute(Image, model);
+                EditBuilderImage.Execute(Image, model);
                 return RedirectToAction("PhotoCollectionUser");
             }
-            return View(editImageBuilder.Rebuild(model));
+            return View(EditBuilderImage.Rebuild(model));
         }
 
         public ActionResult DeleteImage(int id)
         {
-            deleteImageBuilder.Id = id;
-            deleteImageBuilder.Execute();
+            if (id <= 0)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var getImage = imageService.getImageId(id);
+            if (getImage == null)
+                return HttpNotFound();
+
+            DeleteBuilderImage.Execute();
             return RedirectToAction("PhotoCollectionUser");
         }
         
