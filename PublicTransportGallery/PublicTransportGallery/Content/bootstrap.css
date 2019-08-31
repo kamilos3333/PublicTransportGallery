@@ -82,14 +82,6 @@ body {
     overflow: hidden;
 }
 
-.item-wrapper:hover .image-title {
-    display: none;
-}
-
-.item-wrapper:hover .image-info {
-    display: none;
-}
-
 .image-title {
     left: -10px;
     bottom: 17px;
@@ -102,6 +94,8 @@ body {
     font-family: 'Oswald', sans-serif;
     color: #FFFFFF;
     font-size: 15px;
+    -webkit-transition: width 2s;
+    transition: width 2s;
 }
 
 .image-info {

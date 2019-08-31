@@ -56,6 +56,8 @@
     <Compile Include="Comment\ICommentService.cs" />
     <Compile Include="Image\IImageService.cs" />
     <Compile Include="Image\ImageService.cs" />
+    <Compile Include="Log\ILogVisitorImageService.cs" />
+    <Compile Include="Log\LogVisitorImageService.cs" />
     <Compile Include="ModelVehicle\IModelService.cs" />
     <Compile Include="ModelVehicle\ModelService.cs" />
     <Compile Include="Producent\IProducentService.cs" />

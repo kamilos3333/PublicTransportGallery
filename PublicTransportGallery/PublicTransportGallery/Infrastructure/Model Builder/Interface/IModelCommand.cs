@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface
 {
-    public interface IModelCommand
+    public interface IModelCommand<T>
     {
-        void Execute();
+        void Execute(T model);
     }
 }

@@ -61,9 +61,22 @@
     <Compile Include="Migrations\201907141341047_addNullToYearProducetionEnd.Designer.cs">
       <DependentUpon>201907141341047_addNullToYearProducetionEnd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908301835143_Add-TblThumbnail.cs" />
+    <Compile Include="Migrations\201908301835143_Add-TblThumbnail.Designer.cs">
+      <DependentUpon>201908301835143_Add-TblThumbnail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908301838385_Add-TblLogVisitor.cs" />
+    <Compile Include="Migrations\201908301838385_Add-TblLogVisitor.Designer.cs">
+      <DependentUpon>201908301838385_Add-TblLogVisitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908310953330_change name tbllogvisitorimages.cs" />
+    <Compile Include="Migrations\201908310953330_change name tbllogvisitorimages.Designer.cs">
+      <DependentUpon>201908310953330_change name tbllogvisitorimages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\TblComment.cs" />
     <Compile Include="Model\TblImage.cs" />
+    <Compile Include="Model\TblLogVisitorImage.cs" />
     <Compile Include="Model\TblModel.cs" />
     <Compile Include="Model\TblProducent.cs" />
     <Compile Include="Model\TblThumbnail.cs" />
@@ -80,6 +93,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201907141341047_addNullToYearProducetionEnd.resx">
       <DependentUpon>201907141341047_addNullToYearProducetionEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908301835143_Add-TblThumbnail.resx">
+      <DependentUpon>201908301835143_Add-TblThumbnail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908301838385_Add-TblLogVisitor.resx">
+      <DependentUpon>201908301838385_Add-TblLogVisitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908310953330_change name tbllogvisitorimages.resx">
+      <DependentUpon>201908310953330_change name tbllogvisitorimages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

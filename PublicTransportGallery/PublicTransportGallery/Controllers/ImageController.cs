@@ -22,11 +22,11 @@ namespace PublicTransportGallery.Controllers
     public class ImageController : Controller
     {
         private readonly IModelBuilderImage<UploadImageViewModels> UploadBuilderImage;
-        private readonly IModelCommand DeleteBuilderImage;
+        private readonly IModelCommand<TblImage> DeleteBuilderImage;
         private readonly IModelBuilderImage<EditImageViewModels> EditBuilderImage;
         private readonly IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage;
         private readonly IImageService imageService;
-        public ImageController(IImageService imageService, IModelBuilderImage<UploadImageViewModels> UploadBuilderImage, IModelCommand DeleteBuilderImage, IModelBuilderImage<EditImageViewModels> EditBuilderImage, IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage)
+        public ImageController(IImageService imageService, IModelBuilderImage<UploadImageViewModels> UploadBuilderImage, IModelCommand<TblImage> DeleteBuilderImage, IModelBuilderImage<EditImageViewModels> EditBuilderImage, IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage)
         {
             this.UploadBuilderImage = UploadBuilderImage;
             this.DeleteBuilderImage = DeleteBuilderImage;
@@ -107,7 +107,7 @@ namespace PublicTransportGallery.Controllers
             if (getImage == null)
                 return HttpNotFound();
 
-            DeleteBuilderImage.Execute();
+            DeleteBuilderImage.Execute(new TblImage(id));
             return RedirectToAction("PhotoCollectionUser");
         }
         

@@ -1,6 +1,7 @@
 ﻿using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.Services.Log;
 using PublicTransportGallery.Services.ModelVehicle;
 using PublicTransportGallery.ViewModels;
 using System;
@@ -15,12 +16,14 @@ namespace PublicTransportGallery.Infrastructure
         private readonly IImageService imageService;
         private readonly IModelService modelService;
         private readonly ICommentService commentService;
+        private readonly ILogVisitorImageService logVisitorImageService;
 
-        public HomeBuilder(IImageService imageService, IModelService modelService, ICommentService commentService)
+        public HomeBuilder(IImageService imageService, IModelService modelService, ICommentService commentService, ILogVisitorImageService logVisitorImageService)
         {
             this.imageService = imageService;
             this.modelService = modelService;
             this.commentService = commentService;
+            this.logVisitorImageService = logVisitorImageService;
         }
 
         public HomeViewModel Execute(HomeViewModel model)
@@ -41,7 +44,8 @@ namespace PublicTransportGallery.Infrastructure
                     NameProducent = image.TblModel.TblProducent.Name,
                     NameModel = image.TblModel.NameModel,
                     TypeVehicle = image.TblModel.TblTypeTransport.Name,
-                    CommentCount = commentService.GetCommentCount(image.ImageId)
+                    CommentCount = commentService.GetCommentCount(image.ImageId),
+                    VisitorCount = logVisitorImageService.CountVisitor(image.ImageId)
                 };
                 fiilList.Add(newModel);
             }

@@ -21,6 +21,11 @@ namespace PublicTransportGallery.Data.Model
             this.Id = Id;
         }
 
+        public TblImage(int ImageId)
+        {
+            this.ImageId = ImageId;
+        }
+
         [Key]
         public int ImageId { get; set; }
         public string Name { get; set; }
@@ -31,6 +36,7 @@ namespace PublicTransportGallery.Data.Model
 
         public virtual ICollection<TblComment> TblComments { get; set; }
         public virtual ICollection<TblThumbnail> TblThumbnails { get; set; }
+        public virtual ICollection<TblLogVisitorImage> TblLogVisitor { get; set; }
         public virtual TblModel TblModel { get; set; }
         public ApplicationDbContext.ApplicationUser users { get; set; }
     }

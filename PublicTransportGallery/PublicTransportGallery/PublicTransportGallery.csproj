@@ -618,12 +618,8 @@
     <Content Include="Views\Image\EditImageInfo.cshtml" />
     <Content Include="Views\Image\Details.cshtml" />
     <Content Include="Views\Error\PageNotFound.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\ShowUserDetails.cshtml" />
-    <Content Include="Views\Admin\EditUser.cshtml" />
-    <Content Include="Views\Admin\DeleteUser.cshtml" />
-    <Content Include="Views\Admin\ImageListAdmin.cshtml" />
     <Content Include="Views\Shared\_InsertComment.cshtml" />
+    <Content Include="Views\Admin\ImageList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

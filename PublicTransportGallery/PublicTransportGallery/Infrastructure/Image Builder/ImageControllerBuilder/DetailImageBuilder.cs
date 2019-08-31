@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.Services.Comment;
+using PublicTransportGallery.Services.Log;
 using PublicTransportGallery.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,18 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
     public class DetailImageBuilder : IModelBuilderExecuteReturnModel<ImageDetailsViewModels>
     {
         private readonly ICommentService commentService;
+        private readonly ILogVisitorImageService logVisitorImageService;
 
-        public DetailImageBuilder(ICommentService commentService)
+        public DetailImageBuilder(ICommentService commentService, ILogVisitorImageService logVisitorImageService)
         {
             this.commentService = commentService;
+            this.logVisitorImageService = logVisitorImageService;
         }
 
         public ImageDetailsViewModels Execute(ImageDetailsViewModels model)
         {
             model.CommentList = FillCommentListToModel(model.ImageId);
+            RegisterVisitor(model.ImageId);
             return model;
         }
 
@@ -30,6 +35,16 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
             var list = new List<CommentListViewModels>();
             var modelComment = Mapper.Map(comment, list);
             return modelComment;
+        }
+
+        private void RegisterVisitor(int id)
+        {
+            TblLogVisitorImage logVisitor = new TblLogVisitorImage()
+            {
+                ImageId = id,
+                DateVisit = DateTime.Now
+            };
+            logVisitorImageService.Insert(logVisitor);
         }
     }
 }
