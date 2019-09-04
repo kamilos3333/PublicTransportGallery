@@ -1,24 +1,25 @@
 ﻿using PublicTransportGallery.Data.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace PublicTransportGallery.ViewModels
 {
-    public class SearchViewModels
+    public class SearchByModelViewModels
     {
-        public SearchViewModels()
+        public SearchByModelViewModels()
         {
 
         }
 
-        public SearchViewModels(IList<TblProducent> producentList, IList<TblTypeTransport> typeList)
+        public SearchByModelViewModels(IList<TblProducent> producentList, IList<TblTypeTransport> typeList)
         {
             ProducentList = producentList;
             TypeList = typeList;
         }
 
-        public SearchViewModels(IList<TblProducent> producentList, IList<TblTypeTransport> typeList, IQueryable<TblImage> imageList) : this(producentList, typeList)
+        public SearchByModelViewModels(IList<TblProducent> producentList, IList<TblTypeTransport> typeList, IQueryable<TblImage> imageList) : this(producentList, typeList)
         {
             ImageList = imageList;
         }
@@ -37,5 +38,6 @@ namespace PublicTransportGallery.ViewModels
         public int? TypeId { get; set; }
 
         public IQueryable<TblImage> ImageList { get; set; }
+        
     }
 }

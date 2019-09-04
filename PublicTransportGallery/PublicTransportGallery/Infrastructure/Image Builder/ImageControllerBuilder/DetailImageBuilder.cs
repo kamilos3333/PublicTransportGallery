@@ -25,6 +25,8 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
         public ImageDetailsViewModels Execute(ImageDetailsViewModels model)
         {
             model.CommentList = FillCommentListToModel(model.ImageId);
+            model.CountComment = commentService.GetCommentCount(model.ImageId);
+            model.CountVisitor = logVisitorImageService.CountVisitor(model.ImageId);
             RegisterVisitor(model.ImageId);
             return model;
         }

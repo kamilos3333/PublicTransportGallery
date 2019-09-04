@@ -16,6 +16,10 @@ namespace PublicTransportGallery.Data
         public DbSet<TblComment> TblComments { get; set; }
         public DbSet<TblThumbnail> TblThumbnails { get; set; }
         public DbSet<TblLogVisitorImage> TblLogVisitorImages { get; set; }
+        public DbSet<TblVoivodeship> TblVoivodeships { get; set; }
+        public DbSet<TblCity> TblCities { get; set; }
+        public DbSet<TblPassengerTransport> TblPassengerTransports { get; set; }
+        public DbSet<TblVehicle> TblVehicles { get; set; }
 
         public class ApplicationUser : IdentityUser
         {

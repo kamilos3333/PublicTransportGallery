@@ -6,37 +6,35 @@
 
 <h2>Szczegóły konta</h2>
 
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.ImagesList)
+<div class="list-group">
+    @foreach (var itemResult in Model.ImagesList)
     {
-
-        <tr>
-            <td>
-                <img src="@Url.ThumbImgPath(item.Name)" style="width: 160px; height: 118px" />
-            </td>
-            <td>
-                <a href="@Url.Action("Details","Image", new { id = item.ImageId })">@item.TblModel.TblProducent.Name @item.TblModel.NameModel</a>
-            </td>
-            <td>
-                @item.Description
-            </td>
-        </tr>
-
+        <a href="@Url.Action("Details", "Image", new { id = itemResult.ImageId })" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="row">
+                <div class="col-2">
+                    <img src="@Url.ThumbImgPath(itemResult.Name)" alt="..." class="img-fluid">
+                </div>
+                <div class="col-10">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-2 h5">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</h5>
+                        <small class="text-muted">@itemResult.DateAdd.ToString("dd MMMM yyyy")</small>
+                    </div>
+                    <p class="mb-2">
+                        @itemResult.Description
+                    </p>
+                    @*<small class="text-muted">Autor: @itemResult.users.UserName</small>*@
+                </div>
+            </div>
+        </a>
     }
-
-
-</table>
+</div>
 
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="~/Scripts/jquery.simpleLoadMore.js"></script>
 <script>
-    $('.table').simpleLoadMore({
-        item: 'tr',
+    $('.list-group').simpleLoadMore({
+        item: 'a',
         count: 10,
         itemsToLoad: 20,
     });

@@ -30,6 +30,11 @@ namespace PublicTransportGallery.ViewModels
         public int YearProduction { get; set; }
 
         public int? YearEndProduction { get; set; }
+        
+        public int CountComment { get; set; }
+
+        [Display(Name = "Odwiedzin:")]
+        public int CountVisitor { get; set; }
 
         public CommentInsertViewModels CommentModel { get; set; } = new CommentInsertViewModels();
         public IList<CommentListViewModels> CommentList { get; set; }

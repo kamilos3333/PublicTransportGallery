@@ -18,6 +18,7 @@
             <a href="@Url.Action("DetailsUser","User", new { Username = Model.UserName})">@Model.UserName</a>
             <div class="h5 pt-4">@Html.LabelFor(model => model.DateAdd)</div>
             <p>@Model.DateAdd</p>
+            <div class="h5">@Html.LabelFor(model => model.CountVisitor) @Model.CountVisitor</div>
         </div>
         <div class="col-md-9">
             <p>
@@ -29,7 +30,7 @@
     </div>
     <!-- #endregion -->
     <!-- #region kontrolka dodawania komentarzy -->
-    <h2>Sekcja komentarzy (@Html.Action("GetCountComments", "Comment", new { id = Model.ImageId}))</h2>
+    <h2>Sekcja komentarzy (@Model.CountComment)</h2>
     <hr />
     @if (User.Identity.IsAuthenticated)
         {

@@ -7,13 +7,13 @@ namespace PublicTransportGallery.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddTblLogVisitor : IMigrationMetadata
+    public sealed partial class InitialCreated : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTblLogVisitor));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreated));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908301838385_Add-TblLogVisitor"; }
+            get { return "201909031735070_InitialCreated"; }
         }
         
         string IMigrationMetadata.Source

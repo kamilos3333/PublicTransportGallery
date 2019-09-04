@@ -24,6 +24,7 @@ namespace PublicTransportGallery.Data.Model
         public string Description { get; set; }
 
         public virtual ICollection<TblImage> TblImages { get; set; }
+        public virtual ICollection<TblVehicle> TblVehicle { get; set; }
         public virtual TblProducent TblProducent { get; set; }
         public virtual TblTypeTransport TblTypeTransport { get; set; }
     }

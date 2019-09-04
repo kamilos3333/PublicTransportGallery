@@ -7,13 +7,13 @@ namespace PublicTransportGallery.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class changenametbllogvisitorimages : IMigrationMetadata
+    public sealed partial class AddedTblVoivodeship : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(changenametbllogvisitorimages));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedTblVoivodeship));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908310953330_change name tbllogvisitorimages"; }
+            get { return "201909031737006_AddedTblVoivodeship"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,4 +1,5 @@
 ﻿using PublicTransportGallery.Data.Model;
+using PublicTransportGallery.Services.ModelsDto;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,8 +13,8 @@ namespace PublicTransportGallery.Services.Image
         void Update(TblImage image);
         TblImage getImageId(int ImageId);
         IList<TblImage> getAll();
-        IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId);
         IList<TblImage> DetailsUser(string Id);
+        IList<AdminListImage> AdminImageList();
         void Save();
         Task SaveAsync();
     }

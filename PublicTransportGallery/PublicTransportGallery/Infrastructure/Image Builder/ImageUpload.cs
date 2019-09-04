@@ -21,10 +21,15 @@ namespace PublicTransportGallery.Infrastructure
 
         private static void SaveToPath(HttpPostedFileBase upload, string fileName)
         {
-            var path = Path.Combine(HttpContext.Current.Server.MapPath(AppConfig.BusFolderPath), fileName);
+            var path = Path.Combine(HttpContext.Current.Server.MapPath(SetFolder()), fileName);
             upload.SaveAs(path);
         }
-        
+
+        private static string SetFolder()
+        {
+            return AppConfig.BusFolderPath;
+        }
+
         private static string GenerateFileName(HttpPostedFileBase upload)
         {
             return Guid.NewGuid() + Path.GetExtension(upload.FileName);

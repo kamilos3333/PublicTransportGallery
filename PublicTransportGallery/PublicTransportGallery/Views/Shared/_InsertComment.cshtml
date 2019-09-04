@@ -23,6 +23,21 @@
     function AddCommentBtn()
     {
         var getValueContentComment = document.getElementById("ContentText").value;
+
+        if (getValueContentComment == '') {
+            bootoast.toast({
+                message: 'Treść komentarza nie może być pusta!',
+                type: 'danger'
+            });
+            return;
+        }
+        if (getValueContentComment.length < 3 || getValueContentComment.length > 100) {
+            bootoast.toast({
+                message: 'Treść komentarza nie może zawierać mniej niż 3 znaki i nie więcej niż 100!',
+                type: 'danger'
+            });
+            return;
+        }
         $.ajax({
             type: "POST",
             url: '@Url.Action("AddComment", "Comment")',

@@ -52,19 +52,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comment\CommentService.cs" />
-    <Compile Include="Comment\ICommentService.cs" />
-    <Compile Include="Image\IImageService.cs" />
-    <Compile Include="Image\ImageService.cs" />
-    <Compile Include="Log\ILogVisitorImageService.cs" />
-    <Compile Include="Log\LogVisitorImageService.cs" />
-    <Compile Include="ModelVehicle\IModelService.cs" />
-    <Compile Include="ModelVehicle\ModelService.cs" />
-    <Compile Include="Producent\IProducentService.cs" />
-    <Compile Include="Producent\ProducentService.cs" />
+    <Compile Include="ModelsDto\AdminListImage.cs" />
+    <Compile Include="Services\City\CityService.cs" />
+    <Compile Include="Services\City\ICityService.cs" />
+    <Compile Include="Services\Comment\CommentService.cs" />
+    <Compile Include="Services\Comment\ICommentService.cs" />
+    <Compile Include="Services\Image\IImageService.cs" />
+    <Compile Include="Services\Image\ImageService.cs" />
+    <Compile Include="Services\Log\ILogVisitorImageService.cs" />
+    <Compile Include="Services\Log\LogVisitorImageService.cs" />
+    <Compile Include="Services\ModelVehicle\IModelService.cs" />
+    <Compile Include="Services\ModelVehicle\ModelService.cs" />
+    <Compile Include="Services\Producent\IProducentService.cs" />
+    <Compile Include="Services\Producent\ProducentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\IValidationService.cs" />
-    <Compile Include="Validation\ValidationService.cs" />
+    <Compile Include="Services\Search\ISearchService.cs" />
+    <Compile Include="Services\Search\SearchService.cs" />
+    <Compile Include="Services\Validation\IValidationService.cs" />
+    <Compile Include="Services\Validation\ValidationService.cs" />
+    <Compile Include="Services\Voivodeship\IVoivodeshipService.cs" />
+    <Compile Include="Services\Voivodeship\VoivodeshipService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PublicTransportGallery.Data\PublicTransportGallery.Data.csproj">
@@ -79,5 +86,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

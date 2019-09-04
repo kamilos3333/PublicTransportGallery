@@ -3,7 +3,7 @@ namespace PublicTransportGallery.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddTblThumbnail : DbMigration
+    public partial class InitialCreated : DbMigration
     {
         public override void Up()
         {

@@ -488,7 +488,8 @@
     <Compile Include="Infrastructure\Model Builder\Interface\IModelCommand.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageControllerBuilder\UploadImageBuilder.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageControllerBuilder\Interface\IModelBuilderImage.cs" />
-    <Compile Include="Infrastructure\Model Builder\SearchBuilder\SearchBuilder.cs" />
+    <Compile Include="Infrastructure\Model Builder\SearchBuilder\SearchByCityBuilder.cs" />
+    <Compile Include="Infrastructure\Model Builder\SearchBuilder\SearchByModelBuilder.cs" />
     <Compile Include="Mapping\AutomapperWebProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -503,7 +504,8 @@
     <Compile Include="ViewModels\DetailsUserViewModels.cs" />
     <Compile Include="ViewModels\ImageUploadViewModels.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\SearchViewModels.cs" />
+    <Compile Include="ViewModels\SearchByCityViewModels.cs" />
+    <Compile Include="ViewModels\SearchByModelViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootoast.css" />
@@ -513,6 +515,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatables.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\HttpNotFound.css" />
     <Content Include="Content\logoBUS.png" />
     <Content Include="favicon.ico" />
@@ -523,6 +527,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\datatables.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\DropDownCascadeScripts.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -620,6 +626,7 @@
     <Content Include="Views\Error\PageNotFound.cshtml" />
     <Content Include="Views\Shared\_InsertComment.cshtml" />
     <Content Include="Views\Admin\ImageList.cshtml" />
+    <Content Include="Views\Search\SearchByCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

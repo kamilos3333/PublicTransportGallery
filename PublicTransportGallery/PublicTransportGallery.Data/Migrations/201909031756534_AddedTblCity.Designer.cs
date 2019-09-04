@@ -7,13 +7,13 @@ namespace PublicTransportGallery.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddTblThumbnail : IMigrationMetadata
+    public sealed partial class AddedTblCity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTblThumbnail));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedTblCity));
         
         string IMigrationMetadata.Id
         {
-            get { return "201908301835143_Add-TblThumbnail"; }
+            get { return "201909031756534_AddedTblCity"; }
         }
         
         string IMigrationMetadata.Source

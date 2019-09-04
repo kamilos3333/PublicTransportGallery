@@ -1,0 +1,56 @@
+﻿@model PublicTransportGallery.ViewModels.SearchByCityViewModels
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Szukaj miasta</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.WOJ, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.WOJ, new SelectList(Model.VoivodeshipsList, "WOJ", "NAZWA"), " ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WOJ, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CityId, new SelectList(" "), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Szukaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.PassengerTransportsList != null)
+{
+    foreach (var itemResult in Model.PassengerTransportsList)
+    {
+        @itemResult.Name
+    }
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#WOJ").val('');
+        $("#WOJ").change(function () {
+            $.get("/Search/GetCity", { woj: $("#WOJ").val() }, function (data) {
+                $.each(data, function (index, row) {
+                    $("#CityId").append("<option value='" + row.CityId + "'>" + row.NAZWA + "</option>")
+                });
+            });
+        })
+    });
+
+</script>

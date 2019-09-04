@@ -34,11 +34,6 @@ namespace PublicTransportGallery.Controllers
 
             return Json(JsonRequestBehavior.AllowGet);
         }
-
-        public int GetCountComments(int id)
-        {
-            return commentService.GetCommentCount(id);
-        }
-
+        
     }
 }

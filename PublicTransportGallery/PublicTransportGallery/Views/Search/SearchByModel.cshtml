@@ -1,4 +1,4 @@
-﻿@model PublicTransportGallery.ViewModels.SearchViewModels
+﻿@model PublicTransportGallery.ViewModels.SearchByModelViewModels
 @using PublicTransportGallery.Helpers
 @{
     ViewBag.Title = "Wyszukiwanie";
@@ -9,85 +9,89 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Szukaj pojazd wg producenta lub modelu</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), " ", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Szukaj pojazd wg producenta lub modelu</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), " ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TypeId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.TypeList, "TypeId", "Name"), " ", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.TypeList, "TypeId", "Name"), " ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Szukaj" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Szukaj" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 @if (Model.ImageList != null)
 {
     <h4>Wynik wyszukiwania</h4>
     <hr />
-
     <div class="list-group">
-    @foreach (var itemResult in Model.ImageList)
-    {
-        <a href="@Url.Action("Details","Image", new { id = itemResult.ImageId })">
-            <ul class="list-unstyled">
-                <li class="media">
-                    <img src="@Url.ThumbImgPath(itemResult.Name)" style="width: 25%" class="mr-3" alt="...">
-                    <div class="media-body">
-                        <h5 class="mt-0 mb-1">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</h5>
-                        @itemResult.Description
+        @foreach (var itemResult in Model.ImageList)
+        {
+            <a href="@Url.Action("Details", "Image", new { id = itemResult.ImageId })" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="@Url.ThumbImgPath(itemResult.Name)" alt="..." class="img-fluid">
                     </div>
-                </li>
-            </ul>
-        </a>
-    }
+                    <div class="col-10">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-2 h5">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</h5>
+                            <small class="text-muted">@itemResult.DateAdd.ToString("dd MMMM yyyy")</small>
+                        </div>
+                        <p class="mb-2">
+                            @itemResult.Description
+                        </p>
+                        @*<small class="text-muted">Autor: @itemResult.users.UserName</small>*@
+                    </div>
+                </div>
+            </a>
+        }
     </div>
-    
 }
 
-<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-<script src="~/Scripts/jquery.simpleLoadMore.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#ProducentId").val('');
-        $("#ProducentId").change(function () {
-            $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
-                $.each(data, function (index, row) {
-                    $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src="~/Scripts/jquery.simpleLoadMore.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ProducentId").val('');
+            $("#ProducentId").change(function () {
+                $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
+                    $.each(data, function (index, row) {
+                        $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
+                    });
                 });
-            });
-        })
-    });
+            })
+        });
 
-    $('.list-group').simpleLoadMore({
-        item: 'ul',
-        count: 10,
-        itemsToLoad: 20,
-    });
-</script>
+        $('.list-group').simpleLoadMore({
+            item: 'a',
+            count: 10,
+            itemsToLoad: 20,
+        });
+    </script>
 

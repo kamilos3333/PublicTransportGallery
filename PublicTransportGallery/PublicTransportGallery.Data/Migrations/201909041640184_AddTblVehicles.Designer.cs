@@ -7,18 +7,18 @@ namespace PublicTransportGallery.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addNullToYearProducetionEnd : IMigrationMetadata
+    public sealed partial class AddTblVehicles : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addNullToYearProducetionEnd));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTblVehicles));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907141341047_addNullToYearProducetionEnd"; }
+            get { return "201909041640184_AddTblVehicles"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return Resources.GetString("Source"); }
+            get { return null; }
         }
         
         string IMigrationMetadata.Target

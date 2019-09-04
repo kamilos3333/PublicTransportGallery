@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using PublicTransportGallery.Services.ModelsDto;
 
 namespace PublicTransportGallery.Services.Image
 {
@@ -25,27 +26,7 @@ namespace PublicTransportGallery.Services.Image
         {
             return db.TblImages.Include("TblModel").Include("users").FirstOrDefault(a => a.ImageId == ImageId);
         }
-
-        public IQueryable<TblImage> SearchImage(int ProducetnId, int? ModelId, int? TypeId)
-        {
-            var result = db.TblImages.Include(x => x.TblModel).Include(x => x.TblModel.TblProducent).OrderByDescending(a => a.DateAdd).AsQueryable();
-
-            if (ModelId > 0)
-            {
-                result = result.Where(a => a.ModelId == ModelId);
-            }
-            if (ProducetnId > 0)
-            {
-                result = result.Where(a => a.TblModel.ProducentId == ProducetnId);
-            }
-            if (TypeId > 0)
-            {
-                result = result.Where(a => a.TblModel.TypeId == TypeId);
-            }
-            
-            return result;
-        }
-
+        
         public IList<TblImage> DetailsUser(string Id)
         {
             return db.TblImages.Include("TblModel").Where(a => a.Id == Id).OrderByDescending(a => a.DateAdd).ToList();
@@ -71,9 +52,9 @@ namespace PublicTransportGallery.Services.Image
             await db.SaveChangesAsync();
         }
 
-        public IList<TblImage> getAllPagination(int recordsPerPage)
+        public IList<AdminListImage> AdminImageList()
         {
-            return db.TblImages.Take(recordsPerPage).ToList();
+            return db.TblImages.Include(x => x.users).OrderByDescending(a => a.DateAdd).Select(x => new AdminListImage { ImageId = x.ImageId, ModelName = x.TblModel.NameModel, ProducentName = x.TblModel.TblProducent.Name, ImageName = x.Name, VehicleType = x.TblModel.TblTypeTransport.Name, Author = x.users.UserName, DateAdded = x.DateAdd }).ToList();
         }
     }
 }

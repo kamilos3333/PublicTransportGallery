@@ -1,19 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using PublicTransportGallery.Data.Model;
-using PublicTransportGallery.Infrastructure;
-using PublicTransportGallery.Infrastructure.ModelBuilder;
 using PublicTransportGallery.Infrastructure.ModelBuilder.Interface;
-using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder;
 using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
-using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Image;
-using PublicTransportGallery.Services.ModelVehicle;
-using PublicTransportGallery.Services.Producent;
 using PublicTransportGallery.ViewModels;
-using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
