@@ -31,6 +31,14 @@ namespace PublicTransportGallery.ViewModels
 
         public int? YearEndProduction { get; set; }
         
+        public string VoivodeshipName { get; set; }
+
+        public string CityName { get; set; }
+
+        public int PassangerTransportId { get; set; }
+
+        public string PassangerTransportName { get; set; }
+
         public int CountComment { get; set; }
 
         [Display(Name = "Odwiedzin:")]

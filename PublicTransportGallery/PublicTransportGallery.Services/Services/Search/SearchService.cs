@@ -17,19 +17,19 @@ namespace PublicTransportGallery.Services.Services.Search
 
         public IQueryable<TblImage> SearchByModel(int ProducetnId, int? ModelId, int? TypeId)
         {
-            var result = db.TblImages.Include(x => x.TblModel).Include(x => x.TblModel.TblProducent).OrderByDescending(a => a.DateAdd).AsQueryable();
+            var result = db.TblImages.Include(x => x.TblVehicles).OrderByDescending(a => a.DateAdd).AsQueryable();
 
             if (ModelId > 0)
             {
-                result = result.Where(a => a.ModelId == ModelId);
+                result = result.Where(a => a.TblVehicles.ModelId == ModelId);
             }
             if (ProducetnId > 0)
             {
-                result = result.Where(a => a.TblModel.ProducentId == ProducetnId);
+                result = result.Where(a => a.TblVehicles.TblModel.ProducentId == ProducetnId);
             }
             if (TypeId > 0)
             {
-                result = result.Where(a => a.TblModel.TypeId == TypeId);
+                result = result.Where(a => a.TblVehicles.TblModel.TypeId == TypeId);
             }
 
             return result;

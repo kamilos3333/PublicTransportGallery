@@ -3,6 +3,9 @@ using Microsoft.AspNet.Identity;
 using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.Producent;
+using PublicTransportGallery.Services.Services;
+using PublicTransportGallery.Services.Services.PassengerTransport;
+using PublicTransportGallery.Services.Services.Voivodeship;
 using PublicTransportGallery.ViewModels;
 using System.Web;
 
@@ -10,12 +13,12 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilder.Interface
 {
     public class UploadImageBuilder : IModelBuilderImage<UploadImageViewModels>
     {
-        private readonly IProducentService producentService;
+        private readonly IVoivodeshipService voivodeshipService;
         private readonly IImageService imageService;
         
-        public UploadImageBuilder(IProducentService producentService, IImageService imageService)
+        public UploadImageBuilder(IVoivodeshipService voivodeshipService, IImageService imageService)
         {
-            this.producentService = producentService;
+            this.voivodeshipService = voivodeshipService;
             this.imageService = imageService;
         }
 
@@ -30,7 +33,7 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilder.Interface
 
         public UploadImageViewModels Rebuild(UploadImageViewModels model)
         {
-            model.ProducentList = producentService.getAll();
+            model.VoivodeshiList = voivodeshipService.GetAllVoivodeships();
             return model;
         }
     }

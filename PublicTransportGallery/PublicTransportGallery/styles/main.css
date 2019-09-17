@@ -222,6 +222,7 @@ svg:not(:root) {
 
 table {
   border-collapse: collapse;
+  font-size: 14px;
 }
 
 caption {
@@ -9505,7 +9506,7 @@ body {
 
 /* Common Style */
 .pp-section {
-  padding-top: 6rem;
+  padding-top: 4rem;
 }
 
 .grid-container {
@@ -9525,14 +9526,19 @@ body {
 .item-image {
     position: relative;
     overflow: hidden;
+    background-color: #e9ecef;
 }
 
 .item-wrapper:hover .image-title {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.4s, opacity 0.4s linear;
 }
 
 .item-wrapper:hover .image-info {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.4s, opacity 0.4s linear;
 }
 
 .image-title {

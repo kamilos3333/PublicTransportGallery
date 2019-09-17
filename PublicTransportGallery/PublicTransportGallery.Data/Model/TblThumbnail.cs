@@ -13,7 +13,7 @@ namespace PublicTransportGallery.Data.Model
         public int ThumbnailId { get; set; }
         public string Name { get; set; }
         public int ImageId { get; set; }
-
+        
         public virtual TblImage TblImage { get; set; }
     }
 }

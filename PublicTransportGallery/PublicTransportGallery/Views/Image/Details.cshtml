@@ -2,30 +2,62 @@
 @using PublicTransportGallery.Helpers
 @using Microsoft.AspNet.Identity
 @{
-    ViewBag.Title = "Szczegóły zdjęcia";
+    ViewBag.Title = Model.ModelVehice;
 }
 
+<style>
+    .image-details-font {
+        font-size: 15px;
+    }
+</style>
 
 <div class="container pp-section">
     <!-- #region Obszar zdjęcia + informacje -->
-    <div class="h3 font-weight-normal">@Model.ModelVehice</div>
-    <hr />
-    <img style="width: 100%;" src="@Url.BusImgPath(Model.ImageName)" />
+    <img style="width: 100%" src="@Url.BusImgPath(Model.ImageName)" />
     <div class="row mt-5">
-        <div class="col-md-3">
-            <div class="h5">@Html.LabelFor(model => model.UserName)</div>
-            @*<a class="mr-1 badge badge-primary" href="#">Nature</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Flower</a>*@
-            <a href="@Url.Action("DetailsUser","User", new { Username = Model.UserName})">@Model.UserName</a>
-            <div class="h5 pt-4">@Html.LabelFor(model => model.DateAdd)</div>
-            <p>@Model.DateAdd</p>
-            <div class="h5">@Html.LabelFor(model => model.CountVisitor) @Model.CountVisitor</div>
-        </div>
         <div class="col-md-9">
+            <div class="h3">@Model.ModelVehice</div>
+            <div class="h6">@Html.LabelFor(model => model.UserName) <a href="@Url.Action("DetailsUser","User", new { Username = Model.UserName})">@Model.UserName</a></div>
+            <hr />
+            <div class="image-details-font">
+                <div class="h5"> <a href="@Url.Action("Details","PassengerTransport", new { id = Model.PassangerTransportId })">@Model.PassangerTransportName</a></div>
+                Lokalizacja: <a href="">@Model.VoivodeshipName</a> / <a href="">@Model.CityName</a>
+                Odwiedzin: <span style="color: #917c55;">@Model.CountVisitor</span>
+            </div>
+            <small class="text-muted">@Html.LabelFor(model => model.DateAdd) @Model.DateAdd </small>
+            <hr />
             <p>
-                @Html.LabelFor(model => model.YearProduction) @Model.YearProduction @if (Model.YearEndProduction != null)
-                                {<span>- @Model.YearEndProduction </span>}
+                @Model.Description
             </p>
-            <p>@Model.Description</p>
+
+
+        </div>
+        <div class="col-md-3">
+            <div class="card border-light mb-3">
+                <div class="card-header">Opis pojazdu</div>
+                <div class="card-body text-secondary">
+                    <div class="card-text" style="font-size: 11px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">@Html.LabelFor(model => model.YearProduction)</div> <div class="col-6">
+                                    @Model.YearProduction @if (Model.YearEndProduction != null)
+                                    {<span>- @Model.YearEndProduction </span>}
+                                </div>
+                                <div class="col-6">Producent</div> <div class="col-6">@Model.Producent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="card border-light mb-3">
+                <div class="card-header">Tagi</div>
+                <div class="card-body text-secondary">
+                    <div class="card-text">
+                        <a class="mr-1 badge badge-primary" href="#">Autobus</a><a class="mr-1 badge badge-primary" href="#">Model</a><a class="badge badge-primary" href="#">Producent</a><a class="badge badge-primary" href="#">Miasto</a>
+                    </div>
+                </div>
+            </div>*@
+
         </div>
     </div>
     <!-- #endregion -->
@@ -33,38 +65,38 @@
     <h2>Sekcja komentarzy (@Model.CountComment)</h2>
     <hr />
     @if (User.Identity.IsAuthenticated)
-        {
-    @Html.Partial("_InsertComment", Model.CommentModel, new ViewDataDictionary(ViewData) { { "ImageID", Model.ImageId } })
-        }
+    {
+        @Html.Partial("_InsertComment", Model.CommentModel, new ViewDataDictionary(ViewData) { { "ImageID", Model.ImageId } })
+    }
     <!-- #endregion -->
     <!-- #region sekcja komentarzy -->
     <div class="comment-section">
         @foreach (var comment in Model.CommentList)
-                {
-        <div class="card">
-            <div class="card-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <span>
-                                <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
-                            </span>
-                        </div>
-                        <div class="col-1">
-                            <span><a href="">Usuń</a></span>
+        {
+            <div class="card">
+                <div class="card-header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <span>
+                                    <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
+                                </span>
+                            </div>
+                            <div class="col-1">
+                                <span><a href="">Usuń</a></span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p class="comment-text">@comment.ContentText</p>
+                        <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
+                    </blockquote>
+                </div>
             </div>
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p class="comment-text">@comment.ContentText</p>
-                    <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
-                </blockquote>
-            </div>
-        </div>
-        <br />
-                }
+            <br />
+        }
     </div>
 </div>
 <!-- #endregion -->

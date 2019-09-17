@@ -17,6 +17,6 @@ namespace PublicTransportGallery.Data.Model
         public int CityId { get; set; }
 
         public virtual TblCity TblCity { get; set; }
-        public ICollection<TblPassengerTransport> TblPassengerTransports { get; set; }
+        public virtual ICollection<TblVehicle> TblVehicles { get; set; }
     }
 }

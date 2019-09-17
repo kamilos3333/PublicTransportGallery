@@ -1,8 +1,10 @@
 ﻿@model PublicTransportGallery.ViewModels.SearchByCityViewModels
 
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
 
     <div class="form-horizontal">
         <h4>Szukaj miasta</h4>
@@ -34,10 +36,22 @@
 
 @if (Model.PassengerTransportsList != null)
 {
-    foreach (var itemResult in Model.PassengerTransportsList)
-    {
-        @itemResult.Name
-    }
+    <h4>Wynik wyszukiwania</h4>
+    <hr />
+    <div class="list-group">
+        @foreach (var itemResult in Model.PassengerTransportsList)
+        {
+
+        <a href="@Url.Action("Details", "PassengerTransport", new { id = itemResult.PassengerTransId })" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="row">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-2 h5">@itemResult.Name</h5>
+                    </div>
+                    @*<small class="text-muted">Autor: @itemResult.users.UserName</small>*@
+            </div>
+        </a>
+        }
+    </div>
 }
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>

@@ -5,12 +5,13 @@ using System.Linq;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using PublicTransportGallery.Services.ModelsDto;
+using System;
 
 namespace PublicTransportGallery.Services.Image
 {
     public class ImageService : IImageService
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         public IList<TblImage> getAll()
         {
@@ -24,12 +25,12 @@ namespace PublicTransportGallery.Services.Image
 
         public TblImage getImageId(int ImageId)
         {
-            return db.TblImages.Include("TblModel").Include("users").FirstOrDefault(a => a.ImageId == ImageId);
+            return db.TblImages.Include(x => x.TblVehicles).Include(x => x.users).FirstOrDefault(a => a.ImageId == ImageId);
         }
         
         public IList<TblImage> DetailsUser(string Id)
         {
-            return db.TblImages.Include("TblModel").Where(a => a.Id == Id).OrderByDescending(a => a.DateAdd).ToList();
+            return db.TblImages.Include(x => x.TblVehicles).Where(a => a.Id == Id).OrderByDescending(a => a.DateAdd).ToList();
         }
 
         public void Delete(TblImage image)
@@ -54,7 +55,13 @@ namespace PublicTransportGallery.Services.Image
 
         public IList<AdminListImage> AdminImageList()
         {
-            return db.TblImages.Include(x => x.users).OrderByDescending(a => a.DateAdd).Select(x => new AdminListImage { ImageId = x.ImageId, ModelName = x.TblModel.NameModel, ProducentName = x.TblModel.TblProducent.Name, ImageName = x.Name, VehicleType = x.TblModel.TblTypeTransport.Name, Author = x.users.UserName, DateAdded = x.DateAdd }).ToList();
+            return db.TblImages.Include(x => x.users).OrderByDescending(a => a.DateAdd).Select(x => new AdminListImage { ImageId = x.ImageId, ModelName = x.TblVehicles.TblModel.NameModel, ProducentName = x.TblVehicles.TblModel.TblProducent.Name, ImageName = x.Name, VehicleType = x.TblVehicles.TblModel.TblTypeTransport.Name, Author = x.users.UserName, DateAdded = x.DateAdd }).ToList();
+        }
+
+        public TblImage GetRandomImage(int VehicleId)
+        {
+            Random rnd = new Random();
+            return db.TblImages.Where(a => a.VehicleId == VehicleId).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
         }
     }
 }

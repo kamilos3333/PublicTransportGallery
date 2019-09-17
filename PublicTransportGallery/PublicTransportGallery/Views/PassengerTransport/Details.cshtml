@@ -1,0 +1,123 @@
+﻿@model PublicTransportGallery.ViewModels.PassengerTransportViewModels
+@using PublicTransportGallery.Helpers
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="card bg-light mb-3">
+    <div class="card-header text-white" style="background-color: #917c55">@Model.Name</div>
+    <div class="card-body">
+        <p>Informacje o przewoźniku</p>
+        <table class="table" style="width: 450px;">
+            <tbody>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Name)</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.ShortName)</td>
+                    <td>@Model.ShortName</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Address)</td>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.CityName)</td>
+                    <td>@Model.CityName</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="card bg-light mb-3">
+    <div class="card-header text-white" style="background-color: #917c55">Lista pojazdów</div>
+    <div class="card-body">
+        @foreach (var itemCheckHistory in Model.VehicleHistory)
+        {
+            <p>@Html.HistoryHelper(itemCheckHistory)</p>
+            <hr />
+
+            foreach (var itemVehicleType in Model.VehicleType)
+            {
+                if (Model.VehicleList.Where(x => x.History.Equals(itemCheckHistory) && x.TblModel.TblTypeTransport.Name.Equals(itemVehicleType)).Count() > 0)
+                {
+                    <p>@itemVehicleType</p>
+
+                    <table class="table table-hover" id="vehicleTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Producent</th>
+                                <th scope="col">Model</th>
+                                <th scope="col">Wprowadzenie do ruchu</th>
+                                <th scope="col">Rok wycofania</th>
+                                <th scope="col">Zdjęcie</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.VehicleList.Where(x => x.History.Equals(itemCheckHistory) && x.TblModel.TblTypeTransport.Name.Equals(itemVehicleType)))
+                        {
+                            <tbody>
+                                <tr>
+                                    <th>@item.TblModel.TblProducent.Name</th>
+                                    <td>@item.TblModel.NameModel</td>
+                                    <td>@item.YearOfGet</td>
+                                    <td>@item.YearOfRemove</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                }
+
+
+            }
+
+
+        }
+
+    </div>
+</div>
+
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#imageTable').DataTable({
+                "ajax": {
+                    "url": "/PassengerTransport/GetVehicleToList",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "language": {
+                    "processing": "Przetwarzanie...",
+                    "search": "Szukaj:",
+                    "lengthMenu": "Pokaż _MENU_ pozycji",
+                    "info": "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+                    "infoEmpty": "Pozycji 0 z 0 dostępnych",
+                    "infoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+                    "infoPostFix": "",
+                    "loadingRecords": "Wczytywanie...",
+                    "zeroRecords": "Nie znaleziono pasujących pozycji",
+                    "emptyTable": "Brak danych",
+                    "paginate": {
+                        "first": "Pierwsza",
+                        "previous": "Poprzednia",
+                        "next": "Następna",
+                        "last": "Ostatnia"
+                    },
+                    "aria": {
+                        "sortAscending": ": aktywuj, by posortować kolumnę rosnąco",
+                        "sortDescending": ": aktywuj, by posortować kolumnę malejąco"
+                    }
+                },
+                "columns": [
+                    { "data": "PassengerTransName"},
+                    { "data": "VehicleName" },
+                    { "data": "TypeId" },
+                    { "data": "YearOfGet" },
+                    { "data": "YearOfRemove" }
+                ]
+            });
+        });
+    </script>*@

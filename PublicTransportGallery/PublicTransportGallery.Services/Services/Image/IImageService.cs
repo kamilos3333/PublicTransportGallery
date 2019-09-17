@@ -12,6 +12,7 @@ namespace PublicTransportGallery.Services.Image
         void Delete(TblImage image);
         void Update(TblImage image);
         TblImage getImageId(int ImageId);
+        TblImage GetRandomImage(int VehicleId);
         IList<TblImage> getAll();
         IList<TblImage> DetailsUser(string Id);
         IList<AdminListImage> AdminImageList();

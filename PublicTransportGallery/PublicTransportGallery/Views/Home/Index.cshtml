@@ -30,23 +30,26 @@
 
     <div class="container px-0">
         <div class="grid-container">
-            @foreach (var busPhoto in Model.Images)
+            @for (int i = 0; i < 1; i++)
             {
-            <div class="grid-image" data-groups="[&quot;@busPhoto.TypeVehicle&quot;]">
+                foreach (var busPhoto in Model.Images)
+                {
+                    <div class="grid-image" data-groups="[&quot;@busPhoto.TypeVehicle&quot;]">
 
-                <a href="@Url.Action("Details","Image", new { id = busPhoto.ImageId })">
-                    <div class="item-wrapper">
-                        <div class="item-image">
-                            <img class="img-fluid" src="@Url.ThumbImgPath(busPhoto.PhotoSrc)" alt="@busPhoto.NameVehice" />
-                        </div>
-                        <div class="image-info">
-                            <span class="visitor-span"><i class="fa fa-eye"></i> @busPhoto.VisitorCount</span>
-                            <span class="comment-span"><i class="fa fa-comments"></i> @busPhoto.CommentCount</span>
-                        </div>
-                        <div class="image-title">@busPhoto.NameVehice</div>
+                        <a href="@Url.Action("Details","Image", new { id = busPhoto.ImageId })">
+                            <div class="item-wrapper">
+                                <div class="item-image">
+                                    <img class="mx-auto d-block img-fluid" src="@Url.ThumbImgPath(busPhoto.PhotoSrc)" alt="@busPhoto.NameVehice" />
+                                </div>
+                                <div class="image-info">
+                                    <span class="visitor-span"><i class="fa fa-eye"></i> @busPhoto.VisitorCount</span>
+                                    <span class="comment-span"><i class="fa fa-comments"></i> @busPhoto.CommentCount</span>
+                                </div>
+                                <div class="image-title">@busPhoto.NameVehice</div>
+                            </div>
+                        </a>
                     </div>
-                </a>
-                </div>
+                }
             }
         </div>
 

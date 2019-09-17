@@ -40,10 +40,31 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +74,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelsDto\AdminListImage.cs" />
+    <Compile Include="ModelsDto\AdminListVehicle.cs" />
+    <Compile Include="ModelsDto\VehicleDropDown.cs" />
     <Compile Include="Services\City\CityService.cs" />
     <Compile Include="Services\City\ICityService.cs" />
     <Compile Include="Services\Comment\CommentService.cs" />
@@ -63,6 +86,8 @@
     <Compile Include="Services\Log\LogVisitorImageService.cs" />
     <Compile Include="Services\ModelVehicle\IModelService.cs" />
     <Compile Include="Services\ModelVehicle\ModelService.cs" />
+    <Compile Include="Services\PassengerTransport\IPassengerTransportService.cs" />
+    <Compile Include="Services\PassengerTransport\PassengerTransportService.cs" />
     <Compile Include="Services\Producent\IProducentService.cs" />
     <Compile Include="Services\Producent\ProducentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +95,8 @@
     <Compile Include="Services\Search\SearchService.cs" />
     <Compile Include="Services\Validation\IValidationService.cs" />
     <Compile Include="Services\Validation\ValidationService.cs" />
+    <Compile Include="Services\Vehicle\IVehicleService.cs" />
+    <Compile Include="Services\Vehicle\VehicleService.cs" />
     <Compile Include="Services\Voivodeship\IVoivodeshipService.cs" />
     <Compile Include="Services\Voivodeship\VoivodeshipService.cs" />
   </ItemGroup>

@@ -60,7 +60,7 @@ namespace PublicTransportGallery.Controllers
             var mapper = Mapper.Map(modelImage, new ImageDetailsViewModels());
             return View(DetailBuilderImage.Execute(mapper));
         }
-        
+
         public ActionResult PhotoCollectionUser()
         {
             var model = new DetailsUserViewModels(imageService.DetailsUser(User.Identity.GetUserId()));

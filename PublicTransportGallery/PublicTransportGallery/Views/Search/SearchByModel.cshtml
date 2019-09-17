@@ -59,13 +59,14 @@
                     </div>
                     <div class="col-10">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-2 h5">@itemResult.TblModel.TblProducent.Name @itemResult.TblModel.NameModel</h5>
+                            <h5 class="mb-2 h5">@itemResult.TblVehicles.TblModel.TblProducent.Name @itemResult.TblVehicles.TblModel.NameModel</h5>
                             <small class="text-muted">@itemResult.DateAdd.ToString("dd MMMM yyyy")</small>
                         </div>
                         <p class="mb-2">
                             @itemResult.Description
                         </p>
-                        @*<small class="text-muted">Autor: @itemResult.users.UserName</small>*@
+                        <small class="text-muted">Przewoźnik: @itemResult.TblVehicles.TblPassengerTransport.Name</small> <br />
+                        <small class="text-muted">Województwo: @itemResult.TblVehicles.TblPassengerTransport.TblCity.TblVoivodeship.NAZWA Miasto: @itemResult.TblVehicles.TblPassengerTransport.TblCity.NAZWA</small>
                     </div>
                 </div>
             </a>

@@ -466,6 +466,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
+    <Compile Include="Controllers\PassengerTransportController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomValidation\FileAttribute .cs" />
@@ -474,6 +475,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AppConfig.cs" />
+    <Compile Include="Helpers\HistoryBoolHelper.cs" />
     <Compile Include="Helpers\UrHelpers.cs" />
     <Compile Include="Infrastructure\Model Builder\HomePageBuilder\HomeBuilder.cs" />
     <Compile Include="Infrastructure\Image Builder\DeleteImageFromFolder.cs" />
@@ -488,8 +490,11 @@
     <Compile Include="Infrastructure\Model Builder\Interface\IModelCommand.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageControllerBuilder\UploadImageBuilder.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageControllerBuilder\Interface\IModelBuilderImage.cs" />
+    <Compile Include="Infrastructure\Model Builder\Interface\IModelInsertBuilder.cs" />
+    <Compile Include="Infrastructure\Model Builder\PassengerTransportBuilder\DetailsBuilder.cs" />
     <Compile Include="Infrastructure\Model Builder\SearchBuilder\SearchByCityBuilder.cs" />
     <Compile Include="Infrastructure\Model Builder\SearchBuilder\SearchByModelBuilder.cs" />
+    <Compile Include="Infrastructure\Model Builder\VehicleBuilder\CreateVehicleBuilder.cs" />
     <Compile Include="Mapping\AutomapperWebProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -498,14 +503,17 @@
     <Compile Include="ViewModels\AdminUserViewModel.cs" />
     <Compile Include="ViewModels\CommentInsertViewModels.cs" />
     <Compile Include="ViewModels\CommentListViewModels.cs" />
+    <Compile Include="ViewModels\CreateVehicleViewModels.cs" />
     <Compile Include="ViewModels\EditImageViewModels.cs" />
     <Compile Include="ViewModels\ImageContentViewModel.cs" />
     <Compile Include="ViewModels\ImageDetailsViewModels.cs" />
     <Compile Include="ViewModels\DetailsUserViewModels.cs" />
     <Compile Include="ViewModels\ImageUploadViewModels.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\PassengerTransportViewModels.cs" />
     <Compile Include="ViewModels\SearchByCityViewModels.cs" />
     <Compile Include="ViewModels\SearchByModelViewModels.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootoast.css" />
@@ -622,11 +630,14 @@
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Image\PhotoCollectionUser.cshtml" />
     <Content Include="Views\Image\EditImageInfo.cshtml" />
-    <Content Include="Views\Image\Details.cshtml" />
     <Content Include="Views\Error\PageNotFound.cshtml" />
     <Content Include="Views\Shared\_InsertComment.cshtml" />
     <Content Include="Views\Admin\ImageList.cshtml" />
     <Content Include="Views\Search\SearchByCity.cshtml" />
+    <Content Include="Views\PassengerTransport\Details.cshtml" />
+    <Content Include="Views\Vehicle\List.cshtml" />
+    <Content Include="Views\Vehicle\Create.cshtml" />
+    <Content Include="Views\Image\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

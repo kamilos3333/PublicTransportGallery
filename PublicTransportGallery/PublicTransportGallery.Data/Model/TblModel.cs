@@ -9,10 +9,6 @@ namespace PublicTransportGallery.Data.Model
 {
     public class TblModel
     {
-        public TblModel()
-        {
-            this.TblImages = new HashSet<TblImage>();
-        }
 
         [Key]
         public int ModelId { get; set; }
@@ -22,8 +18,7 @@ namespace PublicTransportGallery.Data.Model
         public int YearProduction { get; set; }
         public System.Nullable<int> YearProductionEnd { get; set; }
         public string Description { get; set; }
-
-        public virtual ICollection<TblImage> TblImages { get; set; }
+        
         public virtual ICollection<TblVehicle> TblVehicle { get; set; }
         public virtual TblProducent TblProducent { get; set; }
         public virtual TblTypeTransport TblTypeTransport { get; set; }

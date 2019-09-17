@@ -1,0 +1,130 @@
+﻿@model PublicTransportGallery.ViewModels.CreateVehicleViewModels
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Dodaj pojazd</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.WOJ, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.WOJ, new SelectList(Model.VoivodeshiList, "WOJ", "NAZWA"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WOJ, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CityId, new SelectList(" "), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PassengerTransId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PassengerTransId, new SelectList(" "), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PassengerTransId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfGet, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.YearOfGet, new SelectList(Model.YearOfGetList), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.YearOfGet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.YearOfRemove, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.YearOfRemove, new SelectList(Model.YearOfRemoveList), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.YearOfRemove, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.History)
+                    @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <p>* - obowiązkowe</p>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Dodaj" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ProducentId").change(function () {
+            $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
+                $("#ModelId").empty();
+                $.each(data, function (index, row) {
+                    $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
+                });
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#WOJ").val('');
+        $("#WOJ").change(function () {
+            $.get("/Search/GetCity", { woj: $("#WOJ").val() }, function (data) {
+                $.each(data, function (index, row) {
+                    $("#CityId").append("<option value='" + row.CityId + "'>" + row.NAZWA + "</option>")
+                });
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#CityId").change(function () {
+            $.get("/Vehicle/GetPassangerTransport", { CityId: $("#CityId").val() }, function (data) {
+                $.each(data, function (index, row) {
+                    $("#PassengerTransId").append("<option value='" + row.PassengerTransId + "'>" + row.Name + "</option>")
+                });
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#ProducentId").val('');
+        $("#YearOfGet").val('');
+        $("#YearOfRemove").val('');
+    });
+</script>

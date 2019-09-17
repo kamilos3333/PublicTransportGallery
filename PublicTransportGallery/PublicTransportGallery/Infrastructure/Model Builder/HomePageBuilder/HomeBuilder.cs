@@ -41,9 +41,9 @@ namespace PublicTransportGallery.Infrastructure
                 {
                     ImageId = image.ImageId,
                     PhotoSrc = image.Name,
-                    NameProducent = image.TblModel.TblProducent.Name,
-                    NameModel = image.TblModel.NameModel,
-                    TypeVehicle = image.TblModel.TblTypeTransport.Name,
+                    NameProducent = image.TblVehicles.TblModel.TblProducent.Name,
+                    NameModel = image.TblVehicles.TblModel.NameModel,
+                    TypeVehicle = image.TblVehicles.TblModel.TblTypeTransport.Name,
                     CommentCount = commentService.GetCommentCount(image.ImageId),
                     VisitorCount = logVisitorImageService.CountVisitor(image.ImageId)
                 };

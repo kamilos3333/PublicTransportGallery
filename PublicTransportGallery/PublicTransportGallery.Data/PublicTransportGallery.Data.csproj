@@ -59,29 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201909031735070_InitialCreated.cs" />
-    <Compile Include="Migrations\201909031735070_InitialCreated.Designer.cs">
-      <DependentUpon>201909031735070_InitialCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909031737006_AddedTblVoivodeship.cs" />
-    <Compile Include="Migrations\201909031737006_AddedTblVoivodeship.Designer.cs">
-      <DependentUpon>201909031737006_AddedTblVoivodeship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909031738237_AddedTblVoivodeship1.cs" />
-    <Compile Include="Migrations\201909031738237_AddedTblVoivodeship1.Designer.cs">
-      <DependentUpon>201909031738237_AddedTblVoivodeship1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909031756534_AddedTblCity.cs" />
-    <Compile Include="Migrations\201909031756534_AddedTblCity.Designer.cs">
-      <DependentUpon>201909031756534_AddedTblCity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909041606146_AddTblPassengerTransport.cs" />
-    <Compile Include="Migrations\201909041606146_AddTblPassengerTransport.Designer.cs">
-      <DependentUpon>201909041606146_AddTblPassengerTransport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909041640184_AddTblVehicles.cs" />
-    <Compile Include="Migrations\201909041640184_AddTblVehicles.Designer.cs">
-      <DependentUpon>201909041640184_AddTblVehicles.cs</DependentUpon>
+    <Compile Include="Migrations\201909141525495_Initial.cs" />
+    <Compile Include="Migrations\201909141525495_Initial.Designer.cs">
+      <DependentUpon>201909141525495_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\TblCity.cs" />
@@ -105,23 +85,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909031735070_InitialCreated.resx">
-      <DependentUpon>201909031735070_InitialCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909031737006_AddedTblVoivodeship.resx">
-      <DependentUpon>201909031737006_AddedTblVoivodeship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909031738237_AddedTblVoivodeship1.resx">
-      <DependentUpon>201909031738237_AddedTblVoivodeship1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909031756534_AddedTblCity.resx">
-      <DependentUpon>201909031756534_AddedTblCity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909041606146_AddTblPassengerTransport.resx">
-      <DependentUpon>201909041606146_AddTblPassengerTransport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909041640184_AddTblVehicles.resx">
-      <DependentUpon>201909041640184_AddTblVehicles.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201909141525495_Initial.resx">
+      <DependentUpon>201909141525495_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

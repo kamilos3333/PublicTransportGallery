@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Lista zdjęć";
+}
+
+<a href="@Url.Action("Create","Vehicle")">
+    Dodaj pojazd
+</a>
+
+<table class="table table-hover" id="imageTable">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Przwoźnik</th>
+            <th scope="col">Nazwa modelu</th>
+            <th scope="col">Typ</th>
+            <th scope="col">Wprowadzenie do ruchu</th>
+            <th scope="col">Rok wycofania</th>
+        </tr>
+    </thead>
+</table>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/datatables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#imageTable').DataTable({
+            "ajax": {
+                "url": "/Vehicle/GetVehicleToList",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "language": {
+                "processing": "Przetwarzanie...",
+                "search": "Szukaj:",
+                "lengthMenu": "Pokaż _MENU_ pozycji",
+                "info": "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+                "infoEmpty": "Pozycji 0 z 0 dostępnych",
+                "infoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+                "infoPostFix": "",
+                "loadingRecords": "Wczytywanie...",
+                "zeroRecords": "Nie znaleziono pasujących pozycji",
+                "emptyTable": "Brak danych",
+                "paginate": {
+                    "first": "Pierwsza",
+                    "previous": "Poprzednia",
+                    "next": "Następna",
+                    "last": "Ostatnia"
+                },
+                "aria": {
+                    "sortAscending": ": aktywuj, by posortować kolumnę rosnąco",
+                    "sortDescending": ": aktywuj, by posortować kolumnę malejąco"
+                }
+            },
+            "columns": [
+                { "data": "PassengerTransName"},
+                { "data": "VehicleName" },
+                { "data": "TypeId" },
+                { "data": "YearOfGet" },
+                { "data": "YearOfRemove" }
+            ]
+        });
+    });
+</script>
+

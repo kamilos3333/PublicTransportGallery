@@ -25,9 +25,9 @@ namespace PublicTransportGallery.Controllers
             return View();
         }
 
-        public ActionResult GetImagesToImageList()
-        {
-            return Json(new { data = imageService.AdminImageList()}, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult GetImagesToImageList()
+        //{
+        //    return Json(new { data = imageService.AdminImageList()}, JsonRequestBehavior.AllowGet);
+        //}
     }
 }
