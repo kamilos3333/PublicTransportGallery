@@ -28,7 +28,7 @@
                 <div class="card">
                     <img src="@Url.ThumbImgPath(item.Name)" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <p class="card-text"><a href="@Url.Action("EditImageInfo","Image", new { id = item.ImageId })" class="btn btn-info">Edytuj</a> <a href="@Url.Action("DeleteImage","Image", new { id = item.ImageId })" id="deleteImage" onclick="return confirm('Czy na pewno chcesz usunąć?')" class="btn btn-danger">Usuń</a></p>
+                        <p class="card-text"><a href="@Url.Action("EditImageInfo","Image", new { id = item.ImageId })" class="btn btn-info">Edytuj</a> <a href="#" onclick="DeleteImage(@item.ImageId)" @* id="deleteImage" onclick="return confirm('Czy na pewno chcesz usunąć?')"*@ class="btn btn-danger">Usuń</a></p>
                     </div>
                 </div>
             </a>
@@ -46,4 +46,25 @@
         count: 20,
         itemsToLoad: 20,
     });
+    function DeleteImage(id) {
+        if (confirm("Czy na pewno chcesz usunąć zdjęcie")) {
+            $.ajax({
+        type: "POST",
+        url: '@Url.Action("DeleteImage","Image")',
+        data: JSON.stringify({ id: id }), 
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+            success: function () {
+                location.reload();
+        },
+        error: function () {
+            bootoast.toast({
+                message: 'Zdjęcie nie zostało usunięte poprawnie',
+                type: 'danger'
+            });
+        }
+    });
+        }
+        return false;
+    }
 </script>

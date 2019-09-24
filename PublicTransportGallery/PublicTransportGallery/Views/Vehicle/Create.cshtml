@@ -104,9 +104,9 @@
         })
     });
     $(document).ready(function () {
-        $("#WOJ").val('');
         $("#WOJ").change(function () {
             $.get("/Search/GetCity", { woj: $("#WOJ").val() }, function (data) {
+                $("#CityId").empty();
                 $.each(data, function (index, row) {
                     $("#CityId").append("<option value='" + row.CityId + "'>" + row.NAZWA + "</option>")
                 });
@@ -116,6 +116,7 @@
     $(document).ready(function () {
         $("#CityId").change(function () {
             $.get("/Vehicle/GetPassangerTransport", { CityId: $("#CityId").val() }, function (data) {
+                $("#PassengerTransId").empty();
                 $.each(data, function (index, row) {
                     $("#PassengerTransId").append("<option value='" + row.PassengerTransId + "'>" + row.Name + "</option>")
                 });
@@ -123,6 +124,8 @@
         })
     });
     $(document).ready(function () {
+        $("#WOJ").val('');
+        $("#CityId").val('');
         $("#ProducentId").val('');
         $("#YearOfGet").val('');
         $("#YearOfRemove").val('');

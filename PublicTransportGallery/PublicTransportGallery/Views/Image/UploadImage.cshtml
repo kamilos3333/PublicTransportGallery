@@ -17,7 +17,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.WOJ, htmlAttributes: new { @class = "control-label col-md-6" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(m => m.WOJ, new SelectList(Model.VoivodeshiList, "WOJ", "NAZWA"), new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.WOJ, new SelectList(Model.VoivodeshiList, "WOJ", "NAZWA"), " ",new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.WOJ, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -80,43 +80,16 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 
-@*<script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#ProducentId").change(function () {
-                $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
-                    $("#ModelId").empty();
-                    $.each(data, function (index, row) {
-                        $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
-                    });
-                });
-            })
-        });
-        $(document).ready(function () {
-            $("#ProducentId").val('');
-        });
-    </script>*@
-
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script>
     $(document).ready(function () {
-        $("#ProducentId").change(function () {
-            $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
-                $("#ModelId").empty();
-                $.each(data, function (index, row) {
-                    $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
-                });
-            });
-        })
-    });
-    $(document).ready(function () {
-        $("#WOJ").val('');
         $("#WOJ").change(function () {
             $.get("/Search/GetCity", { woj: $("#WOJ").val() }, function (data) {
+                $("#CityId").empty();
+                $("#PassengerTransId").empty();
+                $('#CityId').prepend("<option value=''></option>").val('');
                 $.each(data, function (index, row) {
                     $("#CityId").append("<option value='" + row.CityId + "'>" + row.NAZWA + "</option>")
                 });
@@ -124,8 +97,11 @@
         })
     });
     $(document).ready(function () {
+        $("#CityId").val('');
         $("#CityId").change(function () {
             $.get("/Vehicle/GetPassangerTransport", { CityId: $("#CityId").val() }, function (data) {
+                $("#PassengerTransId").empty();
+                $('#PassengerTransId').prepend("<option value=''></option>").val('');
                 $.each(data, function (index, row) {
                     $("#PassengerTransId").append("<option value='" + row.PassengerTransId + "'>" + row.Name + "</option>")
                 });
@@ -133,8 +109,11 @@
         })
     });
     $(document).ready(function () {
+        $("#PassengerTransId").val('');
         $("#PassengerTransId").change(function () {
             $.get("/Vehicle/GetVehicleListToDropdownList", { PassengerTransId: $("#PassengerTransId").val() }, function (data) {
+                $("#VehicleId").empty();
+                $('#VehicleId').prepend("<option value=''></option>").val('');
                 $.each(data, function (index, row) {
                     $("#VehicleId").append("<option value='" + row.VehicleId + "'>" + row.VehicleName + "</option>")
                 });
@@ -142,6 +121,12 @@
         })
     });
     $(document).ready(function () {
-
+        $("#WOJ").val('');
+        $("#CityId").val('');
+        $("#PassengerTransId").val('');
+        $("#VehicleId").val('');
+        $("#ProducentId").val('');
+        $("#YearOfGet").val('');
+        $("#YearOfRemove").val('');
     });
 </script>

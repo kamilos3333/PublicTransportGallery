@@ -12,7 +12,7 @@ namespace PublicTransportGallery.Services.ModelsDto
         public string ImageName { get; set; }
         public string ModelName { get; set; }
         public string ProducentName { get; set; }
-        public string VehicleName { get { return ModelName + " " + ProducentName; } }
+        public string VehicleName { get { return ProducentName + " " + ModelName; } }
         public string VehicleType { get; set; }
         public string Author { get; set; }
         public DateTime DateAdded { get; set; }

@@ -13,7 +13,10 @@ namespace PublicTransportGallery.Services.Services
         IList<VehicleDropDown> GetVehicleJoinPassangerTransport(int id);
         IQueryable<bool> GetItemHistoryVehicle(int id);
         IQueryable<string> GetItemVehicleType(int id);
+        TblVehicle GetVehicleById(int id);
         void InsertVehicle(TblVehicle model);
+        void Update(TblVehicle model);
+        void Delete(TblVehicle model);
         void Save();
     }
 }

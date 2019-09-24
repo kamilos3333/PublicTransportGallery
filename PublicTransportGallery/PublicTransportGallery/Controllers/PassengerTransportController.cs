@@ -19,6 +19,7 @@ namespace PublicTransportGallery.Controllers
             this.DetailsBuilder = DetailsBuilder;
         }
 
+        [HttpGet]
         public ActionResult Details(int id)
         {
             if (id <= 0)
@@ -30,6 +31,5 @@ namespace PublicTransportGallery.Controllers
             var mapper = Mapper.Map(getPassengerTransport, new PassengerTransportViewModels());
             return View(DetailsBuilder.Execute(mapper));
         }
-        
     }
 }

@@ -58,10 +58,10 @@ namespace PublicTransportGallery.Services.Image
             return db.TblImages.Include(x => x.users).OrderByDescending(a => a.DateAdd).Select(x => new AdminListImage { ImageId = x.ImageId, ModelName = x.TblVehicles.TblModel.NameModel, ProducentName = x.TblVehicles.TblModel.TblProducent.Name, ImageName = x.Name, VehicleType = x.TblVehicles.TblModel.TblTypeTransport.Name, Author = x.users.UserName, DateAdded = x.DateAdd }).ToList();
         }
 
-        public TblImage GetRandomImage(int VehicleId)
+        public string GetRandomImage(int VehicleId)
         {
             Random rnd = new Random();
-            return db.TblImages.Where(a => a.VehicleId == VehicleId).OrderBy(x => Guid.NewGuid()).FirstOrDefault();
+            return db.TblImages.Where(a => a.VehicleId == VehicleId).OrderBy(x => Guid.NewGuid()).Select(x => x.Name).FirstOrDefault();
         }
     }
 }

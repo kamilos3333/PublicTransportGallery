@@ -9,6 +9,15 @@ namespace PublicTransportGallery.Data.Model
 {
     public class TblVehicle
     {
+        public TblVehicle()
+        {
+
+        }
+        public TblVehicle(int VehicleId)
+        {
+            this.VehicleId = VehicleId;
+        }
+
         [Key]
         public int VehicleId { get; set; }
         public int PassengerTransId { get; set; }

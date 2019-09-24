@@ -1,5 +1,6 @@
 ﻿using PublicTransportGallery.CustomValidation;
 using PublicTransportGallery.Data.Model;
+using PublicTransportGallery.Services.ModelsDto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,30 +9,32 @@ using System.Web;
 
 namespace PublicTransportGallery.ViewModels
 {
-    public class EditImageViewModels
+    public class ImageEditViewModels
     {
-        public EditImageViewModels()
-        {
-        }
-
-        public EditImageViewModels(IList<TblProducent> producentList, IList<TblModel> modelList)
-        {
-            ProducentList = producentList;
-            ModelList = modelList;
-        }
-
-        public IList<TblProducent> ProducentList { get; set; }
-        public IList<TblModel> ModelList { get; set; }
-
         public int ImageId { get; set; }
 
-        [Required]
-        [Display(Name = "Wybierz producenta")]
-        public int ProducentId { get; set; }
+        public IList<TblVoivodeship> VoivodeshipList { get; set; }
+
+        [Display(Name = "Wybierz województwo *")]
+        public string WOJ { get; set; }
+
+        public IList<TblCity> CityList { get; set; }
 
         [Required]
-        [Display(Name = "Wybierz model")]
-        public int ModelId { get; set; }
+        [Display(Name = "Wybierz miasto *")]
+        public int CityId { get; set; }
+
+        public IList<TblPassengerTransport> PassangerTransportList { get; set; }
+
+        [Required]
+        [Display(Name = "Wybierz przwoźnika*")]
+        public int PassengerTransId { get; set; }
+
+        public IList<VehicleDropDown> VehicleList { get; set; }
+
+        [Required]
+        [Display(Name = "Wybierz pojazd*")]
+        public int VehicleId { get; set; }
 
         [DataType(DataType.Upload)]
         [Display(Name = "Dodaj zdjęcie")]

@@ -12,8 +12,9 @@
             <th scope="col">Przwoźnik</th>
             <th scope="col">Nazwa modelu</th>
             <th scope="col">Typ</th>
-            <th scope="col">Wprowadzenie do ruchu</th>
-            <th scope="col">Rok wycofania</th>
+            <th scope="col">Wprowadzony</th>
+            <th scope="col">Wycofany</th>
+            <th scope="col"></th>
         </tr>
     </thead>
 </table>
@@ -55,9 +56,37 @@
                 { "data": "VehicleName" },
                 { "data": "TypeId" },
                 { "data": "YearOfGet" },
-                { "data": "YearOfRemove" }
+                { "data": "YearOfRemove" },
+                {
+                    "data": "VehicleId", "aTargets": [0],
+                    "render": function (data) {
+                        return '<a href="/Vehicle/Edit/' + data + '">Edytuj</a>' + ' ' + '<a href="#" onclick="DeleteVehicle(' + data + ')">Usuń</a>'
+                    },
+                    "bSortable": false
+                },
             ]
         });
     });
+    function DeleteVehicle(id) {
+        if (confirm("Czy na pewno chcesz usunąć pojazd")) {
+            $.ajax({
+        type: "POST",
+        url: '@Url.Action("Delete","Vehicle")',
+        data: JSON.stringify({ id: id }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+            success: function () {
+                location.reload();
+        },
+        error: function () {
+            bootoast.toast({
+                message: 'Pojazd nie został usunięty poprawnie',
+                type: 'danger'
+            });
+        }
+    });
+        }
+        return false;
+    }
 </script>
 

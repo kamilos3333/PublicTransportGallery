@@ -43,8 +43,7 @@ namespace PublicTransportGallery.ViewModels
 
         [Display(Name = "Odwiedzin:")]
         public int CountVisitor { get; set; }
-
-        public CommentInsertViewModels CommentModel { get; set; } = new CommentInsertViewModels();
-        public IList<CommentListViewModels> CommentList { get; set; }
+        
+        public CommentViewModels CommentModel { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using PublicTransportGallery.Data.Model;
 using PublicTransportGallery.Infrastructure.ModelBuilder.Interface;
 using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.Services.Image;
+using PublicTransportGallery.Services.Validation;
 using PublicTransportGallery.ViewModels;
 using System.Net;
 using System.Web;
@@ -15,16 +16,18 @@ namespace PublicTransportGallery.Controllers
     {
         private readonly IModelBuilderImage<UploadImageViewModels> UploadBuilderImage;
         private readonly IModelCommand<TblImage> DeleteBuilderImage;
-        private readonly IModelBuilderImage<EditImageViewModels> EditBuilderImage;
+        private readonly IModelBuilderImage<ImageEditViewModels> EditBuilderImage;
         private readonly IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage;
         private readonly IImageService imageService;
-        public ImageController(IImageService imageService, IModelBuilderImage<UploadImageViewModels> UploadBuilderImage, IModelCommand<TblImage> DeleteBuilderImage, IModelBuilderImage<EditImageViewModels> EditBuilderImage, IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage)
+        private readonly IValidationService validationService; 
+        public ImageController(IImageService imageService, IModelBuilderImage<UploadImageViewModels> UploadBuilderImage, IModelCommand<TblImage> DeleteBuilderImage, IModelBuilderImage<ImageEditViewModels> EditBuilderImage, IModelBuilderExecuteReturnModel<ImageDetailsViewModels> DetailBuilderImage, IValidationService validationService)
         {
             this.UploadBuilderImage = UploadBuilderImage;
             this.DeleteBuilderImage = DeleteBuilderImage;
             this.EditBuilderImage = EditBuilderImage;
             this.DetailBuilderImage = DetailBuilderImage;
             this.imageService = imageService;
+            this.validationService = validationService;
         }
 
         // GET: UploadImage
@@ -56,7 +59,7 @@ namespace PublicTransportGallery.Controllers
             var modelImage = imageService.getImageId(id);
             if (modelImage == null)
                 return HttpNotFound();
-
+            
             var mapper = Mapper.Map(modelImage, new ImageDetailsViewModels());
             return View(DetailBuilderImage.Execute(mapper));
         }
@@ -68,25 +71,27 @@ namespace PublicTransportGallery.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditImageInfo(int id)
+        public ActionResult EditImageInfo(int id, string returnUrl)
         {
             if (id <= 0)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var image = imageService.getImageId(id);
             if (image == null)
                 return HttpNotFound();
-
-            var mapper = Mapper.Map(image, new EditImageViewModels());
+            if (validationService.CheckIfUserIsAuthorizateToImage(User.Identity.GetUserId(), image.ImageId) is false) 
+                return HttpNotFound();
+            
+            var mapper = Mapper.Map(image, new ImageEditViewModels());
             return View(EditBuilderImage.Rebuild(mapper));
         }
 
         [HttpPost]
-        public ActionResult EditImageInfo(HttpPostedFileBase Image, EditImageViewModels model)
+        public ActionResult EditImageInfo(HttpPostedFileBase Image, ImageEditViewModels model)
         {
             if (ModelState.IsValid)
             {
                 EditBuilderImage.Execute(Image, model);
-                return RedirectToAction("PhotoCollectionUser");
+                return RedirectToAction("Index","Home");
             }
             return View(EditBuilderImage.Rebuild(model));
         }
@@ -100,7 +105,7 @@ namespace PublicTransportGallery.Controllers
                 return HttpNotFound();
 
             DeleteBuilderImage.Execute(new TblImage(id));
-            return RedirectToAction("PhotoCollectionUser");
+            return Json(JsonRequestBehavior.AllowGet);
         }
         
     }

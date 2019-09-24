@@ -41,7 +41,7 @@
 
             foreach (var itemVehicleType in Model.VehicleType)
             {
-                if (Model.VehicleList.Where(x => x.History.Equals(itemCheckHistory) && x.TblModel.TblTypeTransport.Name.Equals(itemVehicleType)).Count() > 0)
+                if (Model.VehicleList.Where(x => x.History.Equals(itemCheckHistory) && x.TypeTransportName.Equals(itemVehicleType)).Count() > 0)
                 {
                     <p>@itemVehicleType</p>
 
@@ -55,15 +55,20 @@
                                 <th scope="col">Zdjęcie</th>
                             </tr>
                         </thead>
-                        @foreach (var item in Model.VehicleList.Where(x => x.History.Equals(itemCheckHistory) && x.TblModel.TblTypeTransport.Name.Equals(itemVehicleType)))
+                        @foreach (var item in Model.VehicleList.Where(x => x.History.Equals(itemCheckHistory) && x.TypeTransportName.Equals(itemVehicleType)))
                         {
                             <tbody>
                                 <tr>
-                                    <th>@item.TblModel.TblProducent.Name</th>
-                                    <td>@item.TblModel.NameModel</td>
+                                    <th>@item.ProducentName</th>
+                                    <td>@item.ModelName</td>
                                     <td>@item.YearOfGet</td>
                                     <td>@item.YearOfRemove</td>
-                                    <td></td>
+                                    <td>
+                                        @if (item.Photo != null)
+                                        {
+                                            <img src="@Url.ThumbImgPath(item.Photo)" class="img-own" />
+                                        }
+                                    </td>
                                 </tr>
                             </tbody>
                         }

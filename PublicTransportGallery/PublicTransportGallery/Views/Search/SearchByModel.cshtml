@@ -79,14 +79,19 @@
     <script src="~/Scripts/jquery.simpleLoadMore.js"></script>
     <script>
         $(document).ready(function () {
-            $("#ProducentId").val('');
             $("#ProducentId").change(function () {
                 $.get("/Model/getModel", { id: $("#ProducentId").val() }, function (data) {
+                    $('#ModelId').empty();
+                    $("#ModelId").prepend("<option value=''></option>").val('');
                     $.each(data, function (index, row) {
                         $("#ModelId").append("<option value='" + row.ModelId + "'>" + row.NameModel + "</option>")
                     });
                 });
             })
+        });
+        $(document).ready(function () {
+            $("#ProducentId").val('');
+            $("#ModelId").val('');
         });
 
         $('.list-group').simpleLoadMore({

@@ -57,14 +57,17 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
     $(document).ready(function () {
-        $("#WOJ").val('');
         $("#WOJ").change(function () {
             $.get("/Search/GetCity", { woj: $("#WOJ").val() }, function (data) {
-                $.each(data, function (index, row) {
+                $('#CityId').empty();
+                    $.each(data, function (index, row) {
                     $("#CityId").append("<option value='" + row.CityId + "'>" + row.NAZWA + "</option>")
                 });
             });
         })
     });
-
+    $(document).ready(function () {
+        $("#WOJ").val('');
+        $("#CityId").val('');
+    });
 </script>

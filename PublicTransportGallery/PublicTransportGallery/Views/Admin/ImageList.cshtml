@@ -10,12 +10,15 @@
             <th scope="col">Typ pojazdu</th>
             <th scope="col">Autor</th>
             <th scope="col">Data dodania</th>
+            <th scope="col"></th>
         </tr>
     </thead>
 </table>
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script src="~/Scripts/datatables.js"></script>
+<script src="moment.js"></script>
+<script src="moment-with-langs.js"></script>
 <script>
     $(document).ready(function () {
         $('#imageTable').DataTable({
@@ -56,9 +59,40 @@
                 { "data": "VehicleName" },
                 { "data": "VehicleType"},
                 { "data": "Author" },
-                { "data": "DateAdded" }
+                {
+                    "data": "DateAdded", "render": function (data, type, full) {
+                        return moment(data).format('DD.MM.YYYY HH:MM');;}
+                },
+                {
+                    "data": "ImageId", "aTargets": [0],
+                    "render": function (data) {
+                        return '<a href="/Image/EditImageInfo/' + data + '" class="btn btn-primary">Edytuj</a>' + ' ' + '<a href="#" onclick="DeleteImage('+data+')" class="btn btn-danger">Usuń</a>'
+                    },
+                    "bSortable": false
+                },
             ]
         });
     });
+    function DeleteImage(id) {
+        if (confirm("Czy na pewno chcesz usunąć zdjęcie")) {
+            $.ajax({
+        type: "POST",
+        url: '@Url.Action("DeleteImage","Image")',
+        data: JSON.stringify({ id: id }),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+            success: function () {
+                location.reload();
+        },
+        error: function () {
+            bootoast.toast({
+                message: 'Zdjęcie nie zostało usunięte poprawnie',
+                type: 'danger'
+            });
+        }
+    });
+        }
+        return false;
+    }
 </script>
 

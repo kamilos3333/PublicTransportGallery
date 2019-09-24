@@ -24,19 +24,10 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
 
         public ImageDetailsViewModels Execute(ImageDetailsViewModels model)
         {
-            model.CommentList = FillCommentListToModel(model.ImageId);
             model.CountComment = commentService.GetCommentCount(model.ImageId);
             model.CountVisitor = logVisitorImageService.CountVisitor(model.ImageId);
             RegisterVisitor(model.ImageId);
             return model;
-        }
-
-        private List<CommentListViewModels> FillCommentListToModel(int Id)
-        {
-            var comment = commentService.getAllCommentsByImageId(Id);
-            var list = new List<CommentListViewModels>();
-            var modelComment = Mapper.Map(comment, list);
-            return modelComment;
         }
 
         private void RegisterVisitor(int id)

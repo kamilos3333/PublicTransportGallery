@@ -35,5 +35,15 @@ namespace PublicTransportGallery.Services.Comment
         {
             return db.TblComments.Where(a => a.ImageId == id).Count();
         }
+
+        public TblComment GetCommentById(int id)
+        {
+            return db.TblComments.FirstOrDefault(x => x.CommentId == id);
+        }
+
+        public IList<TblComment> getAllComments()
+        {
+            return db.TblComments.ToList();
+        }
     }
 }

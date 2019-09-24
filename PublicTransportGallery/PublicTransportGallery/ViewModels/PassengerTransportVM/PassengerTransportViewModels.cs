@@ -19,7 +19,7 @@ namespace PublicTransportGallery.ViewModels
         [Display(Name = "Miasto")]
         public string CityName { get; set; }
 
-        public IList<TblVehicle> VehicleList { get; set; }
+        public IList<VehicleListViewModels> VehicleList { get; set; }
         public IQueryable<bool> VehicleHistory { get; set; }
         public IQueryable<string> VehicleType { get; set; }
     }

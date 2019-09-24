@@ -11,6 +11,12 @@ namespace PublicTransportGallery.Services.Services.Vehicle
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
+        public void Delete(TblVehicle model)
+        {
+            db.TblVehicles.Attach(model);
+            db.TblVehicles.Remove(model);
+        }
+
         public IList<TblVehicle> GetAllVehicle()
         {
             return db.TblVehicles.ToList();
@@ -18,7 +24,7 @@ namespace PublicTransportGallery.Services.Services.Vehicle
 
         public IList<TblVehicle> GetAllVehicleById(int id)
         {
-            return db.TblVehicles.Include(x => x.TblModel).Include(x => x.TblModel.TblProducent).Where(x => x.PassengerTransId == id).ToList();
+            return db.TblVehicles.Include(x => x.TblModel).Include(x => x.TblModel.TblProducent).Include(x => x.TblImage).Where(x => x.PassengerTransId == id).ToList();
         }
 
         public IList<AdminListVehicle> GetAllVehicleJson()
@@ -36,10 +42,15 @@ namespace PublicTransportGallery.Services.Services.Vehicle
             return db.TblVehicles.Include(x => x.TblModel.TblTypeTransport).Where(x => x.PassengerTransId == id).Select(x => x.TblModel.TblTypeTransport.Name).Distinct();
         }
 
+        public TblVehicle GetVehicleById(int VehicleId)
+        {
+            return db.TblVehicles.FirstOrDefault(x => x.VehicleId == VehicleId);
+        }
+
         public IList<VehicleDropDown> GetVehicleJoinPassangerTransport(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return db.TblVehicles.Where(x => x.PassengerTransId == id).Select(x => new VehicleDropDown { VehicleId = x.VehicleId, NameModel = x.TblModel.NameModel, ProducentModel = x.TblModel.TblProducent.Name }).ToList();
+            return db.TblVehicles.Where(x => x.PassengerTransId == id).Select(x => new VehicleDropDown { VehicleId = x.VehicleId, NameModel = x.TblModel.NameModel, ProducentModel = x.TblModel.TblProducent.Name, YearOfGet = x.YearOfGet, YearOfRemove = x.YearOfRemove }).ToList();
         }
 
         public void InsertVehicle(TblVehicle model)
@@ -50,6 +61,11 @@ namespace PublicTransportGallery.Services.Services.Vehicle
         public void Save()
         {
             db.SaveChanges();
+        }
+
+        public void Update(TblVehicle model)
+        {
+            db.Entry(model).State = EntityState.Modified;
         }
     }
 }

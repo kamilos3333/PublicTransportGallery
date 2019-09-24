@@ -20,6 +20,7 @@ namespace PublicTransportGallery.ViewModels
             this.DateAdd = DateAdd;
         }
 
+        public int CommentId { get; set; }
         public string ContentText { get; set; }
         public string Username { get; set; }
         public int ImageId { get; set; }

@@ -10,6 +10,8 @@ namespace PublicTransportGallery.Services.Comment
     public interface ICommentService
     {
         IList<TblComment> getAllCommentsByImageId(int id);
+        IList<TblComment> getAllComments();
+        TblComment GetCommentById(int id);
         void insertComments(TblComment comment);
         void deleteComments(TblComment comment);
         void Save();

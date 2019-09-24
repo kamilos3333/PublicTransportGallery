@@ -32,6 +32,7 @@ namespace PublicTransportGallery.ViewModels
         public HttpPostedFileBase Image { get; set; }
         
         [Display(Name = "Opis zdjęcia")]
+        [StringLength(150, ErrorMessage = "Tekst nie może być dłuższy niż {1} znaków")]
         public string Description { get; set; }
         
     }

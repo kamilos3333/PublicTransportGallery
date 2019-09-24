@@ -9,5 +9,6 @@ namespace PublicTransportGallery.Services.Validation
     public interface IValidationService
     {
         bool CheckIfUserIsAdminImage(string UserId);
+        bool CheckIfUserIsAuthorizateToImage(string UserId, int ImageId);
     }
 }

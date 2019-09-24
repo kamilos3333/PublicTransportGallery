@@ -490,6 +490,11 @@ mark,
   height: auto;
 }
 
+.img-own {
+    max-width: 100%;
+    height: 120px;
+}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
