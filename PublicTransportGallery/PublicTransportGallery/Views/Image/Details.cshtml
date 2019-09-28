@@ -64,10 +64,7 @@
     <!-- #region sekcja komentarzy -->
     <h2>Sekcja komentarzy (@Model.CountComment)</h2>
     <hr />
-    @if (User.Identity.IsAuthenticated)
-    {
-        @Html.Action("_CommentSection", "Comment", new { ImageId = Model.ImageId })
-    }
+     @Html.Action("_CommentSection", "Comment", new { ImageId = Model.ImageId })
     <!-- #endregion -->
 
 </div>

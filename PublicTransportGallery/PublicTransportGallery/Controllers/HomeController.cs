@@ -16,7 +16,6 @@ namespace PublicTransportGallery.Controllers
     public class HomeController : Controller
     {
         private readonly IModelBuilderExecuteReturnModel<HomeViewModel> HomeBuilderModel;
-
         public HomeController(IModelBuilderExecuteReturnModel<HomeViewModel> HomeBuilderModel)
         {
             this.HomeBuilderModel = HomeBuilderModel;

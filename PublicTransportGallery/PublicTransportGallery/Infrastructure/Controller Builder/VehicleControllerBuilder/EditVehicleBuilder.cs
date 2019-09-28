@@ -48,6 +48,8 @@ namespace PublicTransportGallery.Infrastructure.Model_Builder.VehicleBuilder
             model.VoivodeshipList = voivodeshipService.GetAllVoivodeships();
             model.CityList = cityService.GetCityJoinVoivodeship(model.WOJ);
             model.PassangerTranspotList = passengerTransportService.GetPassengerTransportsJoinCity(model.CityId);
+            model.YearOfGetList = DropDownListYear.GetYear();
+            model.YearOfRemoveList = DropDownListYear.GetYear();
             return model;
         }
     }

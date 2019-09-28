@@ -32,7 +32,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearOfGet, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.YearOfGet, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.YearOfGet, new SelectList(Model.YearOfGetList), " ", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.YearOfGet, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearOfRemove, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.YearOfRemove, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.YearOfRemove, new SelectList(Model.YearOfRemoveList), " ", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.YearOfRemove, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -1,4 +1,5 @@
-﻿using PublicTransportGallery.Data.Model;
+﻿using PublicTransportGallery.CustomValidation;
+using PublicTransportGallery.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,7 @@ namespace PublicTransportGallery.ViewModels
         public IEnumerable<int> YearOfGetList { get; set; }
 
         [Display(Name = "Rok wprowadzenia")]
+        [Year("YearOfRemove", ErrorMessage = "Rok wprowadznia nie może być wcześniejszy niż rok wycofania")]
         public int? YearOfGet { get; set; }
         
         public IEnumerable<int> YearOfRemoveList { get; set; }

@@ -4,84 +4,92 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Dodaj pojazd</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.WOJ, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.WOJ, new SelectList(Model.VoivodeshiList, "WOJ", "NAZWA"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.WOJ, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>Dodaj pojazd</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.WOJ, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.WOJ, new SelectList(Model.VoivodeshiList, "WOJ", "NAZWA"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.WOJ, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CityId, new SelectList(" "), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.CityId, new SelectList(" "), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PassengerTransId, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.PassengerTransId, new SelectList(" "), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PassengerTransId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.PassengerTransId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.PassengerTransId, new SelectList(" "), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PassengerTransId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProducentId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ProducentId, new SelectList(Model.ProducentList, "ProducentId", "Name"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ProducentId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ModelId, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ModelId, new SelectList(" "), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.YearOfGet, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.YearOfGet, new SelectList(Model.YearOfGetList), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.YearOfGet, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.YearOfGet, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.YearOfGet, new SelectList(Model.YearOfGetList), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.YearOfGet, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.YearOfRemove, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.YearOfRemove, new SelectList(Model.YearOfRemoveList), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.YearOfRemove, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.YearOfRemove, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.YearOfRemove, new SelectList(" "), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.YearOfRemove, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.History)
-                    @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.YearOfRemove, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.YearOfRemove, new SelectList(Model.YearOfRemoveList), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.YearOfRemove, "", new { @class = "text-danger" })
         </div>
+    </div>*@
 
-        <p>* - obowiązkowe</p>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Dodaj" class="btn btn-default" />
+    <div class="form-group">
+        @Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.History)
+                @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+
+    <p>* - obowiązkowe</p>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Dodaj" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 
@@ -124,10 +132,22 @@
         })
     });
     $(document).ready(function () {
+        $("#YearOfGet").change(function () {
+            var min = $('#YearOfGet').val(),
+                max = new Date().getFullYear();
+            $("#YearOfRemove").empty();
+            $("#YearOfRemove").prepend("<option value=''></option>").val('');
+            for (var i = max; i >= min; i--) {
+                $("#YearOfRemove").append("<option value='" + i + "'>" + i + "</option>")
+            }
+            
+        })
+    });
+
+    $(document).ready(function () {
         $("#WOJ").val('');
         $("#CityId").val('');
         $("#ProducentId").val('');
         $("#YearOfGet").val('');
-        $("#YearOfRemove").val('');
     });
 </script>

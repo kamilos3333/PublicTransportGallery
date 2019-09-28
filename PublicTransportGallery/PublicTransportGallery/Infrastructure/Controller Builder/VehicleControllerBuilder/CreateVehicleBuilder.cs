@@ -38,21 +38,9 @@ namespace PublicTransportGallery.Infrastructure.Model_Builder.VehicleBuilder
         {
             model.ProducentList = producentService.getAll();
             model.VoivodeshiList = voivodeshipService.GetAllVoivodeships();
-            model.YearOfGetList = GetYear();
-            model.YearOfRemoveList = GetYear();
+            model.YearOfGetList = DropDownListYear.GetYear();
+            model.YearOfRemoveList = DropDownListYear.GetYear();
             return model;
-        }
-
-        private IEnumerable<int> GetYear()
-        {
-            List<int> years = new List<int>();
-
-            for(int i = DateTime.Now.Year; i >= 1890; i--)
-            {
-                years.Add(i);
-            }
-
-            return years;
         }
     }
 }

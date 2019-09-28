@@ -470,6 +470,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomValidation\FileAttribute .cs" />
+    <Compile Include="CustomValidation\YearAttribute.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -479,6 +480,7 @@
     <Compile Include="Helpers\UrHelpers.cs" />
     <Compile Include="Infrastructure\Controller Builder\CommentControllerBuilder\DetailCommentBuilder.cs" />
     <Compile Include="Infrastructure\Controller Builder\HomeControllerBuilder\HomeBuilder.cs" />
+    <Compile Include="Infrastructure\DropDownListYear.cs" />
     <Compile Include="Infrastructure\Image Builder\DeleteImageFromFolder.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageCrop.cs" />
     <Compile Include="Infrastructure\Image Builder\ImageUpload.cs" />

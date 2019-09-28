@@ -6,6 +6,7 @@ using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interf
 using PublicTransportGallery.Services.Image;
 using PublicTransportGallery.Services.Validation;
 using PublicTransportGallery.ViewModels;
+using System.Collections.Generic;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -54,7 +55,7 @@ namespace PublicTransportGallery.Controllers
         [OutputCache(Duration = 20)]
         public ActionResult Details(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var modelImage = imageService.getImageId(id);
             if (modelImage == null)
