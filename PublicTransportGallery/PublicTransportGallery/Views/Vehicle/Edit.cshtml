@@ -126,4 +126,15 @@
             });
         })
     });
+    $(document).ready(function () {
+        $("#YearOfGet").change(function () {
+            var min = $('#YearOfGet').val(),
+                max = new Date().getFullYear();
+            $("#YearOfRemove").empty();
+            $("#YearOfRemove").prepend("<option value=''></option>").val('');
+            for (var i = max; i >= min; i--) {
+                $("#YearOfRemove").append("<option value='" + i + "'>" + i + "</option>")
+            }
+        })
+    });
 </script>

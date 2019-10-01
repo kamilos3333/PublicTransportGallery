@@ -500,6 +500,7 @@
     <Compile Include="Infrastructure\Controller Builder\VehicleControllerBuilder\CreateVehicleBuilder.cs" />
     <Compile Include="Infrastructure\Controller Builder\VehicleControllerBuilder\DeleteVehicleBuilder.cs" />
     <Compile Include="Infrastructure\Controller Builder\VehicleControllerBuilder\EditVehicleBuilder.cs" />
+    <Compile Include="Infrastructure\LogVisitHitBuilder\LogVisitorHit.cs" />
     <Compile Include="Mapping\AutomapperWebProfile.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

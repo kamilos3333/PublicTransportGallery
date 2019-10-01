@@ -52,7 +52,7 @@ namespace PublicTransportGallery.Controllers
             return View(UploadBuilderImage.Rebuild(model));
         }
 
-        [OutputCache(Duration = 20)]
+        //[OutputCache(Duration = 20)]
         public ActionResult Details(int id)
         {
             if (id <= 0)

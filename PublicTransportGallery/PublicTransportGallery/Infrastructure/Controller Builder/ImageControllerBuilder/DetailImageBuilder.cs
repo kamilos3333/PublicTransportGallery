@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PublicTransportGallery.Data.Model;
+using PublicTransportGallery.Infrastructure.LogVisitHitBuilder;
 using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.Services.Comment;
 using PublicTransportGallery.Services.Log;
@@ -32,12 +33,15 @@ namespace PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder
 
         private void RegisterVisitor(int id)
         {
-            TblLogVisitorImage logVisitor = new TblLogVisitorImage()
+            if(LogVisitorHit.LogVisit(id) == true)
             {
-                ImageId = id,
-                DateVisit = DateTime.Now
-            };
-            logVisitorImageService.Insert(logVisitor);
+                TblLogVisitorImage logVisitor = new TblLogVisitorImage()
+                {
+                    ImageId = id,
+                    DateVisit = DateTime.Now
+                };
+                logVisitorImageService.Insert(logVisitor);
+            }
         }
     }
 }

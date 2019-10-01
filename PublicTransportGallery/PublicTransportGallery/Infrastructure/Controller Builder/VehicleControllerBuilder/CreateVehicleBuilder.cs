@@ -39,7 +39,6 @@ namespace PublicTransportGallery.Infrastructure.Model_Builder.VehicleBuilder
             model.ProducentList = producentService.getAll();
             model.VoivodeshiList = voivodeshipService.GetAllVoivodeships();
             model.YearOfGetList = DropDownListYear.GetYear();
-            model.YearOfRemoveList = DropDownListYear.GetYear();
             return model;
         }
     }
