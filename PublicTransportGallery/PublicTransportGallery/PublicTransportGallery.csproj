@@ -206,6 +206,12 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
@@ -463,6 +469,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocalizationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
@@ -534,8 +541,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\datatables.css" />
     <Content Include="Content\datatables.min.css" />
+    <Content Include="Content\excel-bootstrap-table-filter-style.css" />
     <Content Include="Content\HttpNotFound.css" />
     <Content Include="Content\logoBUS.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -567,6 +576,7 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\excel-bootstrap-table-filter-bundle.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -652,6 +662,9 @@
     <Content Include="Views\Vehicle\Create.cshtml" />
     <Content Include="Views\Image\Details.cshtml" />
     <Content Include="Views\Vehicle\Edit.cshtml" />
+    <Content Include="Views\Localization\VoivodeshipList.cshtml" />
+    <Content Include="Views\Localization\CityList.cshtml" />
+    <Content Include="Views\Localization\PassengerTransportList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

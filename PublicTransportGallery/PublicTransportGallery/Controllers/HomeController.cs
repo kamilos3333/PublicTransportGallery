@@ -1,13 +1,5 @@
-﻿using PublicTransportGallery.Infrastructure.ModelBuilder.SearchBuilder;
-using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
-using PublicTransportGallery.Services.Image;
-using PublicTransportGallery.Services.ModelVehicle;
-using PublicTransportGallery.Services.Producent;
+﻿using PublicTransportGallery.Infrastructure.ModelBuilderEdit.ImageBuilder.Interface;
 using PublicTransportGallery.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PublicTransportGallery.Controllers

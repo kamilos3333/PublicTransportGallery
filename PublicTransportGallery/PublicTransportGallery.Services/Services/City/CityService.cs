@@ -14,7 +14,12 @@ namespace PublicTransportGallery.Services.Services.City
 
         public IList<TblCity> GetAllCities()
         {
-            return db.TblCities.ToList();
+            return db.TblCities.OrderBy(a => a.NAZWA).ToList();
+        }
+
+        public IList<TblCity> GetCitiesByVoivodeship(string Name)
+        {
+            return db.TblCities.Where(x => x.TblVoivodeship.NAZWA == Name).OrderBy(a => a.NAZWA).ToList();
         }
 
         public IList<TblCity> GetCityJoinVoivodeship(string woj)

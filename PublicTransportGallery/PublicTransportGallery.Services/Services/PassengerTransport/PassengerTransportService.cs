@@ -18,6 +18,11 @@ namespace PublicTransportGallery.Services.Services.PassengerTransport
             return db.TblPassengerTransports.FirstOrDefault(x => x.PassengerTransId == id);
         }
 
+        public IList<TblPassengerTransport> GetPassengerTransportsByCity(string City)
+        {
+            return db.TblPassengerTransports.Where(x => x.TblCity.NAZWA == City).ToList();
+        }
+
         public IList<TblPassengerTransport> GetPassengerTransportsJoinCity(int CityId)
         {
             db.Configuration.ProxyCreationEnabled = false;

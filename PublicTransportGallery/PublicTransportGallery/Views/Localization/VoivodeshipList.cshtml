@@ -1,0 +1,17 @@
+﻿@model IEnumerable<PublicTransportGallery.Data.Model.TblVoivodeship>
+
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <a href="@Url.Action("CityList","Localization", new { WOJ = item.NAZWA })">@Html.DisplayFor(modelItem => item.NAZWA)</a>
+        </td>
+    </tr>
+}
+
+</table>

@@ -11,5 +11,6 @@ namespace PublicTransportGallery.Services.Services.City
     {
         IList<TblCity> GetAllCities();
         IList<TblCity> GetCityJoinVoivodeship(string woj);
+        IList<TblCity> GetCitiesByVoivodeship(string Name);
     }
 }

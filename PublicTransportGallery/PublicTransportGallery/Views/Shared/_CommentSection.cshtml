@@ -14,40 +14,73 @@
     </div>
 }
 
-    <div class="comment-section">
-        @foreach (var comment in Model.CommentList)
-        {
-            <div class="card">
-                <div class="card-header">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <span>
-                                    <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
-                                </span>
-                            </div>
-                            @if (comment.Username == User.Identity.Name || User.IsInRole("Admin"))
-                            {
-                                <div class="col-1">
-                                    <span><a href="#" onclick="DeleteComment(@comment.CommentId)">Usuń</a></span>
-                                </div>
-                            }
+@*<div class="comment-section">
+    @foreach (var comment in Model.CommentList)
+    {
+        <div class="card">
+            <div class="card-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
+                            </span>
                         </div>
+                        @if (comment.Username == User.Identity.Name || User.IsInRole("Admin"))
+                        {
+                            <div class="col-1">
+                                <span><a href="#" onclick="DeleteComment(@comment.CommentId)">Usuń</a></span>
+                            </div>
+                        }
                     </div>
                 </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <p class="comment-text">@comment.ContentText</p>
-                        <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
-                    </blockquote>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p class="comment-text">@comment.ContentText</p>
+                    <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
+                </blockquote>
+            </div>
+        </div>
+        <br />
+    }
+</div>*@
+
+<ul class="list-group list-group-flush">
+    @foreach (var comment in Model.CommentList)
+    {
+    <li class="list-group-item" id="comment-item">
+        <div class="card">
+            <div class="card-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <span>
+                                <a href="@Url.Action("DetailsUser","User", new { Username = comment.Username})">@comment.Username</a>
+                            </span>
+                        </div>
+                        @if (comment.Username == User.Identity.Name || User.IsInRole("Admin"))
+                        {
+                            <div class="col-1">
+                                <span><a href="#" onclick="DeleteComment(@comment.CommentId)">Usuń</a></span>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
-            <br />
-        }
-    </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p class="comment-text">@comment.ContentText</p>
+                    <footer class="blockquote-footer"><span class="comment-text-info">Dodano: @comment.DateAdd</span> </footer>
+                </blockquote>
+            </div>
+        </div>
+    </li>
+    }
+</ul>
 
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
     function AddCommentBtn()
     {
         var getValueContentComment = document.getElementById("ContentText").value;
@@ -87,4 +120,4 @@
             }
         });
     };
-    </script>
+</script>

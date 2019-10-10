@@ -1,0 +1,34 @@
+﻿@*@model IEnumerable<PublicTransportGallery.Data.Model.TblCity>*@
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<PublicTransportGallery.Data.Model.TblCity>
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("PassengerTransportList","Localization", new { City = item.NAZWA })">@Html.DisplayFor(modelItem => item.NAZWA)</a>
+            </td>
+        </tr>
+    }
+</table>
+@*@Html.PagedListPager(Model, page => Url.Action("CityList", new { page = page }))*@
+
+@Html.PagedListPager(
+    Model,
+    page => Url.Action("CityList", new { page }),
+    new PagedListRenderOptions {
+        FunctionToTransformEachPageLink = (liTag, aTag) =>
+        {
+            aTag.Attributes.Add("class", "page-link");
+            liTag.InnerHtml = aTag.ToString();
+            return liTag;
+        },
+        LiElementClasses = new[] { "page-item" },
+        UlElementClasses = new[] { "pagination justify-content-center" } }
+)

@@ -20,8 +20,8 @@
             <div class="h6">@Html.LabelFor(model => model.UserName) <a href="@Url.Action("DetailsUser","User", new { Username = Model.UserName})">@Model.UserName</a></div>
             <hr />
             <div class="image-details-font">
-                <div class="h5"> <a href="@Url.Action("Details","PassengerTransport", new { id = Model.PassangerTransportId })">@Model.PassangerTransportName</a></div>
-                Lokalizacja: <a href="">@Model.VoivodeshipName</a> / <a href="">@Model.CityName</a>
+                <div class="h5"> <a href="@Url.Action("Details","PassengerTransport", new { WOJ = Model.VoivodeshipName, City = Model.CityName, id = Model.PassangerTransportId })">@Model.PassangerTransportName</a></div>
+                Lokalizacja: <a href="@Url.Action("CityList","Localization", new { WOJ = Model.VoivodeshipName})">@Model.VoivodeshipName</a> / <a href="@Url.Action("PassengerTransportList","Localization", new { WOJ = Model.VoivodeshipName, City = Model.CityName })">@Model.CityName</a>
                 Odwiedzin: <span style="color: #917c55;">@Model.CountVisitor</span>
             </div>
             <small class="text-muted">@Html.LabelFor(model => model.DateAdd) @Model.DateAdd </small>

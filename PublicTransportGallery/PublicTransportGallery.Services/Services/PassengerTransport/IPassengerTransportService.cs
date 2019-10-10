@@ -12,5 +12,6 @@ namespace PublicTransportGallery.Services.Services.PassengerTransport
     {
         TblPassengerTransport GetPassengerTransportById(int id);
         IList<TblPassengerTransport> GetPassengerTransportsJoinCity(int id);
+        IList<TblPassengerTransport> GetPassengerTransportsByCity(string City);
     }
 }
